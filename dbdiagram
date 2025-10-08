@@ -1,0 +1,79 @@
+Table users {
+  id uuid [primary key]
+  email varchar
+  password_hash varchar
+  name varchar
+  poition varchar
+  role Role
+}
+
+Table cases {
+  id uuid [primary key]
+  name varchar
+  description text
+  author_id uuid
+  created_at datetime
+}
+
+Table likes {
+  user_id uuid
+  case_id uuid
+}
+
+Table projects {
+  id uuid [primary key]
+  name varchar
+  description text
+  author_id uuid
+  status integer
+  created_at datetime
+}
+
+Table teams {
+  id uuid [primary key]
+  name varchar
+  project_id uuid
+  teamproject_link varchar
+}
+
+Table students {
+  id uuid [primary key]
+  name varchar
+  phone varchar
+  academic_group varchar
+  telegram varchar
+  position varchar
+}
+
+Table teams_students {
+  team_id uuid
+  student_id uuid
+}
+
+Table meeting {
+  id uuid
+  date datetime
+  results text
+  done text
+  not_done text
+  questions text
+  record varchar
+  team_id uuid
+}
+
+
+
+
+Ref: "projects"."author_id" > "users"."id"
+
+Ref: "teams"."project_id" > "projects"."id"
+
+Ref: "teams"."id" - "teams_students"."team_id"
+
+Ref: "students"."id" - "teams_students"."student_id"
+
+Ref: "teams"."id" < "meeting"."team_id"
+
+Ref: "users"."id" < "likes"."user_id"
+
+Ref: "cases"."id" < "likes"."case_id"
