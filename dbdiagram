@@ -1,13 +1,15 @@
-Table users {
+Table users { // сотрудники
   id uuid [primary key]
   email varchar
   password_hash varchar
-  name varchar
-  poition varchar
+  first_name varchar
+  middle_name varchar
+  last_name varchar
+  position varchar
   role Role
 }
 
-Table cases {
+Table cases { // кейсы, которые в голосовании
   id uuid [primary key]
   name varchar
   description text
@@ -15,12 +17,12 @@ Table cases {
   created_at datetime
 }
 
-Table likes {
+Table likes { // лайки на заявках
   user_id uuid
   case_id uuid
 }
 
-Table projects {
+Table projects { // отобранные кейсы, которые утвердили
   id uuid [primary key]
   name varchar
   description text
@@ -29,14 +31,14 @@ Table projects {
   created_at datetime
 }
 
-Table teams {
+Table teams { // команда на проекте
   id uuid [primary key]
   name varchar
   project_id uuid
   teamproject_link varchar
 }
 
-Table students {
+Table students { // информация о студентах на проекте
   id uuid [primary key]
   name varchar
   phone varchar
@@ -45,24 +47,42 @@ Table students {
   position varchar
 }
 
-Table teams_students {
+Table teams_students { // связи (закладывается для авторизации студентов)
   team_id uuid
   student_id uuid
 }
 
-Table meeting {
+Table meeting { // встреча
   id uuid
+  name varchar
   date datetime
   results text
   done text
   not_done text
   questions text
-  record varchar
+  record varchar // link to record of meeting
   team_id uuid
+  score integer // maybe to other table?
 }
 
+Table stages { // этап
+  id uuid
+  team_id uuid
+  name varchar
+  start_date datetime
+  end_date datetime
+  urfu_score integer
+  urfu_comment text
+  mentor_comment text
+  mentor_score integer
+}
 
-
+Table result_metas { // итоговая оценка
+  id uuid
+  team_id uuid
+  score integer
+  comment text
+}
 
 Ref: "projects"."author_id" > "users"."id"
 
@@ -77,3 +97,7 @@ Ref: "teams"."id" < "meeting"."team_id"
 Ref: "users"."id" < "likes"."user_id"
 
 Ref: "cases"."id" < "likes"."case_id"
+
+Ref: "teams"."id" < "stages"."team_id"
+
+Ref: "teams"."id" < "result_metas"."team_id"
