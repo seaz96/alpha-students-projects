@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Provider store={store}>
-        <ThemeProvider defaultTheme="system" storageKey="ui-theme">
+        <ThemeProvider defaultTheme="light" storageKey="ui-theme">
           <AppRouter />
         </ThemeProvider>
       </Provider>

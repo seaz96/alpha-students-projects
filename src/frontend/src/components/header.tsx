@@ -4,7 +4,7 @@ import { ButtonGroup } from "./ui/button-group";
 
 export default function Header() {
   return (
-    <header className="bg-background flex items-center justify-between p-2">
+    <header className="bg-background sticky top-0 flex items-center justify-between p-2">
       <Link to="/">
         <Button variant="link">{import.meta.env.VITE_APP_NAME}</Button>
       </Link>
