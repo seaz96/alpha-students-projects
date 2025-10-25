@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
+import { useLoginMutation } from "@/features/auth/auth.api";
 
 const crediantialsSchema = z.object({
   username: z
@@ -23,6 +26,15 @@ const crediantialsSchema = z.object({
 });
 
 export default function SignIn() {
+  const [login, { isSuccess }] = useLoginMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/");
+    }
+  }, [isSuccess, navigate]);
+
   const registerForm = useForm<z.infer<typeof crediantialsSchema>>({
     resolver: zodResolver(crediantialsSchema),
     defaultValues: {
@@ -40,7 +52,7 @@ export default function SignIn() {
   });
 
   function onSubmitLogin(values: z.infer<typeof crediantialsSchema>) {
-    console.log(values);
+    login(values);
   }
 
   function onSubmitRegister(values: z.infer<typeof crediantialsSchema>) {
@@ -85,7 +97,11 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel>Пароль</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваш пароль" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="Ваш пароль"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -123,7 +139,11 @@ export default function SignIn() {
                     <FormItem>
                       <FormLabel>Пароль</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ваш пароль" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="Ваш пароль"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

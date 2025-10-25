@@ -1,7 +1,10 @@
 import { Outlet } from "react-router";
 import Header from "./components/header";
+// import { useCheckAuthQuery } from "./features/auth/auth.api";
 
 export default function AppLayout() {
+  // TODO: useCheckAuthQuery();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
