@@ -2,10 +2,8 @@ namespace StudentProjects.Domain.Entities;
 
 public class Team
 {
-    public Guid Id { get; set; }
+    public required Guid Id { get; set; }
     public string Name { get; set; }
-    public string Description { get; set; }
-
-    public virtual ICollection<Student> Students { get; set; }
-    public virtual ICollection<Meeting> Meetings { get; set; }
+    public required Guid ProjectId { get; set; }
+    public string TeamprojectLink { get; set; }
 }
