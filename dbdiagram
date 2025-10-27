@@ -18,8 +18,10 @@ Table cases { // кейсы, которые в голосовании
 }
 
 Table likes { // лайки на заявках
-  user_id uuid
   case_id uuid
+  user_id uuid
+  dislike boolean
+  comment text
 }
 
 Table projects { // отобранные кейсы, которые утвердили
@@ -42,27 +44,35 @@ Table students { // информация о студентах на проект
   id uuid [primary key]
   name varchar
   phone varchar
-  academic_group varchar
   telegram varchar
-  position varchar
+  email varchar
 }
 
 Table teams_students { // связи (закладывается для авторизации студентов)
   team_id uuid
   student_id uuid
+  academic_group varchar
+  position varchar
 }
 
-Table meeting { // встреча
+Table meetings { // встреча
   id uuid
   name varchar
   date datetime
   results text
-  done text
-  not_done text
-  questions text
+  summary text
   record varchar // link to record of meeting
   team_id uuid
   score integer // maybe to other table?
+  previous uuid
+  next uuid
+}
+
+Table todos {
+  id uuid
+  checked boolean
+  parent_id uuid
+  meeting_id uuid
 }
 
 Table stages { // этап
@@ -92,7 +102,7 @@ Ref: "teams"."id" - "teams_students"."team_id"
 
 Ref: "students"."id" - "teams_students"."student_id"
 
-Ref: "teams"."id" < "meeting"."team_id"
+Ref: "teams"."id" < "meetings"."team_id"
 
 Ref: "users"."id" < "likes"."user_id"
 
@@ -101,3 +111,7 @@ Ref: "cases"."id" < "likes"."case_id"
 Ref: "teams"."id" < "stages"."team_id"
 
 Ref: "teams"."id" < "result_metas"."team_id"
+
+Ref: "todos"."meeting_id" > "meetings"."id"
+
+Ref: "todos"."parent_id" > "todos"."id"
