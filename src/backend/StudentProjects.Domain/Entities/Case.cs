@@ -7,4 +7,6 @@ public class Case
     public string Description { get; set; }
     public Guid AuthorId { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public virtual ICollection<Like> Likes { get; set; }
 }

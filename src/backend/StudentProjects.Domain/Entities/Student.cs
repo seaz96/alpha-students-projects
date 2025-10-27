@@ -7,4 +7,6 @@ public class Student
     public string Phone { get; set; }
     public string Email { get; set; }
     public string Telegram { get; set; }
+
+    public virtual TeamStudent TeamStudent { get; set; }
 }

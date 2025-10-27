@@ -11,4 +11,6 @@ public class Stage
     public string UrfuComment { get; set; }
     public int? MentorScore { get; set; }
     public string MentorComment { get; set; }
+    
+    public virtual Team Team { get; set; }
 }

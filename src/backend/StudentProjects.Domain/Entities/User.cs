@@ -11,4 +11,7 @@ public class User
     public string MiddleName { get; set; }
     public string LastName { get; set; }
     public UserRole Role { get; set; }
+    
+    public virtual ICollection<Project> Projects { get; set; }
+    public virtual ICollection<Like> Likes { get; set; }
 }
