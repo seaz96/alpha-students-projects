@@ -16,7 +16,7 @@ services:
 
   backend:
     container_name: server
-    image: ghcr.io/seaz96/alpha-students-projects:main
+    image: ghcr.io/seaz96/alpha-students-projects-backend:main
     ports:
       - "8080:8080"
     networks:
