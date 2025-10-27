@@ -12,8 +12,8 @@ public class CalendarController : ControllerBase
         throw new NotImplementedException();
     }
 
-    [HttpPost("{teamId:guid}}")]
-    public async Task<IActionResult> GetCalendarByTeamAsync()
+    [HttpPost("{teamId:guid}")]
+    public async Task<IActionResult> GetCalendarByTeamAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }

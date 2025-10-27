@@ -1,3 +1,4 @@
+using Scalar.AspNetCore;
 using Serilog;
 using StudentProjects.API.Configuration;
 using StudentProjects.API.Utility;
@@ -17,13 +18,13 @@ builder.Services.AddCors(options =>
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .SetIsOriginAllowedToAllowWildcardSubdomains()
-                .AllowCredentials();
+                .SetIsOriginAllowedToAllowWildcardSubdomains();
         });
 });
 
 var app = builder.Build();
 app.MapOpenApi();
+app.MapScalarApiReference();
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseAuthentication();

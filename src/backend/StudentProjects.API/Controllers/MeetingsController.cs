@@ -7,13 +7,13 @@ namespace StudentProjects.API.Controllers;
 public class MeetingsController : ControllerBase
 {
     [HttpPatch("{meetingId:guid}")]
-    public async Task<IActionResult> PatchMeetingAsync()
+    public async Task<IActionResult> PatchMeetingAsync(Guid meetingId)
     {
         throw new NotImplementedException();
     }
 
     [HttpGet("{meetingId:guid}")]
-    public async Task<IActionResult> GetMeetingAsync()
+    public async Task<IActionResult> GetMeetingAsync(Guid meetingId)
     {
         throw new NotImplementedException();
     }

@@ -19,7 +19,7 @@ public class CasesController : ControllerBase
     }
     
     [HttpGet("{caseId:guid}")]
-    public async Task<IActionResult> GetCaseAsync()
+    public async Task<IActionResult> GetCaseAsync(Guid caseId)
     {
         throw new NotImplementedException();
     }

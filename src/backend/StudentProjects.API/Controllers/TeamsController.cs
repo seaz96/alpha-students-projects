@@ -19,56 +19,56 @@ public class TeamsController : ControllerBase
     }
     
     [HttpPatch("{teamId:guid}")]
-    public async Task<IActionResult> PatchTeamAsync()
+    public async Task<IActionResult> PatchTeamAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
     
     [HttpPatch("{teamId:guid}/students")]
-    public async Task<IActionResult> PatchTeamStudentsAsync()
+    public async Task<IActionResult> PatchTeamStudentsAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
     
     [HttpGet("{teamId:guid}/scores")]
-    public async Task<IActionResult> GetTeamScoresAsync()
+    public async Task<IActionResult> GetTeamScoresAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
     
     [HttpGet("{teamId:guid}/meetings")]
-    public async Task<IActionResult> GetTeamMeetingsAsync()
+    public async Task<IActionResult> GetTeamMeetingsAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
     
     [HttpPost("{teamId:guid}/meetings")]
-    public async Task<IActionResult> PostTeamMeetingAsync()
+    public async Task<IActionResult> PostTeamMeetingAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
     
     [HttpPost("{teamId:guid}/folders")]
-    public async Task<IActionResult> PostTeamFolderAsync()
+    public async Task<IActionResult> PostTeamFolderAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
     
     [HttpPost("{teamId:guid}/folders/{folderId:guid}")]
-    public async Task<IActionResult> GetTeamFolderAsync()
+    public async Task<IActionResult> GetTeamFolderAsync(Guid teamId, Guid folderId)
     {
         throw new NotImplementedException();
     }
     
     [HttpPost("{teamId:guid}/files")]
-    public async Task<IActionResult> PostTeamFileAsync()
+    public async Task<IActionResult> PostTeamFileAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
 
     //todo(azanov.n): в отдельный контроллер?
     [HttpPost("{teamId:guid}/files/{folderId:guid}")]
-    public async Task<IActionResult> GetTeamFileAsync()
+    public async Task<IActionResult> GetTeamFileAsync(Guid teamId, Guid folderId)
     {
         throw new NotImplementedException();
     }

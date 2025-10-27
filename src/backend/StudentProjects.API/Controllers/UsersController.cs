@@ -31,7 +31,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPatch("{userId:guid}/permissions")]
-    public async Task<IActionResult> PatchPermissions()
+    public async Task<IActionResult> PatchPermissions(Guid userId)
     {
         throw new NotImplementedException();
     }
