@@ -1,5 +1,5 @@
 using Serilog;
-using StudentProjects.API.StartUp;
+using StudentProjects.API.Configuration;
 using StudentProjects.API.Utility;
 
 var builder = WebApplication.CreateBuilder(args);

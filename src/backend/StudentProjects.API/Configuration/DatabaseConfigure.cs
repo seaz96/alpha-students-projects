@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Data;
 
-namespace StudentProjects.API.StartUp;
+namespace StudentProjects.API.Configuration;
 
 public static class DatabaseConfigure
 {
