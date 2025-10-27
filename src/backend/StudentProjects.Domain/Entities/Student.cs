@@ -8,5 +8,5 @@ public class Student
     public string Email { get; set; }
     public string Telegram { get; set; }
 
-    public virtual TeamStudent TeamStudent { get; set; }
+    public virtual ICollection<TeamStudent> TeamStudents { get; set; }
 }

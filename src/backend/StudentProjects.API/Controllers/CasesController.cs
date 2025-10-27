@@ -1,21 +1,33 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.API.Data;
+using StudentProjects.Domain.Entities;
 
 namespace StudentProjects.API.Controllers;
 
-[ApiController, Authorize, Route("api/v1/cases")]
-public class CasesController : ControllerBase
+[ApiController, Route("api/v1/cases")]
+public class CasesController(DataContext context) : ControllerBase
 {
     [HttpPost]
     public async Task<IActionResult> PostCaseAsync()
     {
-        throw new NotImplementedException();
+        await context.Cases.AddAsync(new Case
+        {
+            Id = Guid.NewGuid(),
+            AuthorId = Guid.NewGuid(),
+            Name = Guid.NewGuid().ToString(),
+            Description = Guid.NewGuid().ToString(),
+            CreatedAt = DateTime.UtcNow
+        });
+        await context.SaveChangesAsync();
+        
+        return Ok();
     }
     
     [HttpGet]
-    public async Task<IActionResult> GetCasesAsync()
+    public Task<IActionResult> GetCasesAsync()
     {
-        throw new NotImplementedException();
+        return Task.FromResult<IActionResult>(new OkObjectResult(context.Cases.ToList()));
     }
     
     [HttpGet("{caseId:guid}")]

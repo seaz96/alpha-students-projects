@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace StudentProjects.API.Controllers;
 
-[ApiController, Route("api/v1/users"), Authorize]
+[ApiController, Route("api/v1/users")]
 public class UsersController : ControllerBase
 {
     [HttpPost("login"), AllowAnonymous]
