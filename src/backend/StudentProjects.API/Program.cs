@@ -44,6 +44,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
 app.MapScalarApiReference();
 app.UseCors("AllowAll");
