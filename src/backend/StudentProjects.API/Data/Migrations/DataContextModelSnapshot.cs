@@ -104,9 +104,6 @@ namespace StudentProjects.API.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PreviousId")
-                        .IsUnique();
-
                     b.HasIndex("TeamId");
 
                     b.ToTable("Meetings");
@@ -361,17 +358,11 @@ namespace StudentProjects.API.Data.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
                 {
-                    b.HasOne("StudentProjects.Domain.Entities.Meeting", "Previous")
-                        .WithOne("Next")
-                        .HasForeignKey("StudentProjects.Domain.Entities.Meeting", "PreviousId");
-
                     b.HasOne("StudentProjects.Domain.Entities.Team", "Team")
                         .WithMany("Meetings")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Previous");
 
                     b.Navigation("Team");
                 });
@@ -463,9 +454,6 @@ namespace StudentProjects.API.Data.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
                 {
-                    b.Navigation("Next")
-                        .IsRequired();
-
                     b.Navigation("Todos");
                 });
 

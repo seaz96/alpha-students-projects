@@ -64,14 +64,6 @@ public sealed class DataContext : DbContext
             .HasMany(e => e.Todos)
             .WithOne(e => e.Meeting)
             .HasForeignKey(e => e.MeetingId);
-        modelBuilder.Entity<Meeting>()
-            .HasOne(e => e.Next)
-            .WithOne(e => e.Previous)
-            .HasForeignKey<Meeting>(e => e.NextId);
-        modelBuilder.Entity<Meeting>()
-            .HasOne(e => e.Previous)
-            .WithOne(e => e.Next)
-            .HasForeignKey<Meeting>(e => e.PreviousId);
         modelBuilder.Entity<Todo>()
             .HasMany(e => e.Children)
             .WithOne(e => e.Parent)

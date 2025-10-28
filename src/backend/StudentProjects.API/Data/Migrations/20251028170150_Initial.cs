@@ -144,11 +144,6 @@ namespace StudentProjects.API.Data.Migrations
                 {
                     table.PrimaryKey("PK_Meetings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Meetings_Meetings_PreviousId",
-                        column: x => x.PreviousId,
-                        principalTable: "Meetings",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Meetings_Teams_TeamId",
                         column: x => x.TeamId,
                         principalTable: "Teams",
@@ -257,12 +252,6 @@ namespace StudentProjects.API.Data.Migrations
                 name: "IX_Likes_UserId",
                 table: "Likes",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Meetings_PreviousId",
-                table: "Meetings",
-                column: "PreviousId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Meetings_TeamId",

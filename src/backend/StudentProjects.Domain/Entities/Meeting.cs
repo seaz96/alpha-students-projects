@@ -13,7 +13,5 @@ public class Meeting
     public Guid? NextId { get; set; }
 
     public virtual Team Team { get; set; }
-    public virtual Meeting Previous { get; set; }
-    public virtual Meeting Next { get; set; }
     public virtual ICollection<Todo> Todos { get; set; }
 }

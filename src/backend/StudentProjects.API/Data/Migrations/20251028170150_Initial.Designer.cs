@@ -12,7 +12,7 @@ using StudentProjects.API.Data;
 namespace StudentProjects.API.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20251027191914_Initial")]
+    [Migration("20251028170150_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -106,9 +106,6 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PreviousId")
-                        .IsUnique();
 
                     b.HasIndex("TeamId");
 
@@ -364,17 +361,11 @@ namespace StudentProjects.API.Data.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
                 {
-                    b.HasOne("StudentProjects.Domain.Entities.Meeting", "Previous")
-                        .WithOne("Next")
-                        .HasForeignKey("StudentProjects.Domain.Entities.Meeting", "PreviousId");
-
                     b.HasOne("StudentProjects.Domain.Entities.Team", "Team")
                         .WithMany("Meetings")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Previous");
 
                     b.Navigation("Team");
                 });
@@ -466,9 +457,6 @@ namespace StudentProjects.API.Data.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
                 {
-                    b.Navigation("Next")
-                        .IsRequired();
-
                     b.Navigation("Todos");
                 });
 
