@@ -5,7 +5,7 @@ using StudentProjects.Domain.Entities;
 
 namespace StudentProjects.API.Controllers;
 
-[ApiController, Route("api/v1/cases")]
+[ApiController, Route("v1/cases")]
 public class CasesController(DataContext context) : ControllerBase
 {
     [HttpPost]

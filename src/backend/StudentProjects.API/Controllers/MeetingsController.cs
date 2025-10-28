@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace StudentProjects.API.Controllers;
 
 [ApiController]
-[Route("api/v1/meetings")]
+[Route("v1/meetings")]
 public class MeetingsController : ControllerBase
 {
     [HttpPatch("{meetingId:guid}")]

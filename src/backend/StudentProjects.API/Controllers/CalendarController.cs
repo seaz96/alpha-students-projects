@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace StudentProjects.API.Controllers;
 
 [ApiController]
-[Route("api/v1/calendar")]
+[Route("v1/calendar")]
 public class CalendarController : ControllerBase
 {
     [HttpGet]

@@ -11,7 +11,7 @@ using StudentProjects.Domain.Enums;
 
 namespace StudentProjects.API.Controllers;
 
-[ApiController, Route("api/v1/users")]
+[ApiController, Route("v1/users")]
 public class UsersController(DataContext context) : ControllerBase
 {
     [HttpPost("login")]
