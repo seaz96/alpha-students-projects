@@ -16,8 +16,8 @@ namespace StudentProjects.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -27,18 +27,15 @@ namespace StudentProjects.API.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Students",
+                name: "StudentPosition",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Phone = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Telegram = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.PrimaryKey("PK_StudentPosition", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,14 +45,35 @@ namespace StudentProjects.API.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
-                    FirstName = table.Column<string>(type: "text", nullable: false),
-                    MiddleName = table.Column<string>(type: "text", nullable: false),
-                    LastName = table.Column<string>(type: "text", nullable: false),
+                    FirstName = table.Column<string>(type: "text", nullable: true),
+                    MiddleName = table.Column<string>(type: "text", nullable: true),
+                    LastName = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Students",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    Telegram = table.Column<string>(type: "text", nullable: true),
+                    PositionId = table.Column<Guid>(type: "uuid", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Students", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Students_StudentPosition_PositionId",
+                        column: x => x.PositionId,
+                        principalTable: "StudentPosition",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -65,7 +83,7 @@ namespace StudentProjects.API.Data.Migrations
                     CaseId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
                     Dislike = table.Column<bool>(type: "boolean", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: false)
+                    Comment = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -89,8 +107,8 @@ namespace StudentProjects.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false)
@@ -111,9 +129,9 @@ namespace StudentProjects.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
                     ProjectId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TeamprojectLink = table.Column<string>(type: "text", nullable: false)
+                    TeamprojectLink = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -131,12 +149,12 @@ namespace StudentProjects.API.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
                     Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Summary = table.Column<string>(type: "text", nullable: false),
-                    RecordLink = table.Column<string>(type: "text", nullable: false),
+                    Summary = table.Column<string>(type: "text", nullable: true),
+                    RecordLink = table.Column<string>(type: "text", nullable: true),
                     TeamId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Score = table.Column<int>(type: "integer", nullable: false),
+                    Score = table.Column<int>(type: "integer", nullable: true),
                     PreviousId = table.Column<Guid>(type: "uuid", nullable: true),
                     NextId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -157,8 +175,8 @@ namespace StudentProjects.API.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TeamId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Score = table.Column<int>(type: "integer", nullable: false),
-                    Comment = table.Column<string>(type: "text", nullable: false)
+                    Score = table.Column<int>(type: "integer", nullable: true),
+                    Comment = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -177,13 +195,13 @@ namespace StudentProjects.API.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     TeamId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
                     StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UrfuScore = table.Column<int>(type: "integer", nullable: true),
-                    UrfuComment = table.Column<string>(type: "text", nullable: false),
+                    UrfuComment = table.Column<string>(type: "text", nullable: true),
                     MentorScore = table.Column<int>(type: "integer", nullable: true),
-                    MentorComment = table.Column<string>(type: "text", nullable: false)
+                    MentorComment = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -202,12 +220,18 @@ namespace StudentProjects.API.Data.Migrations
                 {
                     TeamId = table.Column<Guid>(type: "uuid", nullable: false),
                     StudentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AcademicGroup = table.Column<string>(type: "text", nullable: false),
-                    Position = table.Column<int>(type: "integer", nullable: false)
+                    AcademicGroup = table.Column<string>(type: "text", nullable: true),
+                    PositionId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TeamStudents", x => new { x.TeamId, x.StudentId });
+                    table.ForeignKey(
+                        name: "FK_TeamStudents_StudentPosition_PositionId",
+                        column: x => x.PositionId,
+                        principalTable: "StudentPosition",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TeamStudents_Students_StudentId",
                         column: x => x.StudentId,
@@ -228,7 +252,7 @@ namespace StudentProjects.API.Data.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Checked = table.Column<bool>(type: "boolean", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: true),
                     ParentId = table.Column<Guid>(type: "uuid", nullable: true),
                     MeetingId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -274,9 +298,19 @@ namespace StudentProjects.API.Data.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Students_PositionId",
+                table: "Students",
+                column: "PositionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Teams_ProjectId",
                 table: "Teams",
                 column: "ProjectId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamStudents_PositionId",
+                table: "TeamStudents",
+                column: "PositionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamStudents_StudentId",
@@ -320,6 +354,9 @@ namespace StudentProjects.API.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Meetings");
+
+            migrationBuilder.DropTable(
+                name: "StudentPosition");
 
             migrationBuilder.DropTable(
                 name: "Teams");

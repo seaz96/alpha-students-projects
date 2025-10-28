@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Data;
 using StudentProjects.Domain.Entities;
 
@@ -22,16 +23,16 @@ public class CasesController(DataContext context) : ControllerBase
         
         return Ok();
     }
-    
+
     [HttpGet]
-    public Task<IActionResult> GetCasesAsync()
+    public async Task<IActionResult> GetCasesAsync()
     {
-        return Task.FromResult<IActionResult>(new OkObjectResult(context.Cases.ToList()));
+        return Ok(await context.Cases.ToListAsync());
     }
-    
+
     [HttpGet("{caseId:guid}")]
     public async Task<IActionResult> GetCaseAsync(Guid caseId)
     {
-        throw new NotImplementedException();
+        return Ok(await context.Cases.FindAsync(caseId));
     }
 }

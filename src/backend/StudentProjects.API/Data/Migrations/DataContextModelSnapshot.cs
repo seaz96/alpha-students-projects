@@ -35,11 +35,9 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -56,7 +54,6 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<bool>("Dislike")
@@ -79,7 +76,6 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid?>("NextId")
@@ -89,14 +85,12 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("RecordLink")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Score")
+                    b.Property<int?>("Score")
                         .HasColumnType("integer");
 
                     b.Property<string>("Summary")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("TeamId")
@@ -122,11 +116,9 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("Status")
@@ -146,10 +138,9 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Comment")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Score")
+                    b.Property<int?>("Score")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("TeamId")
@@ -172,14 +163,12 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("MentorComment")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("MentorScore")
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("StartDate")
@@ -189,7 +178,6 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("UrfuComment")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("UrfuScore")
@@ -209,7 +197,6 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
@@ -217,19 +204,22 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("PositionId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("Telegram")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PositionId");
+
                     b.ToTable("Students");
                 });
 
-            modelBuilder.Entity("StudentProjects.Domain.Entities.Team", b =>
+            modelBuilder.Entity("StudentProjects.Domain.Entities.StudentPosition", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -239,11 +229,24 @@ namespace StudentProjects.API.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.HasKey("Id");
+
+                    b.ToTable("StudentPosition");
+                });
+
+            modelBuilder.Entity("StudentProjects.Domain.Entities.Team", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<Guid>("ProjectId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("TeamprojectLink")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -262,13 +265,14 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("AcademicGroup")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("Position")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("PositionId")
+                        .HasColumnType("uuid");
 
                     b.HasKey("TeamId", "StudentId");
+
+                    b.HasIndex("PositionId");
 
                     b.HasIndex("StudentId");
 
@@ -285,7 +289,6 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Content")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("MeetingId")
@@ -314,15 +317,12 @@ namespace StudentProjects.API.Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
@@ -400,6 +400,15 @@ namespace StudentProjects.API.Data.Migrations
                     b.Navigation("Team");
                 });
 
+            modelBuilder.Entity("StudentProjects.Domain.Entities.Student", b =>
+                {
+                    b.HasOne("StudentProjects.Domain.Entities.StudentPosition", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId");
+
+                    b.Navigation("Position");
+                });
+
             modelBuilder.Entity("StudentProjects.Domain.Entities.Team", b =>
                 {
                     b.HasOne("StudentProjects.Domain.Entities.Project", "Project")
@@ -413,6 +422,12 @@ namespace StudentProjects.API.Data.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.TeamStudent", b =>
                 {
+                    b.HasOne("StudentProjects.Domain.Entities.StudentPosition", "Position")
+                        .WithMany()
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("StudentProjects.Domain.Entities.Student", "Student")
                         .WithMany("TeamStudents")
                         .HasForeignKey("StudentId")
@@ -424,6 +439,8 @@ namespace StudentProjects.API.Data.Migrations
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Position");
 
                     b.Navigation("Student");
 

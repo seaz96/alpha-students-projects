@@ -6,7 +6,7 @@ namespace StudentProjects.API.Controllers;
 [Route("api/v1/calendar")]
 public class CalendarController : ControllerBase
 {
-    [HttpPost]
+    [HttpGet]
     public async Task<IActionResult> GetCalendarAsync()
     {
         throw new NotImplementedException();

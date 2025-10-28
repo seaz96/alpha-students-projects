@@ -68,5 +68,9 @@ public sealed class DataContext : DbContext
             .HasMany(e => e.Children)
             .WithOne(e => e.Parent)
             .HasForeignKey(e => e.ParentId);
+        modelBuilder.Entity<Student>()
+            .HasOne(e => e.Position)
+            .WithMany()
+            .HasForeignKey(e => e.PositionId);
     }
 }
