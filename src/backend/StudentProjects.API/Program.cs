@@ -46,7 +46,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
-app.MapScalarApiReference();
+//todo: to config
+app.MapScalarApiReference(options => options.AddServer("http://student-projects.ru/api"));
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseMiddleware<RequestHeadersComplementaryMiddleware>();
