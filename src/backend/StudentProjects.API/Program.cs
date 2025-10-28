@@ -47,6 +47,7 @@ var app = builder.Build();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
 //todo: to config
+//todo: я хочу мидлвару с приведением всех ошибок в свой собственный формат
 app.MapScalarApiReference(options => options.AddServer("http://student-projects.ru/api"));
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
