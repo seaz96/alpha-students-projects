@@ -28,7 +28,7 @@ export default function Header() {
             <Button variant="link">Проекты</Button>
           </Link>
           <Link to="/admin">
-            <Button variant="link">Админ-Панель</Button>
+            <Button variant="link">Дэшборд</Button>
           </Link>
         </ButtonGroup>
 

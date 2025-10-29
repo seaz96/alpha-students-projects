@@ -9,17 +9,18 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     checkAuth: builder.query<User, void>({
       query: () => ({
-        url: "/auth/me",
+        url: "/users/session",
         method: "GET",
+        credentials: "include",
       }),
       providesTags: ["User"],
     }),
     login: builder.mutation<
       { token: string },
-      { username: string; password: string }
+      { email: string; password: string }
     >({
       query: (credentials) => ({
-        url: "/auth/login",
+        url: "/users/login",
         method: "POST",
         body: credentials,
       }),
@@ -27,7 +28,7 @@ export const authApi = createApi({
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
-        url: "/auth/logout",
+        url: "/users/logout",
         method: "POST",
       }),
       invalidatesTags: ["User"],

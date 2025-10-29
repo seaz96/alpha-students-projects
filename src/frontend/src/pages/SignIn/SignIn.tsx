@@ -17,12 +17,10 @@ import { useEffect } from "react";
 import { useLoginMutation } from "@/features/auth/auth.api";
 
 const crediantialsSchema = z.object({
-  username: z
-    .string()
-    .min(2, { error: "Имя пользователя должно быть длиннее 2 символов" }),
+  email: z.email(),
   password: z
     .string()
-    .min(6, { error: "Пароль должен быть длиннее 6 символов" }),
+    .min(8, { error: "Пароль должен быть длиннее 8 символов" }),
 });
 
 export default function SignIn() {
@@ -38,7 +36,7 @@ export default function SignIn() {
   const registerForm = useForm<z.infer<typeof crediantialsSchema>>({
     resolver: zodResolver(crediantialsSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -46,7 +44,7 @@ export default function SignIn() {
   const loginForm = useForm<z.infer<typeof crediantialsSchema>>({
     resolver: zodResolver(crediantialsSchema),
     defaultValues: {
-      username: "",
+      email: "",
       password: "",
     },
   });
@@ -79,7 +77,7 @@ export default function SignIn() {
               >
                 <FormField
                   control={loginForm.control}
-                  name="username"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Логин</FormLabel>
@@ -121,7 +119,7 @@ export default function SignIn() {
               >
                 <FormField
                   control={registerForm.control}
-                  name="username"
+                  name="email"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Логин</FormLabel>

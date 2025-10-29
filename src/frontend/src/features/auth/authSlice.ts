@@ -2,29 +2,16 @@ import { createAppSlice } from "@/app/createAppSlice";
 import type { AuthState } from "./types";
 import { authApi } from "./auth.api";
 
-// TODO: const initialState: AuthState = {
-//   user: null,
-//   token: null,
-//   status: "idle",
-//   error: null,
-// };
-
-// Mock Initial State
-const fakeInitialState: AuthState = {
-  user: {
-    id: "mock-id",
-    roles: ["user", "admin"],
-    name: "Иванов Иван",
-    username: "mockuser",
-  },
-  token: "mock-token",
-  status: "succeeded",
+const initialState: AuthState = {
+  user: null,
+  token: null,
+  status: "idle",
   error: null,
 };
 
 export const authSlice = createAppSlice({
   name: "auth",
-  initialState: fakeInitialState,
+  initialState,
   reducers: {
     logout: (state) => {
       state.user = null;
