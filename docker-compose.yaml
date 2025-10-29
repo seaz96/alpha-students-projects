@@ -28,7 +28,9 @@ services:
       DATABASE_PASSWORD: postgres
       DATABASE_NAME: postgres
       DATABASE_USER: postgres
-      DATABASE_PORT: 5432
+      DATABASE_PORT: 5432,
+      SymmetricSecurityKey: DefaultDevelopmentSecurityKey0123456789,
+      DOCUMENTATION_SERVER: http://localhost:8080/api
 
   db:
     container_name: postgres_db
