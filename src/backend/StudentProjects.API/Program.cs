@@ -46,9 +46,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
-//todo: to config
 //todo: я хочу мидлвару с приведением всех ошибок в свой собственный формат
-app.MapScalarApiReference(options => options.AddServer("http://student-projects.ru/api"));
+app.MapScalarApiReference(options => options.AddServer(app.Configuration.GetValue<string>("DOCUMENTATION_SERVER")!));
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
 app.UseMiddleware<RequestHeadersComplementaryMiddleware>();
