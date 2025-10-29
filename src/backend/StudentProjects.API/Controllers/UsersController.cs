@@ -31,7 +31,7 @@ public class UsersController(DataContext context) : ControllerBase
         Response.Cookies.Append(AuthOptions.CookieName, token, new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
+            Secure = false,
             SameSite = SameSiteMode.Strict,
             Expires = DateTimeOffset.Now.Add(AuthOptions.TokenLifetime)
         });
@@ -63,7 +63,8 @@ public class UsersController(DataContext context) : ControllerBase
         Response.Cookies.Append(AuthOptions.CookieName, token, new CookieOptions
         {
             HttpOnly = true,
-            Secure = true,
+            //todo: after https on site should turn on
+            Secure = false,
             SameSite = SameSiteMode.Strict,
             Expires = DateTimeOffset.Now.Add(AuthOptions.TokenLifetime)
         });
