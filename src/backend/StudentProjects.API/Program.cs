@@ -36,9 +36,9 @@ builder.Services.AddCors(options =>
         corsPolicyBuilder =>
         {
             corsPolicyBuilder
-                .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
+                .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://student-projects.ru")
                 .SetIsOriginAllowedToAllowWildcardSubdomains();
         });
 });
