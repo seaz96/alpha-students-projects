@@ -4,6 +4,7 @@ using StudentProjects.API.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
+[Route("v1/stages")]
 [ApiController]
 public class StagesController : ControllerBase
 {
@@ -20,7 +21,7 @@ public class StagesController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<StagesResponse>> GetAsync([FromBody] QueryStages request)
+    public async Task<ActionResult<ICollection<StageResponse>>> GetAsync([FromBody] QueryStages request)
     {
         throw new NotImplementedException();
     }

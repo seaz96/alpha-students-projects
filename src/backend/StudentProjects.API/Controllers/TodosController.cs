@@ -4,6 +4,7 @@ using StudentProjects.API.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
+[Route("v1/todos")]
 [ApiController]
 public class TodosController : ControllerBase
 {
@@ -20,7 +21,7 @@ public class TodosController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<TodosResponse>> GetAsync([FromQuery] Guid meetingId)
+    public async Task<ActionResult<ICollection<TodoResponse>>> GetAsync([FromQuery] Guid meetingId)
     {
         throw new NotImplementedException();
     }

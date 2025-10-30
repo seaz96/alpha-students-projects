@@ -21,7 +21,7 @@ public class TeamsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<QueryTeamsResponse>> QueryAsync([FromBody] QueryTeams request)
+    public async Task<ActionResult<ICollection<TeamResponse>>> QueryAsync([FromBody] QueryTeams request)
     {
         throw new NotImplementedException();    
     }

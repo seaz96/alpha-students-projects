@@ -21,7 +21,7 @@ public class MeetingsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<MeetingsResponse>> QueryAsync([FromQuery] QueryMeetings request)
+    public async Task<ActionResult<ICollection<MeetingResponse>>> QueryAsync([FromQuery] QueryMeetings request)
     {
         throw new NotImplementedException();
     }

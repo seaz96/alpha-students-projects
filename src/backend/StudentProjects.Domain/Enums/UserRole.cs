@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace StudentProjects.Domain.Enums;
 
+[JsonConverter(typeof(JsonStringEnumConverter))]
 public enum UserRole
 {
     Unknown = 0,

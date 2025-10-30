@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Data;
+using StudentProjects.API.Models.Dtos;
 using StudentProjects.API.Models.Request;
 using StudentProjects.API.Models.Response;
 using StudentProjects.Domain.Entities;
@@ -27,7 +28,7 @@ public class CasesController(DataContext context) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<CasesResponse>> GetAsync([FromQuery] CommonQuery request)
+    public async Task<ActionResult<ICollection<CaseResponse>>> GetAsync([FromQuery] CommonQuery request)
     {
         return Ok(await context.Cases.ToListAsync());
     }
@@ -51,7 +52,7 @@ public class CasesController(DataContext context) : ControllerBase
     }
 
     [HttpGet("{caseId:guid}/reviews")]
-    public async Task<ActionResult<ReviewsResponse>> GetReviewsAsync(
+    public async Task<ActionResult<ICollection<ReviewDto>>> GetReviewsAsync(
         [FromRoute] Guid caseId,
         [FromQuery] CommonQuery request)
     {
