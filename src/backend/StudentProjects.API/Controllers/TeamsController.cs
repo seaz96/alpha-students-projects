@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.API.Models.Request;
+using StudentProjects.API.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -7,29 +9,42 @@ namespace StudentProjects.API.Controllers;
 public class TeamsController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> PostAsync()
+    public async Task<ActionResult<TeamResponse>> PostAsync([FromBody] PostTeam request)
     {
         throw new NotImplementedException();
     }
 
+    [HttpGet("{teamId:guid}")]
+    public async Task<ActionResult<TeamResponse>> GetAsync([FromRoute] Guid teamId)
+    {
+        throw new NotImplementedException();    
+    }
+
     [HttpGet]
-    public async Task<IActionResult> GetAsync()
+    public async Task<ActionResult<QueryTeamsResponse>> QueryAsync([FromBody] QueryTeams request)
     {
         throw new NotImplementedException();    
     }
 
     [HttpPatch("{teamId:guid}")]
-    public async Task<IActionResult> PatchTeamAsync(Guid teamId)
+    public async Task<ActionResult<TeamResponse>> PatchTeamAsync([FromRoute] Guid teamId, [FromBody] PatchTeam request)
     {
         throw new NotImplementedException();
     }
 
     [HttpPatch("{teamId:guid}/students")]
-    public async Task<IActionResult> PatchStudentsAsync(Guid teamId)
+    public async Task<IActionResult> PatchStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudent request)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpPatch("{teamId:guid}/result")]
+    public async Task<IActionResult> PatchResultAsync([FromRoute] Guid teamId, [FromBody] PatchTeamResult request)
     {
         throw new NotImplementedException();
     }
     
+    //todo: this and lower
     [HttpPost("{teamId:guid}/folders")]
     public async Task<IActionResult> PostTeamFolderAsync(Guid teamId)
     {

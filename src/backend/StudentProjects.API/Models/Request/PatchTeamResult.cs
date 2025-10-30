@@ -1,3 +1,3 @@
 namespace StudentProjects.API.Models.Request;
 
-public record PatchTeamResult();
+public record PatchTeamResult(string? Name, string? TeamprojectLink);

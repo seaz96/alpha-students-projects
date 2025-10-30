@@ -27,7 +27,7 @@ public class CasesController(DataContext context) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<CasesResponse>> GetAsync([FromQuery] BaseQueryRequest request)
+    public async Task<ActionResult<CasesResponse>> GetAsync([FromQuery] CommonQuery request)
     {
         return Ok(await context.Cases.ToListAsync());
     }
@@ -53,7 +53,7 @@ public class CasesController(DataContext context) : ControllerBase
     [HttpGet("{caseId:guid}/reviews")]
     public async Task<ActionResult<ReviewsResponse>> GetReviewsAsync(
         [FromRoute] Guid caseId,
-        [FromQuery] BaseQueryRequest request)
+        [FromQuery] CommonQuery request)
     {
         return Ok(await context.Cases.FindAsync(caseId));
     }

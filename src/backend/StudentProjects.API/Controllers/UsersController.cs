@@ -105,7 +105,7 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpGet("")]
     [Authorize(Roles = nameof(UserRole.Admin))]
-    public async Task<ActionResult<List<UserInfoResponse>>> GetUsersAsync([FromQuery] BaseQueryRequest request)
+    public async Task<ActionResult<List<UserInfoResponse>>> GetUsersAsync([FromQuery] CommonQuery request)
     {
         throw new NotImplementedException();
     }
