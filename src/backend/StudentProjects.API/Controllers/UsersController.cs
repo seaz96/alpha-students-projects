@@ -38,7 +38,7 @@ public class UsersController(DataContext context) : ControllerBase
         });
 
         //todo: map to client model
-        return Ok(user);
+        return Ok(new UserInfoResponse(user.Id, user.Email, user.Role, user.FirstName ?? "", user.LastName ?? "", user.MiddleName ?? ""));
     }
 
     [HttpPost("register")]
@@ -70,7 +70,7 @@ public class UsersController(DataContext context) : ControllerBase
             Expires = DateTimeOffset.Now.Add(AuthOptions.TokenLifetime)
         });
 
-        return Ok();
+        return Ok(new UserInfoResponse(user.Id, user.Email, user.Role, user.FirstName ?? "", user.LastName ?? "", user.MiddleName ?? ""));
     }
 
     [HttpGet("info")]
@@ -86,7 +86,7 @@ public class UsersController(DataContext context) : ControllerBase
 
         if (user is null)
             return Unauthorized();
-        return Ok(user);
+        return Ok(new UserInfoResponse(user.Id, user.Email, user.Role, user.FirstName ?? "", user.LastName ?? "", user.MiddleName ?? ""));
     }
 
     [HttpPatch("info")]
