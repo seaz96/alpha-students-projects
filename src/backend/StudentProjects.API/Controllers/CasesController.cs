@@ -11,7 +11,7 @@ namespace StudentProjects.API.Controllers;
 public class CasesController(DataContext context) : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<CaseResponse>> PostAsync([FromBody] PostCaseRequest request)
+    public async Task<ActionResult<CaseResponse>> PostAsync([FromBody] PostCase request)
     {
         await context.Cases.AddAsync(new Case
         {
@@ -45,7 +45,7 @@ public class CasesController(DataContext context) : ControllerBase
     }
 
     [HttpPost("{caseId:guid}/reviews")]
-    public async Task<IActionResult> PostReviewAsync([FromRoute] Guid caseId, [FromBody] ReviewRequest request)
+    public async Task<IActionResult> PostReviewAsync([FromRoute] Guid caseId, [FromBody] PostReview request)
     {
         return Ok(await context.Cases.FindAsync(caseId));
     }

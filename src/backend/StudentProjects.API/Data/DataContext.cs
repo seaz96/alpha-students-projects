@@ -7,7 +7,7 @@ public sealed class DataContext : DbContext
 {
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
-        Database.Migrate();
+        //Database.Migrate();
     }
 
     public DbSet<Case> Cases { get; set; } = null!;

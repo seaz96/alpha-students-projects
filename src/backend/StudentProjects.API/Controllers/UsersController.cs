@@ -17,7 +17,7 @@ public class UsersController(DataContext context) : ControllerBase
 {
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<ActionResult<UserInfoResponse>> LoginAsync([FromBody] LoginRequest request)
+    public async Task<ActionResult<UserInfoResponse>> LoginAsync([FromBody] LoginUser request)
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
         if (user is null)
@@ -43,7 +43,7 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<ActionResult<UserInfoResponse>> RegisterAsync([FromBody] RegisterRequest request)
+    public async Task<ActionResult<UserInfoResponse>> RegisterAsync([FromBody] RegisterUser request)
     {
         if (context.Users.Any(x => x.Email == request.Email))
             return BadRequest("User with this email already exists");
@@ -91,7 +91,7 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPatch("info")]
     [Authorize]
-    public async Task<ActionResult<UserInfoResponse>> PatchInfoAsync(PatchUserRequest request)
+    public async Task<ActionResult<UserInfoResponse>> PatchInfoAsync(PatchUser request)
     {
         throw new NotImplementedException();
     }
