@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.API.Models.Request;
+using StudentProjects.API.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -7,25 +9,26 @@ namespace StudentProjects.API.Controllers;
 public class MeetingsController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> PostAsync(Guid meetingId)
+    public async Task<ActionResult<MeetingResponse>> PostAsync([FromBody] PostMeeting request)
     {
         throw new NotImplementedException();
     }
 
     [HttpPatch("{meetingId:guid}")]
-    public async Task<IActionResult> PatchAsync(Guid meetingId)
+    public async Task<ActionResult<MeetingResponse>> PatchAsync([FromRoute] Guid meetingId, [FromBody] PatchMeeting request)
     {
         throw new NotImplementedException();
     }
 
     [HttpGet]
-    public async Task<IActionResult> QueryAsync()
+    public async Task<ActionResult<MeetingsResponse>> QueryAsync([FromQuery] QueryMeetings request)
     {
         throw new NotImplementedException();
     }
 
+    //todo: здесь еще хочется тудушки вернуть
     [HttpGet("{meetingId:guid}")]
-    public async Task<IActionResult> GetAsync(Guid meetingId)
+    public async Task<MeetingResponse> GetAsync([FromRoute] Guid meetingId)
     {
         throw new NotImplementedException();
     }
