@@ -1,6 +1,6 @@
 namespace StudentProjects.Domain.Entities;
 
-public class Like
+public class Review
 {
     public required Guid CaseId { get; set; }
     public required Guid UserId { get; set; }

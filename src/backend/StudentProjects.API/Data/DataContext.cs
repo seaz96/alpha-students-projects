@@ -11,7 +11,7 @@ public sealed class DataContext : DbContext
     }
 
     public DbSet<Case> Cases { get; set; } = null!;
-    public DbSet<Like> Likes { get; set; } = null!;
+    public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Meeting> Meetings { get; set; } = null!;
     public DbSet<Project> Projects { get; set; } = null!;
     public DbSet<ResultMeta> ResultMetas { get; set; } = null!;
@@ -33,7 +33,7 @@ public sealed class DataContext : DbContext
             .WithOne(e => e.Project)
             .HasForeignKey(e => e.ProjectId);
         modelBuilder.Entity<TeamStudent>().HasKey(ts => new {ts.TeamId, ts.StudentId});
-        modelBuilder.Entity<Like>().HasKey(l => new {l.CaseId, l.UserId});
+        modelBuilder.Entity<Review>().HasKey(l => new {l.CaseId, l.UserId});
         modelBuilder.Entity<Team>().HasMany(ts => ts.TeamStudents).WithOne(ts => ts.Team);
         modelBuilder.Entity<Student>().HasMany(ts => ts.TeamStudents).WithOne(ts => ts.Student);
         modelBuilder.Entity<Team>()
@@ -41,11 +41,11 @@ public sealed class DataContext : DbContext
             .WithOne(e => e.Team)
             .HasForeignKey(e => e.TeamId);
         modelBuilder.Entity<User>()
-            .HasMany(e => e.Likes)
+            .HasMany(e => e.Reviews)
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId);
         modelBuilder.Entity<Case>()
-            .HasMany(e => e.Likes)
+            .HasMany(e => e.Reviews)
             .WithOne(e => e.Case)
             .HasForeignKey(e => e.CaseId);
         modelBuilder.Entity<Team>()

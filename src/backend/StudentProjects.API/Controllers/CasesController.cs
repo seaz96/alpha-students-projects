@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Data;
+using StudentProjects.API.Models.Request;
+using StudentProjects.API.Models.Response;
 using StudentProjects.Domain.Entities;
 
 namespace StudentProjects.API.Controllers;
@@ -9,7 +11,7 @@ namespace StudentProjects.API.Controllers;
 public class CasesController(DataContext context) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> PostAsync()
+    public async Task<ActionResult<CaseResponse>> PostAsync([FromBody] PostCaseRequest request)
     {
         await context.Cases.AddAsync(new Case
         {
@@ -25,31 +27,33 @@ public class CasesController(DataContext context) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAsync()
+    public async Task<ActionResult<CasesResponse>> GetAsync([FromQuery] BaseQueryRequest request)
     {
         return Ok(await context.Cases.ToListAsync());
     }
 
     [HttpDelete("{caseId:guid}")]
-    public async Task<IActionResult> DeleteAsync(Guid caseId)
+    public async Task<ActionResult> DeleteAsync(Guid caseId)
     {
         return Ok(await context.Cases.FindAsync(caseId));
     }
 
     [HttpGet("{caseId:guid}")]
-    public async Task<IActionResult> GetCaseAsync(Guid caseId)
+    public async Task<ActionResult<CaseResponse>> GetCaseAsync(Guid caseId)
+    {
+        return Ok(await context.Cases.FindAsync(caseId));
+    }
+
+    [HttpPost("{caseId:guid}/reviews")]
+    public async Task<IActionResult> PostReviewAsync([FromRoute] Guid caseId, [FromBody] ReviewRequest request)
     {
         return Ok(await context.Cases.FindAsync(caseId));
     }
 
     [HttpGet("{caseId:guid}/reviews")]
-    public async Task<IActionResult> PostReviewAsync(Guid caseId)
-    {
-        return Ok(await context.Cases.FindAsync(caseId));
-    }
-
-    [HttpGet("{caseId:guid}/reviews")]
-    public async Task<IActionResult> GetReviewsAsync(Guid caseId)
+    public async Task<ActionResult<ReviewsResponse>> GetReviewsAsync(
+        [FromRoute] Guid caseId,
+        [FromQuery] BaseQueryRequest request)
     {
         return Ok(await context.Cases.FindAsync(caseId));
     }

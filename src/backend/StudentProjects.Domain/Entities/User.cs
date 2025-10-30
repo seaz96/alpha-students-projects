@@ -13,5 +13,5 @@ public class User
     public UserRole Role { get; set; } = UserRole.User;
 
     public virtual ICollection<Project> Projects { get; set; }
-    public virtual ICollection<Like> Likes { get; set; }
+    public virtual ICollection<Review> Reviews { get; set; }
 }

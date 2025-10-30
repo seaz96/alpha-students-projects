@@ -8,5 +8,5 @@ public class Case
     public Guid AuthorId { get; set; }
     public DateTime CreatedAt { get; set; }
 
-    public virtual ICollection<Like> Likes { get; set; }
+    public virtual ICollection<Review> Reviews { get; set; }
 }
