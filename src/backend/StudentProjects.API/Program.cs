@@ -36,8 +36,8 @@ builder.Services.AddCors(options =>
         corsPolicyBuilder =>
         {
             corsPolicyBuilder
-                .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://student-projects.ru")
-                .WithMethods("POST", "GET", "DELETE", "PUT")
+                .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://student-projects.ru") //todo: to config
+                .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowedToAllowWildcardSubdomains()
                 .AllowCredentials();
@@ -45,6 +45,7 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+app.MigrateDatabase();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
 //todo: я хочу мидлвару с приведением всех ошибок в свой собственный формат

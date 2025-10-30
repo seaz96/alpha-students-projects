@@ -18,4 +18,11 @@ public static class DatabaseConfigure
             options.UseNpgsql($"Port={dbPort}; Database={dbName}; Username={dbUser}; Host={dbHost}; Password={dbPassword};");
         }, ServiceLifetime.Transient);
     }
+
+    public static void MigrateDatabase(this WebApplication app)
+    {
+        using var scope = app.Services.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<DataContext>();
+        context.Database.Migrate();
+    }
 }

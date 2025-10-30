@@ -21,7 +21,8 @@ export const authApi = createApi({
     >({
       query: (credentials) => ({
         url: "/users/login",
-        method: "POST",
+        method: "POST", 
+        credentials: "include",
         body: credentials,
       }),
       invalidatesTags: ["User"],

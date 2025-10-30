@@ -3,13 +3,8 @@ using StudentProjects.Domain.Entities;
 
 namespace StudentProjects.API.Data;
 
-public sealed class DataContext : DbContext
+public sealed class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
-    public DataContext(DbContextOptions<DataContext> options) : base(options)
-    {
-        //Database.Migrate();
-    }
-
     public DbSet<Case> Cases { get; set; } = null!;
     public DbSet<Review> Reviews { get; set; } = null!;
     public DbSet<Meeting> Meetings { get; set; } = null!;
