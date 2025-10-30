@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Configuration;
 using StudentProjects.API.Data;
-using StudentProjects.API.Models.Requests;
+using StudentProjects.API.Models.Request;
+using StudentProjects.API.Models.Response;
 using StudentProjects.API.Utility;
 using StudentProjects.Domain.Entities;
 using StudentProjects.Domain.Enums;
@@ -16,7 +17,7 @@ public class UsersController(DataContext context) : ControllerBase
 {
     [HttpPost("login")]
     [AllowAnonymous]
-    public async Task<IActionResult> LoginAsync([FromBody] LoginRequest request)
+    public async Task<ActionResult<UserInfoResponse>> LoginAsync([FromBody] LoginRequest request)
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
         if (user is null)
@@ -42,7 +43,7 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPost("register")]
     [AllowAnonymous]
-    public async Task<IActionResult> RegisterAsync([FromBody] RegisterRequest request)
+    public async Task<ActionResult<UserInfoResponse>> RegisterAsync([FromBody] RegisterRequest request)
     {
         if (context.Users.Any(x => x.Email == request.Email))
             return BadRequest("User with this email already exists");
@@ -72,9 +73,9 @@ public class UsersController(DataContext context) : ControllerBase
         return Ok();
     }
 
-    [HttpGet("session")]
+    [HttpGet("info")]
     [Authorize]
-    public async Task<IActionResult> GetSessionAsync()
+    public async Task<ActionResult<UserInfoResponse>> GetInfoAsync()
     {
         var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
 
@@ -90,21 +91,21 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPatch("info")]
     [Authorize]
-    public async Task<IActionResult> PatchInfoAsync()
+    public async Task<ActionResult<UserInfoResponse>> PatchInfoAsync(PatchUserRequest request)
     {
         throw new NotImplementedException();
     }
 
-    [HttpPatch("{userId:guid}/permissions")]
+    [HttpPatch("{userId:guid}/role")]
     [Authorize(Roles = nameof(UserRole.Admin))]
-    public async Task<IActionResult> PatchPermissions(Guid userId)
+    public async Task<UserInfoResponse> PatchRoleAsync([FromRoute] Guid userId, [FromQuery] UserRole role)
     {
         throw new NotImplementedException();
     }
 
     [HttpGet("")]
     [Authorize(Roles = nameof(UserRole.Admin))]
-    public async Task<IActionResult> GetUsersAsync()
+    public async Task<ActionResult<List<UserInfoResponse>>> GetUsersAsync([FromQuery] BaseQueryRequest request)
     {
         throw new NotImplementedException();
     }

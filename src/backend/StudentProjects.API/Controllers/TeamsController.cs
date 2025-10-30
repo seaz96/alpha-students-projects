@@ -7,43 +7,25 @@ namespace StudentProjects.API.Controllers;
 public class TeamsController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> PostTeamAsync()
+    public async Task<IActionResult> PostAsync()
     {
         throw new NotImplementedException();
     }
-    
+
     [HttpGet]
-    public async Task<IActionResult> GetTeamAsync()
+    public async Task<IActionResult> GetAsync()
     {
         throw new NotImplementedException();    
     }
-    
+
     [HttpPatch("{teamId:guid}")]
     public async Task<IActionResult> PatchTeamAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
-    
+
     [HttpPatch("{teamId:guid}/students")]
-    public async Task<IActionResult> PatchTeamStudentsAsync(Guid teamId)
-    {
-        throw new NotImplementedException();
-    }
-    
-    [HttpGet("{teamId:guid}/scores")]
-    public async Task<IActionResult> GetTeamScoresAsync(Guid teamId)
-    {
-        throw new NotImplementedException();
-    }
-    
-    [HttpGet("{teamId:guid}/meetings")]
-    public async Task<IActionResult> GetTeamMeetingsAsync(Guid teamId)
-    {
-        throw new NotImplementedException();
-    }
-    
-    [HttpPost("{teamId:guid}/meetings")]
-    public async Task<IActionResult> PostTeamMeetingAsync(Guid teamId)
+    public async Task<IActionResult> PatchStudentsAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
