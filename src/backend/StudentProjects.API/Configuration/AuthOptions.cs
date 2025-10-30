@@ -13,7 +13,7 @@ public static class AuthOptions
 
     public static void Initialize(IConfiguration configuration)
     {
-        var key = configuration.GetValue<string>("SymmetricSecurityKey")!;
+        var key = configuration.GetValue<string>("SECURITY_KEY")!;
         SecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
     }
 }
