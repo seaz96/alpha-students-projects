@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.API.Models.Request;
+using StudentProjects.API.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -6,13 +8,19 @@ namespace StudentProjects.API.Controllers;
 public class StagesController : ControllerBase
 {
     [HttpPatch]
-    public async Task<IActionResult> PostAsync()
+    public async Task<ActionResult<StageResponse>> PostAsync([FromBody] PostStage request)
     {
         throw new NotImplementedException();
     }
 
     [HttpPatch("{stageId:guid}")]
-    public async Task<IActionResult> PatchAsync()
+    public async Task<ActionResult<StageResponse>> PatchAsync([FromRoute] Guid stageId, [FromBody] PatchStage request)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<StagesResponse>> GetAsync([FromBody] QueryStages request)
     {
         throw new NotImplementedException();
     }
