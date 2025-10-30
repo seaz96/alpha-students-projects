@@ -9,7 +9,7 @@ export const authApi = createApi({
   endpoints: (builder) => ({
     checkAuth: builder.query<User, void>({
       query: () => ({
-        url: "/users/session",
+        url: "/users/info",
         method: "GET",
         credentials: "include",
       }),
