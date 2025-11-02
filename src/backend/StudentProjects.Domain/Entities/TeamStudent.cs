@@ -1,5 +1,3 @@
-using StudentProjects.Domain.Enums;
-
 namespace StudentProjects.Domain.Entities;
 
 public class TeamStudent

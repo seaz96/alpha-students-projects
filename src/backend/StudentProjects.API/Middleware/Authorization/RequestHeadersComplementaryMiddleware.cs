@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using StudentProjects.API.Configuration;
 
-namespace StudentProjects.API.Middleware;
+namespace StudentProjects.API.Middleware.Authorization;
 
 public class RequestHeadersComplementaryMiddleware(RequestDelegate next)
 {

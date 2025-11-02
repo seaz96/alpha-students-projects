@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Configuration;
-using StudentProjects.API.Data;
+using StudentProjects.API.Exceptions;
 using StudentProjects.API.Models.Request;
 using StudentProjects.API.Models.Response;
 using StudentProjects.API.Utility;
@@ -22,11 +22,11 @@ public class UsersController(DataContext context) : ControllerBase
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
         if (user is null)
-            return Unauthorized();
+            throw new UnauthorizedException();
 
         var passwordVerified = PasswordHasher.VerifyHashedPassword(user.PasswordHash, request.Password);
         if (!passwordVerified)
-            return Unauthorized();
+            throw new UnauthorizedException();
         
         var token = AuthTokenMaker.GetAuthToken(user);
 
@@ -38,8 +38,13 @@ public class UsersController(DataContext context) : ControllerBase
             Expires = DateTimeOffset.Now.Add(AuthOptions.TokenLifetime)
         });
 
-        //todo: map to client model
-        return Ok(new UserInfoResponse(user.Id, user.Email, user.Role, user.FirstName ?? "", user.LastName ?? "", user.MiddleName ?? ""));
+        return Ok(new UserInfoResponse(
+            user.Id,
+            user.Email,
+            user.Role,
+            user.FirstName ?? "",
+            user.LastName ?? "",
+            user.MiddleName ?? ""));
     }
 
     [HttpPost("register")]
@@ -47,7 +52,7 @@ public class UsersController(DataContext context) : ControllerBase
     public async Task<ActionResult<UserInfoResponse>> RegisterAsync([FromBody] RegisterUser request)
     {
         if (context.Users.Any(x => x.Email == request.Email))
-            return BadRequest("User with this email already exists");
+            throw new EmailRegisteredException();
 
         var passwordHash = PasswordHasher.HashPassword(request.Password);
         var user = new User
@@ -78,15 +83,7 @@ public class UsersController(DataContext context) : ControllerBase
     [Authorize]
     public async Task<ActionResult<UserInfoResponse>> GetInfoAsync()
     {
-        var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
-        if (userId is null)
-            return Unauthorized();
-
-        var user = await context.Users.FindAsync(Guid.Parse(userId.Value));
-
-        if (user is null)
-            return Unauthorized();
+        var user = await GetAuthorizedUserAsync();
         return Ok(new UserInfoResponse(user.Id, user.Email, user.Role, user.FirstName ?? "", user.LastName ?? "", user.MiddleName ?? ""));
     }
 
@@ -109,5 +106,14 @@ public class UsersController(DataContext context) : ControllerBase
     public async Task<ActionResult<List<UserInfoResponse>>> GetUsersAsync([FromQuery] CommonQuery request)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task<User> GetAuthorizedUserAsync()
+    {
+        var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (userId is null)
+            throw new UnauthorizedException("User identifier not specified.");
+        var user = await context.Users.FindAsync(Guid.Parse(userId.Value));
+        return user ?? throw new UnauthorizedException("User with specified identifier not found.");
     }
 }

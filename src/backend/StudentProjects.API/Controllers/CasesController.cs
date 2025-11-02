@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using StudentProjects.API.Data;
 using StudentProjects.API.Models.Dtos;
 using StudentProjects.API.Models.Request;
 using StudentProjects.API.Models.Response;

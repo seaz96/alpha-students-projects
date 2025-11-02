@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using StudentProjects.API.Data;
 using StudentProjects.Dal;
 
 namespace StudentProjects.API.Configuration;

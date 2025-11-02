@@ -4,7 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Serilog;
 using StudentProjects.API.Configuration;
-using StudentProjects.API.Middleware;
+using StudentProjects.API.Middleware.Authorization;
+using StudentProjects.API.Middleware.Exceptions;
 using StudentProjects.API.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,13 +47,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 app.MigrateDatabase();
+app.UseExceptionToErrorMiddleware();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
 //todo: я хочу мидлвару с приведением всех ошибок в свой собственный формат
 app.MapScalarApiReference(options => options.AddServer(app.Configuration.GetValue<string>("DOCUMENTATION_SERVER")!));
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();
-app.UseMiddleware<RequestHeadersComplementaryMiddleware>();
+app.UseRequestHeadersComplementaryMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
