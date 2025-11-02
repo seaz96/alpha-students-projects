@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import Header from "./components/header";
-import { useCheckAuthQuery } from "./features/auth/auth.api";
+import { useCheckAuthQuery } from "./features/users/usersApi";
 
 export default function AppLayout() {
   useCheckAuthQuery();

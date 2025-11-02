@@ -3,10 +3,10 @@ import {
   selectIsAuthenticated,
   selectUser,
   selectAuthStatus,
-} from "@/features/auth/authSlice";
+} from "@/features/users/usersSlice";
 import { Navigate, Outlet } from "react-router";
 import { Button } from "./ui/button";
-import { useLogoutMutation } from "@/features/auth/auth.api";
+import { useLogoutMutation } from "@/features/users/usersApi";
 
 export default function AuthOnly() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);

@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound/NotFound";
 import SignIn from "./pages/SignIn/SignIn";
 import Applications from "./pages/Applications/Applications";
 import AuthOnly from "./components/auth-only";
+import ProfilePage from "./pages/ProfilePage/ProfilePage";
 
 export default function AppRouter() {
   return (
@@ -15,6 +16,7 @@ export default function AppRouter() {
           <Route path="/" element={<AuthOnly />}>
             <Route index element={<Home />} />
             <Route path="/applications" element={<Applications />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Route>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

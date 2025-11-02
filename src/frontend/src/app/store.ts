@@ -1,17 +1,17 @@
-import { authSlice } from "@/features/auth/authSlice";
+import { usersSlice } from "@/features/users/usersSlice";
 import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
-import { authApi } from "@/features/auth/auth.api";
+import { usersApi } from "@/features/users/usersApi";
 
-const rootReducer = combineSlices(authSlice, authApi);
+const rootReducer = combineSlices(usersSlice, usersApi);
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(authApi.middleware);
+      return getDefaultMiddleware().concat(usersApi.middleware);
     },
     preloadedState,
   });

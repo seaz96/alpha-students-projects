@@ -1,6 +1,6 @@
 import { createAppSlice } from "@/app/createAppSlice";
 import type { AuthState } from "./types";
-import { authApi } from "./auth.api";
+import { usersApi } from "./usersApi";
 
 const initialState: AuthState = {
   user: null,
@@ -9,8 +9,8 @@ const initialState: AuthState = {
   error: null,
 };
 
-export const authSlice = createAppSlice({
-  name: "auth",
+export const usersSlice = createAppSlice({
+  name: "user",
   initialState,
   reducers: {
     logout: (state) => {
@@ -22,42 +22,48 @@ export const authSlice = createAppSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(authApi.endpoints.login.matchPending, (state) => {
+      .addMatcher(usersApi.endpoints.login.matchPending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+      .addMatcher(usersApi.endpoints.login.matchFulfilled, (state, action) => {
         state.status = "succeeded";
         state.token = action.payload.token;
       })
-      .addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
+      .addMatcher(usersApi.endpoints.login.matchRejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Login failed";
       })
-      .addMatcher(authApi.endpoints.checkAuth.matchPending, (state) => {
+      .addMatcher(usersApi.endpoints.checkAuth.matchPending, (state) => {
         state.status = "loading";
       })
       .addMatcher(
-        authApi.endpoints.checkAuth.matchFulfilled,
+        usersApi.endpoints.checkAuth.matchFulfilled,
         (state, action) => {
           state.status = "succeeded";
           state.user = action.payload;
         },
       )
       .addMatcher(
-        authApi.endpoints.checkAuth.matchRejected,
+        usersApi.endpoints.checkAuth.matchRejected,
         (state, action) => {
           state.status = "failed";
           state.user = null;
           state.error = action.error.message || "Auth check failed";
         },
       )
-      .addMatcher(authApi.endpoints.logout.matchFulfilled, (state) => {
+      .addMatcher(usersApi.endpoints.logout.matchFulfilled, (state) => {
         state.user = null;
         state.token = null;
         state.status = "idle";
         state.error = null;
-      });
+      })
+      .addMatcher(
+        usersApi.endpoints.patchUserInfo.matchFulfilled,
+        (state, action) => {
+          state.user = action.payload;
+        },
+      );
   },
   selectors: {
     selectAuthStatus: (state) => state.status,
@@ -68,11 +74,11 @@ export const authSlice = createAppSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout } = usersSlice.actions;
 export const {
   selectAuthStatus,
   selectUser,
   selectIsAuthenticated,
   selectAuthError,
   selectUserRoles,
-} = authSlice.selectors;
+} = usersSlice.selectors;

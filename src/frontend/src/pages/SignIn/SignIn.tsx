@@ -14,7 +14,10 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-import { useLoginMutation } from "@/features/auth/auth.api";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "@/features/users/usersApi";
 
 const crediantialsSchema = z.object({
   email: z.email(),
@@ -24,14 +27,15 @@ const crediantialsSchema = z.object({
 });
 
 export default function SignIn() {
-  const [login, { isSuccess }] = useLoginMutation();
+  const [login, { isSuccess: isSuccessLogin }] = useLoginMutation();
+  const [register, { isSuccess: isSuccessRegister }] = useRegisterMutation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccessLogin || isSuccessRegister) {
       navigate("/");
     }
-  }, [isSuccess, navigate]);
+  }, [isSuccessLogin, isSuccessRegister, navigate]);
 
   const registerForm = useForm<z.infer<typeof crediantialsSchema>>({
     resolver: zodResolver(crediantialsSchema),
@@ -54,7 +58,7 @@ export default function SignIn() {
   }
 
   function onSubmitRegister(values: z.infer<typeof crediantialsSchema>) {
-    console.log(values);
+    register(values);
   }
 
   return (

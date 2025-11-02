@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { Button } from "./ui/button";
 import { ButtonGroup } from "./ui/button-group";
 import { useAppSelector } from "@/app/hooks";
-import { selectIsAuthenticated } from "@/features/auth/authSlice";
+import { selectIsAuthenticated } from "@/features/users/usersSlice";
 import AlfaLogo from "@/assets/alfa-logo";
 
 export default function Header() {
@@ -34,9 +34,11 @@ export default function Header() {
         <ButtonGroup>
           {isAuthenticated && (
             <>
-              <Button variant="link" aria-label="Profile">
-                Профиль
-              </Button>
+              <Link to="/profile">
+                <Button variant="link" aria-label="Profile">
+                  Профиль
+                </Button>
+              </Link>
               <Button variant="link" aria-label="Logout">
                 Выйти
               </Button>
