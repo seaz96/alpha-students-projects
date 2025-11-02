@@ -23,7 +23,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\StudentProjects.DataLayer\StudentProjects.DataLayer.csproj" />
       <ProjectReference Include="..\StudentProjects.Domain\StudentProjects.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Data\" />
     </ItemGroup>
 
 </Project>

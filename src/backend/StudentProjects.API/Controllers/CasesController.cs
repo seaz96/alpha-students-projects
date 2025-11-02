@@ -4,6 +4,7 @@ using StudentProjects.API.Data;
 using StudentProjects.API.Models.Dtos;
 using StudentProjects.API.Models.Request;
 using StudentProjects.API.Models.Response;
+using StudentProjects.Dal;
 using StudentProjects.Domain.Entities;
 
 namespace StudentProjects.API.Controllers;

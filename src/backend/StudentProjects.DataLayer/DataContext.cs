@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.Domain.Entities;
 
-namespace StudentProjects.API.Data;
+namespace StudentProjects.Dal;
 
 public sealed class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {

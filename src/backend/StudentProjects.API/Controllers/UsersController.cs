@@ -7,6 +7,7 @@ using StudentProjects.API.Data;
 using StudentProjects.API.Models.Request;
 using StudentProjects.API.Models.Response;
 using StudentProjects.API.Utility;
+using StudentProjects.Dal;
 using StudentProjects.Domain.Entities;
 using StudentProjects.Domain.Enums;
 
