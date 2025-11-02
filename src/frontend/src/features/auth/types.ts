@@ -1,10 +1,12 @@
-export type UserRole = "admin" | "manager" | "user";
+export type UserRole = "Admin" | "Manager" | "User";
 
 export interface User {
   id: string;
-  roles: UserRole[];
-  name: string;
-  username: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  middleName: string;
+  role: UserRole;
 }
 
 export interface AuthState {

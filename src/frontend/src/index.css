@@ -126,3 +126,7 @@
 @theme {
   --color-brand: var(--brand);
 }
+
+button {
+  @apply cursor-pointer;
+}

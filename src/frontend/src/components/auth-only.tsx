@@ -23,9 +23,7 @@ export default function AuthOnly() {
     return <Navigate to="/sign-in" />;
   }
 
-  const hasRequiredRole = user?.roles.some((role) =>
-    ["admin", "manager"].includes(role),
-  );
+  const hasRequiredRole = user?.role === "User";
 
   if (!hasRequiredRole) {
     return (

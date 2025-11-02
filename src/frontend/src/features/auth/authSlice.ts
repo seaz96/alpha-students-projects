@@ -64,7 +64,7 @@ export const authSlice = createAppSlice({
     selectUser: (state) => state.user,
     selectIsAuthenticated: (state) => !!state.user,
     selectAuthError: (state) => state.error,
-    selectUserRoles: (state) => state.user?.roles || [],
+    selectUserRoles: (state) => state.user?.role || [],
   },
 });
 

@@ -2,11 +2,10 @@ import { Link } from "react-router";
 import { Button } from "./ui/button";
 import { ButtonGroup } from "./ui/button-group";
 import { useAppSelector } from "@/app/hooks";
-import { selectIsAuthenticated, selectUser } from "@/features/auth/authSlice";
+import { selectIsAuthenticated } from "@/features/auth/authSlice";
 import AlfaLogo from "@/assets/alfa-logo";
 
 export default function Header() {
-  const user = useAppSelector(selectUser);
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
 
   return (
@@ -35,10 +34,10 @@ export default function Header() {
         <ButtonGroup>
           {isAuthenticated && (
             <>
-              <Button variant="ghost" aria-label="Profile">
-                {user?.name}
+              <Button variant="link" aria-label="Profile">
+                Профиль
               </Button>
-              <Button variant="ghost" aria-label="Logout">
+              <Button variant="link" aria-label="Logout">
                 Выйти
               </Button>
             </>
