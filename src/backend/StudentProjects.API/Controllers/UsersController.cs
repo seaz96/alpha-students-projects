@@ -18,6 +18,8 @@ public class UsersController(DataContext context) : ControllerBase
 {
     [HttpPost("login")]
     [AllowAnonymous]
+    [ProducesResponseType<UserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<UserInfoResponse>> LoginAsync([FromBody] LoginUser request)
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Email == request.Email);
@@ -49,6 +51,8 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPost("register")]
     [AllowAnonymous]
+    [ProducesResponseType<UserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<UserInfoResponse>> RegisterAsync([FromBody] RegisterUser request)
     {
         if (context.Users.Any(x => x.Email == request.Email))
@@ -81,6 +85,8 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpGet("info")]
     [Authorize]
+    [ProducesResponseType<UserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<UserInfoResponse>> GetInfoAsync()
     {
         var user = await GetAuthorizedUserAsync();
@@ -89,6 +95,8 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPatch("info")]
     [Authorize]
+    [ProducesResponseType<UserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<UserInfoResponse>> PatchInfoAsync(PatchUser request)
     {
         throw new NotImplementedException();
@@ -96,6 +104,9 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpPatch("{userId:guid}/role")]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [ProducesResponseType<UserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
     public async Task<UserInfoResponse> PatchRoleAsync([FromRoute] Guid userId, [FromQuery] UserRole role)
     {
         throw new NotImplementedException();
@@ -103,6 +114,9 @@ public class UsersController(DataContext context) : ControllerBase
 
     [HttpGet("")]
     [Authorize(Roles = nameof(UserRole.Admin))]
+    [ProducesResponseType<UserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<List<UserInfoResponse>>> GetUsersAsync([FromQuery] CommonQuery request)
     {
         throw new NotImplementedException();
