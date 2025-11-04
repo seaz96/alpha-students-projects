@@ -15,8 +15,9 @@ public class ExceptionToErrorMiddleware(RequestDelegate next)
         {
             ErrorResponse error = exception switch
             {
-                UnauthorizedException ex => new("urn:error:unauthorized", ex.StatusCode, ex.Message),
-                EmailRegisteredException ex => new("urn:error:unauthorized", ex.StatusCode, exception.Message),
+                UnauthorizedException ex => new(ex.Type, ex.StatusCode, ex.Message),
+                EmailRegisteredException ex => new(ex.Type, ex.StatusCode, exception.Message),
+                UserNotFound ex => new(ex.Type, ex.StatusCode, ex.Message),
                 _ => new("urn:error:unknown", HttpStatusCode.InternalServerError, "Unhandled exception occured.")
             };
 

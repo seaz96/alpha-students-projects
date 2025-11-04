@@ -16,7 +16,7 @@ export const usersApi = createApi({
     }),
     checkAuth: builder.query<User, void>({
       query: () => ({
-        url: "/users/info",
+        url: "/users/current",
         method: "GET",
         credentials: "include",
       }),
@@ -24,7 +24,7 @@ export const usersApi = createApi({
     }),
     patchUserInfo: builder.mutation<User, Partial<User>>({
       query: (user) => ({
-        url: `/users/info`,
+        url: `/users/current`,
         method: "PATCH",
         body: user,
         credentials: "include",
