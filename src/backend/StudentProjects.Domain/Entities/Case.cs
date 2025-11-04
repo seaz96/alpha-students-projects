@@ -9,4 +9,5 @@ public class Case
     public DateTime CreatedAt { get; set; }
 
     public virtual ICollection<Review> Reviews { get; set; }
+    public virtual User Author { get; set; }
 }

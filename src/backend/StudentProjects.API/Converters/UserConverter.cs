@@ -1,3 +1,4 @@
+using StudentProjects.API.Models.Dtos;
 using StudentProjects.API.Models.Response;
 using StudentProjects.Domain.Entities;
 
@@ -11,6 +12,15 @@ public static class UserConverter
             user.Id,
             user.Email,
             user.Role,
+            user.FirstName ?? "",
+            user.LastName ?? "",
+            user.MiddleName ?? "");
+    }
+
+    public static UserDto ToDto(this User user)
+    {
+        return new UserDto(
+            user.Id,
             user.FirstName ?? "",
             user.LastName ?? "",
             user.MiddleName ?? "");

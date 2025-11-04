@@ -39,6 +39,10 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
             .HasMany(e => e.Reviews)
             .WithOne(e => e.User)
             .HasForeignKey(e => e.UserId);
+        modelBuilder.Entity<User>()
+            .HasMany(e => e.Cases)
+            .WithOne(e => e.Author)
+            .HasForeignKey(e => e.AuthorId);
         modelBuilder.Entity<Case>()
             .HasMany(e => e.Reviews)
             .WithOne(e => e.Case)

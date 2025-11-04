@@ -102,7 +102,7 @@ public class UsersController(UserService userService) : ControllerBase
     {
         var user = await userService.GetUserByIdAsync(userId);
         if (user is null)
-            throw new UserNotFound();
+            throw new UserNotFoundException();
         user.Role = role;
         await userService.PatchUserAsync(user);
         return Ok(user.ToInfoResponse());

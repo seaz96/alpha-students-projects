@@ -1,54 +1,54 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using StudentProjects.API.Exceptions;
 using StudentProjects.API.Models.Dtos;
 using StudentProjects.API.Models.Request;
 using StudentProjects.API.Models.Response;
-using StudentProjects.Dal;
-using StudentProjects.Domain.Entities;
+using StudentProjects.API.Services;
 
 namespace StudentProjects.API.Controllers;
 
 [ApiController, Route("v1/cases")]
-public class CasesController(DataContext context) : ControllerBase
+public class CasesController(CaseService caseService, UserService userService) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<CaseResponse>> PostAsync([FromBody] PostCase request)
     {
-        await context.Cases.AddAsync(new Case
-        {
-            Id = Guid.NewGuid(),
-            AuthorId = Guid.NewGuid(),
-            Name = Guid.NewGuid().ToString(),
-            Description = Guid.NewGuid().ToString(),
-            CreatedAt = DateTime.UtcNow
-        });
-        await context.SaveChangesAsync();
-        
-        return Ok();
+        var user = await userService.GetAuthorizedUserAsync(User.Claims);
+        var createdCase = await caseService.AddAsync(request.Name, request.Description, user);
+
+        return Ok(createdCase);
     }
 
     [HttpGet]
     public async Task<ActionResult<ICollection<CaseResponse>>> GetAsync([FromQuery] CommonQuery request)
     {
-        return Ok(await context.Cases.ToListAsync());
+        return Ok(await caseService.GetAsync(request.Offset, request.Limit));
     }
 
     [HttpDelete("{caseId:guid}")]
     public async Task<ActionResult> DeleteAsync(Guid caseId)
     {
-        return Ok(await context.Cases.FindAsync(caseId));
+        var @case = await caseService.GetAsync(caseId);
+        if (@case is null)
+            throw new CaseNotFoundException();
+        var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+        if (@case.Author.Id != Guid.Parse(userId!.Value))
+            throw new ForbiddenException();
+        await caseService.DeleteAsync(caseId);
+        return Ok();
     }
 
     [HttpGet("{caseId:guid}")]
     public async Task<ActionResult<CaseResponse>> GetCaseAsync(Guid caseId)
     {
-        return Ok(await context.Cases.FindAsync(caseId));
+        throw new NotImplementedException();
     }
 
     [HttpPost("{caseId:guid}/reviews")]
     public async Task<IActionResult> PostReviewAsync([FromRoute] Guid caseId, [FromBody] PostReview request)
     {
-        return Ok(await context.Cases.FindAsync(caseId));
+        throw new NotImplementedException();
     }
 
     [HttpGet("{caseId:guid}/reviews")]
@@ -56,6 +56,6 @@ public class CasesController(DataContext context) : ControllerBase
         [FromRoute] Guid caseId,
         [FromQuery] CommonQuery request)
     {
-        return Ok(await context.Cases.FindAsync(caseId));
+        throw new NotImplementedException();
     }
 }

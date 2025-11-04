@@ -14,4 +14,5 @@ public class User
 
     public virtual ICollection<Project> Projects { get; set; }
     public virtual ICollection<Review> Reviews { get; set; }
+    public virtual ICollection<Case> Cases { get; set; }
 }
