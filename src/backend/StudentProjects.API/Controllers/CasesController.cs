@@ -1,10 +1,9 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.API.Exceptions;
-using StudentProjects.API.Models.Dtos;
-using StudentProjects.API.Models.Request;
-using StudentProjects.API.Models.Response;
 using StudentProjects.API.Services;
+using StudentProjects.ClientModels.Request;
+using StudentProjects.ClientModels.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -12,7 +11,7 @@ namespace StudentProjects.API.Controllers;
 public class CasesController(CaseService caseService, UserService userService) : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<CaseResponse>> PostAsync([FromBody] PostCase request)
+    public async Task<ActionResult<Case>> PostAsync([FromBody] PostCase request)
     {
         var user = await userService.GetAuthorizedUserAsync(User.Claims);
         var createdCase = await caseService.AddAsync(request.Name, request.Description, user);
@@ -21,7 +20,7 @@ public class CasesController(CaseService caseService, UserService userService) :
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<CaseResponse>>> GetAsync([FromQuery] CommonQuery request)
+    public async Task<ActionResult<ICollection<Case>>> GetAsync([FromQuery] CommonQuery request)
     {
         return Ok(await caseService.GetAsync(request.Offset, request.Limit));
     }
@@ -40,7 +39,7 @@ public class CasesController(CaseService caseService, UserService userService) :
     }
 
     [HttpGet("{caseId:guid}")]
-    public async Task<ActionResult<CaseResponse>> GetCaseAsync(Guid caseId)
+    public async Task<ActionResult<Case>> GetCaseAsync(Guid caseId)
     {
         throw new NotImplementedException();
     }
@@ -52,7 +51,7 @@ public class CasesController(CaseService caseService, UserService userService) :
     }
 
     [HttpGet("{caseId:guid}/reviews")]
-    public async Task<ActionResult<ICollection<ReviewDto>>> GetReviewsAsync(
+    public async Task<ActionResult<ICollection<Review>>> GetReviewsAsync(
         [FromRoute] Guid caseId,
         [FromQuery] CommonQuery request)
     {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using StudentProjects.API.Models.Request;
-using StudentProjects.API.Models.Response;
+using StudentProjects.ClientModels.Request;
+using StudentProjects.ClientModels.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -9,25 +9,25 @@ namespace StudentProjects.API.Controllers;
 public class TeamsController : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<TeamResponse>> PostAsync([FromBody] PostTeam request)
+    public async Task<ActionResult<Team>> PostAsync([FromBody] PostTeam request)
     {
         throw new NotImplementedException();
     }
 
     [HttpGet("{teamId:guid}")]
-    public async Task<ActionResult<TeamResponse>> GetAsync([FromRoute] Guid teamId)
+    public async Task<ActionResult<Team>> GetAsync([FromRoute] Guid teamId)
     {
         throw new NotImplementedException();    
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<TeamResponse>>> QueryAsync([FromBody] QueryTeams request)
+    public async Task<ActionResult<ICollection<Team>>> QueryAsync([FromBody] QueryTeams request)
     {
         throw new NotImplementedException();    
     }
 
     [HttpPatch("{teamId:guid}")]
-    public async Task<ActionResult<TeamResponse>> PatchTeamAsync([FromRoute] Guid teamId, [FromBody] PatchTeam request)
+    public async Task<ActionResult<Team>> PatchTeamAsync([FromRoute] Guid teamId, [FromBody] PatchTeam request)
     {
         throw new NotImplementedException();
     }

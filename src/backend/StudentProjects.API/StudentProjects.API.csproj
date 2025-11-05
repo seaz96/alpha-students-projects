@@ -23,6 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\StudentProjects.ClientModels\StudentProjects.ClientModels.csproj" />
       <ProjectReference Include="..\StudentProjects.DataLayer\StudentProjects.DataLayer.csproj" />
       <ProjectReference Include="..\StudentProjects.Domain\StudentProjects.Domain.csproj" />
     </ItemGroup>

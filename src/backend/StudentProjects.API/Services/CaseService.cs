@@ -1,16 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.API.Converters;
-using StudentProjects.API.Models.Response;
 using StudentProjects.Dal;
-using StudentProjects.Domain.Entities;
+using Case = StudentProjects.ClientModels.Response.Case;
+using User = StudentProjects.Domain.Entities.User;
 
 namespace StudentProjects.API.Services;
 
 public class CaseService(DataContext context)
 {
-    public async Task<CaseResponse> AddAsync(string name, string description, User author)
+    public async Task<Case> AddAsync(string name, string description, User author)
     {
-        var entity = new Case
+        var entity = new Domain.Entities.Case
         {
             Id = Guid.NewGuid(),
             AuthorId = author.Id,
@@ -23,7 +23,7 @@ public class CaseService(DataContext context)
         return entity.ToResponse();
     }
 
-    public async Task<IEnumerable<CaseResponse>> GetAsync(int offset, int limit)
+    public async Task<IEnumerable<Case>> GetAsync(int offset, int limit)
     {
         var cases = await context.Cases
             .Include(x => x.Reviews)
@@ -35,7 +35,7 @@ public class CaseService(DataContext context)
         return cases.Select(x => x.ToResponse());
     }
 
-    public async Task<CaseResponse?> GetAsync(Guid id)
+    public async Task<Case?> GetAsync(Guid id)
     {
         var @case = await context.Cases.FindAsync(id);
 

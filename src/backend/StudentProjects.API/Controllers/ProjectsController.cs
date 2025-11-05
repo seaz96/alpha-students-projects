@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using StudentProjects.API.Models.Request;
-using StudentProjects.API.Models.Response;
+using StudentProjects.ClientModels.Request;
+using StudentProjects.ClientModels.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -9,19 +9,19 @@ namespace StudentProjects.API.Controllers;
 public class ProjectsController : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<ProjectResponse>> PostAsync([FromBody] PostProject request)
+    public async Task<ActionResult<Project>> PostAsync([FromBody] PostProject request)
     {
         throw new NotImplementedException();
     }
 
     [HttpGet("{projectId:guid}")]
-    public async Task<ActionResult<ProjectResponse>> GetAsync([FromRoute] Guid projectId)
+    public async Task<ActionResult<Project>> GetAsync([FromRoute] Guid projectId)
     {
         throw new NotImplementedException();
     }
 
     [HttpPatch("{projectId:guid}")]
-    public async Task<ActionResult<ProjectResponse>> PatchAsync(
+    public async Task<ActionResult<Project>> PatchAsync(
         [FromRoute] Guid projectId,
         [FromBody] PatchProject request)
     {

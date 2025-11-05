@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using StudentProjects.API.Models.Request;
-using StudentProjects.API.Models.Response;
+using StudentProjects.ClientModels.Request;
+using StudentProjects.ClientModels.Response;
 
 namespace StudentProjects.API.Controllers;
 
@@ -9,19 +9,19 @@ namespace StudentProjects.API.Controllers;
 public class TodosController : ControllerBase
 {
     [HttpPost]
-    public async Task<ActionResult<TodoResponse>> PostAsync([FromBody] PostTodo request)
+    public async Task<ActionResult<Todo>> PostAsync([FromBody] PostTodo request)
     {
         throw new NotImplementedException();
     }
     
     [HttpGet("{todoId:guid}")]
-    public async Task<ActionResult<TodoResponse>> GetByIdAsync([FromRoute] Guid todoId)
+    public async Task<ActionResult<Todo>> GetByIdAsync([FromRoute] Guid todoId)
     {
         throw new NotImplementedException();
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<TodoResponse>>> GetAsync([FromQuery] Guid meetingId)
+    public async Task<ActionResult<ICollection<Todo>>> GetAsync([FromQuery] Guid meetingId)
     {
         throw new NotImplementedException();
     }

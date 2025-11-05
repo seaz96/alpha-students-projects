@@ -1,13 +1,12 @@
-using StudentProjects.API.Models.Response;
-using StudentProjects.Domain.Entities;
+using Case = StudentProjects.ClientModels.Response.Case;
 
 namespace StudentProjects.API.Converters;
 
 public static class CaseConverter
 {
-    public static CaseResponse ToResponse(this Case entity, int? likes = null, int? dislikes = null)
+    public static Case ToResponse(this Domain.Entities.Case entity, int? likes = null, int? dislikes = null)
     {
-        return new CaseResponse(
+        return new Case(
             entity.Id,
             entity.Name ?? "",
             entity.Description ?? "",
