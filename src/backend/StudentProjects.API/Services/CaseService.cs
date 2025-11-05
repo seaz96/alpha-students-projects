@@ -37,9 +37,9 @@ public class CaseService(DataContext context)
 
     public async Task<Case?> GetAsync(Guid id)
     {
-        var @case = await context.Cases.FindAsync(id);
+        var entity = await context.Cases.FindAsync(id);
 
-        return @case?.ToResponse();
+        return entity?.ToResponse();
     }
 
     public async Task DeleteAsync(Guid id)
