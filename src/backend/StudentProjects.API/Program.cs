@@ -50,7 +50,6 @@ app.MigrateDatabase();
 app.UseExceptionToErrorMiddleware();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
-//todo: я хочу мидлвару с приведением всех ошибок в свой собственный формат
 app.MapScalarApiReference(options => options.AddServer(app.Configuration.GetValue<string>("DOCUMENTATION_SERVER")!));
 app.UseCors("AllowAll");
 app.UseHttpsRedirection();

@@ -13,7 +13,8 @@ public class CaseRepository(DataContext context) : BaseRepository<Case>(context)
             .Include(x => x.Reviews)
             .Where(x => type == null || x.Type == type)
             .Skip(offset)
-            .Take(limit).ToListAsync();
+            .Take(limit)
+            .ToListAsync();
     }
 
     public override async Task<Case?> GetByIdAsync(Guid id)
