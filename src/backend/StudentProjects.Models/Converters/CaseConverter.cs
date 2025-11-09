@@ -13,6 +13,7 @@ public static class CaseConverter
             entity.Author.ToDto(),
             entity.CreatedAt,
             likes ?? 0,
-            dislikes ?? 0);
+            dislikes ?? 0,
+            entity.Status);
     }
 }

@@ -1,3 +1,5 @@
+using StudentProjects.Domain.Enums;
+
 namespace StudentProjects.Models.Response;
 
 public record Case(
@@ -7,4 +9,5 @@ public record Case(
     User Author,
     DateTime CreatedAt,
     int Likes,
-    int Dislikes);
+    int Dislikes,
+    CaseStatus Status);
