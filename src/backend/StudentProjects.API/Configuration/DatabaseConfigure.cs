@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using StudentProjects.Dal;
+using StudentProjects.DataLayer;
+using StudentProjects.DataLayer.Repositories;
 
 namespace StudentProjects.API.Configuration;
 
@@ -7,6 +8,11 @@ public static class DatabaseConfigure
 {
     public static void ConfigureDataServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddTransient<UserRepository>();
+        services.AddTransient<CaseRepository>();
+        services.AddTransient<ReviewsRepository>();
+
+
         var dbHost = configuration.GetValue<string>("DATABASE_HOST");
         var dbPassword = configuration.GetValue<string>("DATABASE_PASSWORD");
         var dbName = configuration.GetValue<string>("DATABASE_NAME");
@@ -16,7 +22,7 @@ public static class DatabaseConfigure
         services.AddDbContext<DataContext>(options =>
         {
             options.UseNpgsql($"Port={dbPort}; Database={dbName}; Username={dbUser}; Host={dbHost}; Password={dbPassword};");
-        }, ServiceLifetime.Transient);
+        });
     }
 
     public static void MigrateDatabase(this WebApplication app)

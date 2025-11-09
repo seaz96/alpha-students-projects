@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudentProjects.API.Data;
-using StudentProjects.Dal;
+using StudentProjects.DataLayer;
+using StudentProjects.DataLayer;
 
 #nullable disable
 

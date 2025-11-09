@@ -1,8 +1,7 @@
 namespace StudentProjects.Domain.Entities;
 
-public class Student
+public class Student : BaseEntity
 {
-    public required Guid Id { get; set; }
     //todo: normalize
     public required string Name { get; set; }
     public string? Phone { get; set; }

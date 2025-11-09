@@ -1,7 +1,6 @@
 namespace StudentProjects.Domain.Entities;
 
-public class StudentPosition
+public class StudentPosition : BaseEntity
 {
-    public required Guid Id { get; set; }
     public required string Name { get; set; }
 }

@@ -13,8 +13,8 @@ AuthOptions.Initialize(builder.Configuration);
 builder.Host.UseSerilog((_, lc) => lc.GetConfiguration());
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
-builder.Services.AddLoggerServices();
 builder.Services.ConfigureDataServices(builder.Configuration);
+builder.Services.ConfigureApplicationServices();
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

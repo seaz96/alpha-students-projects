@@ -5,11 +5,6 @@ namespace StudentProjects.API.Utility;
 
 public static class SerilogHelper
 {
-    public static void AddLoggerServices(this IServiceCollection services)
-    {
-        services.AddSingleton(Log.Logger);
-    }
-
     public static void GetConfiguration(this LoggerConfiguration loggerConfiguration)
     {
         const string logFormat =

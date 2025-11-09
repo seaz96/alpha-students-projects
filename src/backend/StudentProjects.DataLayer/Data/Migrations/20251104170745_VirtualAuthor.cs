@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace StudentProjects.Dal.Data.Migrations
+namespace StudentProjects.DataLayer.Data.Migrations
 {
     /// <inheritdoc />
     public partial class VirtualAuthor : Migration

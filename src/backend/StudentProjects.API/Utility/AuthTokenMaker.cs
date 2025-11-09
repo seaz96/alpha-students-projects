@@ -2,16 +2,16 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using StudentProjects.API.Configuration;
-using StudentProjects.Domain.Entities;
+using StudentProjects.Models.Response;
 
 namespace StudentProjects.API.Utility;
 
 public class AuthTokenMaker
 {
-    public static string GetAuthToken(User user)
+    public static string GetAuthToken(UserAccount userAccount)
     {
-        var userId = user.Id.ToString();
-        var role = user.Role.ToString();
+        var userId = userAccount.Id.ToString();
+        var role = userAccount.Role.ToString();
 
         var claims = new List<Claim>
         {

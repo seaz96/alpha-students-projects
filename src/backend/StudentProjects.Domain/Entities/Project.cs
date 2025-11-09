@@ -2,9 +2,8 @@ using StudentProjects.Domain.Enums;
 
 namespace StudentProjects.Domain.Entities;
 
-public class Project
+public class Project : BaseEntity
 {
-    public required Guid Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public ProjectStatus Status { get; set; }

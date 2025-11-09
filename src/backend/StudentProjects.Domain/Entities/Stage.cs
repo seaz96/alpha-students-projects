@@ -1,8 +1,7 @@
 namespace StudentProjects.Domain.Entities;
 
-public class Stage
+public class Stage : BaseEntity
 {
-    public required Guid Id { get; set; }
     public required Guid TeamId { get; set; }
     public string? Name { get; set; }
     public DateTime StartDate { get; set; }

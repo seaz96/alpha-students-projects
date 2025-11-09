@@ -2,9 +2,8 @@ using StudentProjects.Domain.Enums;
 
 namespace StudentProjects.Domain.Entities;
 
-public class User
+public class User : BaseEntity
 {
-    public required Guid Id { get; set; }
     public required string Email { get; set; }
     public required string PasswordHash { get; set; }
     public string? FirstName { get; set; }

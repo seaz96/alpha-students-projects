@@ -1,8 +1,7 @@
 namespace StudentProjects.Domain.Entities;
 
-public class Meeting
+public class Meeting : BaseEntity
 {
-    public required Guid Id { get; set; }
     public string? Name { get; set; }
     public DateTime Date { get; set; }
     public string? Summary { get; set; }

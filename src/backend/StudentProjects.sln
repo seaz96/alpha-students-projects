@@ -15,7 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentProjects.Domain", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentProjects.DataLayer", "StudentProjects.DataLayer\StudentProjects.DataLayer.csproj", "{E57CE40B-81DE-41F2-B7EA-8D5ECC48107C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentProjects.ClientModels", "StudentProjects.ClientModels\StudentProjects.ClientModels.csproj", "{2B7FC4E1-9F96-4BDC-BDBC-0E60764BD071}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentProjects.Models", "StudentProjects.Models\StudentProjects.Models.csproj", "{2B7FC4E1-9F96-4BDC-BDBC-0E60764BD071}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentProjects.Application", "StudentProjects.Application\StudentProjects.Application.csproj", "{4861BCBC-49A8-458D-8147-7DFE6BFDDB4F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,5 +41,9 @@ Global
 		{2B7FC4E1-9F96-4BDC-BDBC-0E60764BD071}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B7FC4E1-9F96-4BDC-BDBC-0E60764BD071}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B7FC4E1-9F96-4BDC-BDBC-0E60764BD071}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4861BCBC-49A8-458D-8147-7DFE6BFDDB4F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4861BCBC-49A8-458D-8147-7DFE6BFDDB4F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4861BCBC-49A8-458D-8147-7DFE6BFDDB4F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4861BCBC-49A8-458D-8147-7DFE6BFDDB4F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

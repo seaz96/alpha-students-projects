@@ -1,5 +1,5 @@
 using System.Security.Claims;
-using StudentProjects.API.Exceptions;
+using StudentProjects.Models.Exceptions;
 
 namespace StudentProjects.API.Utility;
 

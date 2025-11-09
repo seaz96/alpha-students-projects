@@ -1,8 +1,7 @@
 namespace StudentProjects.Domain.Entities;
 
-public class Case
+public class Case : BaseEntity
 {
-    public required Guid Id { get; set; }
     public string? Name { get; set; }
     public string? Description { get; set; }
     public Guid AuthorId { get; set; }
