@@ -19,7 +19,8 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
             AuthorId = author.Id,
             Name = request.Name,
             Description = request.Description,
-            CreatedAt = DateTime.UtcNow
+            CreatedAt = DateTime.UtcNow,
+            Status = CaseStatus.Request
         };
         await caseRepository.AddAsync(entity);
         return await GetAsync(entity.Id);
@@ -46,9 +47,9 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
         return entity.ToResponse();
     }
 
-    public async Task<IEnumerable<Case>> GetAsync(CommonQuery request)
+    public async Task<IEnumerable<Case>> GetAsync(QueryCases request)
     {
-        var cases = await caseRepository.QueryAsync(request.Offset, request.Limit);
+        var cases = await caseRepository.QueryAsync(request.Offset, request.Limit, request.Status);
         return cases.Select(x => x.ToResponse());
     }
 
