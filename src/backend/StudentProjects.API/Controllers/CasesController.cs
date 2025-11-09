@@ -8,16 +8,29 @@ using StudentProjects.Models.Response;
 namespace StudentProjects.API.Controllers;
 
 [ApiController, Route("v1/cases")]
-public class CasesController(
-    CaseService caseService,
-    ReviewsService reviewsService)
-    : ControllerBase
+public class CasesController(CaseService caseService, ReviewsService reviewsService) : ControllerBase
 {
-    [HttpPost]
+    [HttpPost]  
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<Case>> PostAsync([FromBody] PostCase request)
     {
         return Ok(await caseService.AddAsync(request));
+    }
+
+    [HttpPatch("{caseId:guid}")]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Case>> PatchAsync([FromRoute] Guid caseId, [FromBody] PatchCase request)
+    {
+        return Ok(await caseService.PatchAsync(caseId, request));
+    }
+
+    [HttpPut("{caseId:guid}/status")]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Case>> ChangeStatusAsync([FromRoute] Guid caseId, [FromBody] ChangeCaseStatus request)
+    {
+        return Ok(await caseService.UpdateStatusAsync(caseId, request.Status));
     }
 
     [HttpGet]

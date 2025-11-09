@@ -1,5 +1,7 @@
 using StudentProjects.DataLayer.Repositories;
+using StudentProjects.Domain.Enums;
 using StudentProjects.Models.Converters;
+using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
 using Case = StudentProjects.Models.Response.Case;
 
@@ -21,6 +23,27 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
         };
         await caseRepository.AddAsync(entity);
         return await GetAsync(entity.Id);
+    }
+
+    public async Task<Case?> PatchAsync(Guid id, PatchCase request)
+    {
+        var entity = await caseRepository.GetByIdAsync(id);
+        if (entity is null)
+            throw new CaseNotFoundException();
+        entity.Name = request.Name;
+        entity.Description = request.Description;
+        await caseRepository.UpdateAsync(entity);
+        return entity.ToResponse();
+    }
+
+    public async Task<Case?> UpdateStatusAsync(Guid id, CaseStatus status)
+    {
+        var entity = await caseRepository.GetByIdAsync(id);
+        if (entity is null)
+            throw new CaseNotFoundException();
+        entity.Status = status;
+        await caseRepository.UpdateAsync(entity);
+        return entity.ToResponse();
     }
 
     public async Task<IEnumerable<Case>> GetAsync(CommonQuery request)
