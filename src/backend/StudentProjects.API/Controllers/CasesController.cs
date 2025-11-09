@@ -25,12 +25,12 @@ public class CasesController(CaseService caseService, ReviewsService reviewsServ
         return Ok(await caseService.PatchAsync(caseId, request));
     }
 
-    [HttpPut("{caseId:guid}/status")]
+    [HttpPut("{caseId:guid}/type")]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<Case>> ChangeStatusAsync([FromRoute] Guid caseId, [FromBody] ChangeCaseStatus request)
+    public async Task<ActionResult<Case>> ChangeTypeAsync([FromRoute] Guid caseId, [FromBody] ChangeCaseType request)
     {
-        return Ok(await caseService.UpdateStatusAsync(caseId, request.Status));
+        return Ok(await caseService.UpdateStatusAsync(caseId, request.Type));
     }
 
     [HttpGet]

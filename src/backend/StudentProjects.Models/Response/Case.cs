@@ -10,4 +10,4 @@ public record Case(
     DateTime CreatedAt,
     int Likes,
     int Dislikes,
-    CaseStatus Status);
+    CaseType Type);

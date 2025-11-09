@@ -4,7 +4,7 @@ namespace StudentProjects.Models.Converters;
 
 public static class CaseConverter
 {
-    public static Case ToResponse(this Domain.Entities.Case entity, int? likes = null, int? dislikes = null)
+    public static Case ToResponse(this Domain.Entities.Case entity)
     {
         return new Case(
             entity.Id,
@@ -12,8 +12,8 @@ public static class CaseConverter
             entity.Description ?? "",
             entity.Author.ToDto(),
             entity.CreatedAt,
-            likes ?? 0,
-            dislikes ?? 0,
-            entity.Status);
+            entity.Reviews.Count(x => !x.Dislike),
+            entity.Reviews.Count(x => x.Dislike),
+            entity.Type);
     }
 }

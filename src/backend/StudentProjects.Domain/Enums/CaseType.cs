@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 namespace StudentProjects.Domain.Enums;
 
 [JsonConverter(typeof(JsonStringEnumConverter))]
-public enum CaseStatus
+public enum CaseType
 {
     Unknown = 0,
     Request = 1,

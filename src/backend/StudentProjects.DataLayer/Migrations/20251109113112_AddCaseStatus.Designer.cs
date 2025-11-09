@@ -12,8 +12,8 @@ using StudentProjects.DataLayer;
 namespace StudentProjects.DataLayer.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20251109113112_AddCaseStatus")]
-    partial class AddCaseStatus
+    [Migration("20251109113112_AddCaseType")]
+    partial class AddCaseType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,7 +43,7 @@ namespace StudentProjects.DataLayer.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<int>("Status")
+                    b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

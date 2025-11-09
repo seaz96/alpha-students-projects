@@ -6,11 +6,12 @@ namespace StudentProjects.DataLayer.Repositories;
 
 public class CaseRepository(DataContext context) : BaseRepository<Case>(context)
 {
-    public async Task<List<Case>> QueryAsync(int offset, int limit, CaseStatus? status)
+    public async Task<List<Case>> QueryAsync(int offset, int limit, CaseType? type)
     {
         return await DataContext.Cases
             .Include(c => c.Author)
-            .Where(x => status == null || x.Status == status)
+            .Include(x => x.Reviews)
+            .Where(x => type == null || x.Type == type)
             .Skip(offset)
             .Take(limit).ToListAsync();
     }

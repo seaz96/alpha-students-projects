@@ -20,7 +20,7 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
             Name = request.Name,
             Description = request.Description,
             CreatedAt = DateTime.UtcNow,
-            Status = CaseStatus.Request
+            Type = CaseType.Request
         };
         await caseRepository.AddAsync(entity);
         return await GetAsync(entity.Id);
@@ -42,19 +42,19 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
         return entity.ToResponse();
     }
 
-    public async Task<Case?> UpdateStatusAsync(Guid id, CaseStatus status)
+    public async Task<Case?> UpdateStatusAsync(Guid id, CaseType type)
     {
         var entity = await caseRepository.GetByIdAsync(id);
         if (entity is null)
             throw new CaseNotFoundException();
-        entity.Status = status;
+        entity.Type = type;
         await caseRepository.UpdateAsync(entity);
         return entity.ToResponse();
     }
 
     public async Task<IEnumerable<Case>> GetAsync(QueryCases request)
     {
-        var cases = await caseRepository.QueryAsync(request.Offset, request.Limit, request.Status);
+        var cases = await caseRepository.QueryAsync(request.Offset, request.Limit, request.Type);
         return cases.Select(x => x.ToResponse());
     }
 

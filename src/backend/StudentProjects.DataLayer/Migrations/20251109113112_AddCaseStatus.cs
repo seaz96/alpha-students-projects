@@ -5,13 +5,13 @@
 namespace StudentProjects.DataLayer.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class AddCaseStatus : Migration
+    public partial class AddCaseType : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<int>(
-                name: "Status",
+                name: "Type",
                 table: "Cases",
                 type: "integer",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace StudentProjects.DataLayer.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Status",
+                name: "Type",
                 table: "Cases");
         }
     }
