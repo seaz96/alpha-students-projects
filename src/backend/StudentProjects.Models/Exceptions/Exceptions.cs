@@ -22,3 +22,6 @@ public class ReviewNotFoundException(string message = "Review with specified id 
 
 public class ProjectNotFoundException(string message = "Project with specified id not found.")
     : ApiException("urn:error:project-not-found", HttpStatusCode.NotFound, message);
+
+public class TeamNotFoundException(string message = "Team with specified id not found.")
+    : ApiException("urn:error:team-not-found", HttpStatusCode.NotFound, message);

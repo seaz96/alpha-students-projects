@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.Application.Services;
 using StudentProjects.Models.Request;
 using StudentProjects.Models.Response;
 
@@ -6,18 +7,18 @@ namespace StudentProjects.API.Controllers;
 
 [ApiController]
 [Route("v1/teams")]
-public class TeamsController : ControllerBase
+public class TeamsController(TeamsService teamsService) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<Team>> PostAsync([FromBody] PostTeam request)
     {
-        throw new NotImplementedException();
+        return Ok(await teamsService.CreateAsync(request));
     }
 
     [HttpGet("{teamId:guid}")]
     public async Task<ActionResult<Team>> GetAsync([FromRoute] Guid teamId)
     {
-        throw new NotImplementedException();    
+        return Ok(await teamsService.GetAsync(teamId));
     }
 
     [HttpGet]

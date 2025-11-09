@@ -1,3 +1,3 @@
 namespace StudentProjects.Models.Request;
 
-public record PostTeam(Guid ProjectId, string? Name, string? TeamprojectLink);
+public record PostTeam(Guid ProjectId, string? Name, string? Description, string? TeamprojectLink);
