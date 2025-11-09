@@ -28,9 +28,14 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
 
     public async Task<Case?> PatchAsync(Guid id, PatchCase request)
     {
+        var user = await userService.GetAuthorizedUserDtoAsync();
         var entity = await caseRepository.GetByIdAsync(id);
+
         if (entity is null)
             throw new CaseNotFoundException();
+        if (entity.AuthorId != user.Id)
+            throw new ForbiddenException();
+
         entity.Name = request.Name;
         entity.Description = request.Description;
         await caseRepository.UpdateAsync(entity);
