@@ -54,7 +54,7 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
 
     public async Task<UserAccount> UpdateUserRoleAsync(Guid userId, UserRole role)
     {
-        var user = await userRepository.GetByIdAsync(userId);
+        var user = await userRepository.FindTrackedAsync(userId);
         if (user is null)
             throw new UserNotFoundException();
         user.Role = role;
@@ -82,7 +82,7 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
     {
         if (!Guid.TryParse(contextAccessor.HttpContext!.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out var userId))
             throw new UnauthorizedException("User identifier not specified.");
-        var user = await userRepository.GetByIdAsync(userId);
+        var user = await userRepository.FindTrackedAsync(userId);
         return user ?? throw new UnauthorizedException("User with specified identifier not found.");
     }
 }

@@ -8,7 +8,7 @@ using StudentProjects.DataLayer;
 
 #nullable disable
 
-namespace StudentProjects.API.Data.Migrations
+namespace StudentProjects.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
     partial class DataContextModelSnapshot : ModelSnapshot
@@ -204,8 +204,13 @@ namespace StudentProjects.API.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MiddleName")
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
@@ -244,6 +249,9 @@ namespace StudentProjects.API.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");

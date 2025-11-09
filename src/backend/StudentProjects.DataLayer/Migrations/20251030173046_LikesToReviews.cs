@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace StudentProjects.API.Data.Migrations
+namespace StudentProjects.DataLayer.Migrations
 {
     /// <inheritdoc />
     public partial class LikesToReviews : Migration

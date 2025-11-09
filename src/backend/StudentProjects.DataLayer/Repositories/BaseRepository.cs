@@ -7,7 +7,7 @@ public class BaseRepository<T>(DataContext context) where T : BaseEntity
 {
     protected readonly DataContext DataContext = context;
 
-    public virtual async Task<T?> GetByIdAsync(Guid id)
+    public virtual async Task<T?> FindTrackedAsync(Guid id)
     {
         return await DataContext.Set<T>().FindAsync(id);
     }

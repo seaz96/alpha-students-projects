@@ -6,15 +6,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using StudentProjects.DataLayer;
-using StudentProjects.DataLayer;
 
 #nullable disable
 
-namespace StudentProjects.DataLayer.Migrations
+namespace StudentProjects.DataLayer.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20251028180619_Initial")]
-    partial class Initial
+    [Migration("20251109142550_ProjectDescription")]
+    partial class ProjectDescription
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,30 +43,14 @@ namespace StudentProjects.DataLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("AuthorId");
+
                     b.ToTable("Cases");
-                });
-
-            modelBuilder.Entity("StudentProjects.Domain.Entities.Like", b =>
-                {
-                    b.Property<Guid>("CaseId")
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Comment")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("Dislike")
-                        .HasColumnType("boolean");
-
-                    b.HasKey("CaseId", "UserId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
@@ -157,6 +140,27 @@ namespace StudentProjects.DataLayer.Migrations
                     b.ToTable("ResultMetas");
                 });
 
+            modelBuilder.Entity("StudentProjects.Domain.Entities.Review", b =>
+                {
+                    b.Property<Guid>("CaseId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("Dislike")
+                        .HasColumnType("boolean");
+
+                    b.HasKey("CaseId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+                });
+
             modelBuilder.Entity("StudentProjects.Domain.Entities.Stage", b =>
                 {
                     b.Property<Guid>("Id")
@@ -203,8 +207,13 @@ namespace StudentProjects.DataLayer.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("MiddleName")
                         .HasColumnType("text");
 
                     b.Property<string>("Phone")
@@ -243,6 +252,9 @@ namespace StudentProjects.DataLayer.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -341,23 +353,15 @@ namespace StudentProjects.DataLayer.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("StudentProjects.Domain.Entities.Like", b =>
+            modelBuilder.Entity("StudentProjects.Domain.Entities.Case", b =>
                 {
-                    b.HasOne("StudentProjects.Domain.Entities.Case", "Case")
-                        .WithMany("Likes")
-                        .HasForeignKey("CaseId")
+                    b.HasOne("StudentProjects.Domain.Entities.User", "Author")
+                        .WithMany("Cases")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudentProjects.Domain.Entities.User", "User")
-                        .WithMany("Likes")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Case");
-
-                    b.Navigation("User");
+                    b.Navigation("Author");
                 });
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
@@ -391,6 +395,25 @@ namespace StudentProjects.DataLayer.Migrations
                         .IsRequired();
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("StudentProjects.Domain.Entities.Review", b =>
+                {
+                    b.HasOne("StudentProjects.Domain.Entities.Case", "Case")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CaseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentProjects.Domain.Entities.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Case");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Stage", b =>
@@ -470,7 +493,7 @@ namespace StudentProjects.DataLayer.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Case", b =>
                 {
-                    b.Navigation("Likes");
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.Meeting", b =>
@@ -506,9 +529,11 @@ namespace StudentProjects.DataLayer.Migrations
 
             modelBuilder.Entity("StudentProjects.Domain.Entities.User", b =>
                 {
-                    b.Navigation("Likes");
+                    b.Navigation("Cases");
 
                     b.Navigation("Projects");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

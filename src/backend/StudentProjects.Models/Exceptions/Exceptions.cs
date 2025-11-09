@@ -19,3 +19,6 @@ public class CaseNotFoundException(string message = "Case with specified id not 
 
 public class ReviewNotFoundException(string message = "Review with specified id not found.")
     : ApiException("urn:error:review-not-found", HttpStatusCode.NotFound, message);
+
+public class ProjectNotFoundException(string message = "Project with specified id not found.")
+    : ApiException("urn:error:project-not-found", HttpStatusCode.NotFound, message);

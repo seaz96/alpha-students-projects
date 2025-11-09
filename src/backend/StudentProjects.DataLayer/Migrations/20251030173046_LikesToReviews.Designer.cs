@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using StudentProjects.API.Data;
 using StudentProjects.DataLayer;
 using StudentProjects.DataLayer;
 
 #nullable disable
 
-namespace StudentProjects.API.Data.Migrations
+namespace StudentProjects.DataLayer.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20251030173046_LikesToReviews")]

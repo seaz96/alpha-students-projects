@@ -29,7 +29,7 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
     public async Task<Case?> PatchAsync(Guid id, PatchCase request)
     {
         var user = await userService.GetAuthorizedUserDtoAsync();
-        var entity = await caseRepository.GetByIdAsync(id);
+        var entity = await caseRepository.FindTrackedAsync(id);
 
         if (entity is null)
             throw new CaseNotFoundException();
@@ -44,7 +44,7 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
 
     public async Task<Case?> UpdateStatusAsync(Guid id, CaseType type)
     {
-        var entity = await caseRepository.GetByIdAsync(id);
+        var entity = await caseRepository.FindTrackedAsync(id);
         if (entity is null)
             throw new CaseNotFoundException();
         entity.Type = type;
@@ -60,7 +60,7 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
 
     public async Task<Case?> GetAsync(Guid id)
     {
-        var entity = await caseRepository.GetByIdAsync(id);
+        var entity = await caseRepository.FindTrackedAsync(id);
         return entity?.ToResponse();
     }
 

@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.Application.Services;
+using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
 using StudentProjects.Models.Response;
 
@@ -6,25 +8,34 @@ namespace StudentProjects.API.Controllers;
 
 [ApiController]
 [Route("v1/projects")]
-public class ProjectsController : ControllerBase
+public class ProjectsController(ProjectsService projectsService) : ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Project>> PostAsync([FromBody] PostProject request)
     {
-        throw new NotImplementedException();
+        return Ok(await projectsService.PostAsync(request));
     }
 
     [HttpGet("{projectId:guid}")]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Project>> GetAsync([FromRoute] Guid projectId)
     {
-        throw new NotImplementedException();
+        return Ok(await projectsService.GetAsync(projectId));
     }
 
     [HttpPatch("{projectId:guid}")]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<Project>> PatchAsync(
         [FromRoute] Guid projectId,
         [FromBody] PatchProject request)
     {
-        throw new NotImplementedException();
+        return Ok(await projectsService.UpdateAsync(projectId, request));
     }
 }

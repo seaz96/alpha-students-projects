@@ -17,7 +17,7 @@ public class CaseRepository(DataContext context) : BaseRepository<Case>(context)
             .ToListAsync();
     }
 
-    public override async Task<Case?> GetByIdAsync(Guid id)
+    public override async Task<Case?> FindTrackedAsync(Guid id)
     {
         return await DataContext.Cases
             .Include(x => x.Reviews)
