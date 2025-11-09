@@ -2,6 +2,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using StudentProjects.DataLayer.Repositories;
 using StudentProjects.Domain.Enums;
+using StudentProjects.Models;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;

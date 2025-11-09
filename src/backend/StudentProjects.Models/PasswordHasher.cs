@@ -1,7 +1,7 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace StudentProjects.Application;
+namespace StudentProjects.Models;
 
 //note(azanov.n): actually this is Microsoft.AspNetCore.Identity.PasswordHasher<TUser>
 public static class PasswordHasher
