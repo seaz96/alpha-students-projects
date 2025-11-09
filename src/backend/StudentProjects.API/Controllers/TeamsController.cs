@@ -33,7 +33,7 @@ public class TeamsController : ControllerBase
     }
 
     [HttpPatch("{teamId:guid}/students")]
-    public async Task<IActionResult> PatchStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudent request)
+    public async Task<IActionResult> PatchStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudents request)
     {
         throw new NotImplementedException();
     }
@@ -43,20 +43,20 @@ public class TeamsController : ControllerBase
     {
         throw new NotImplementedException();
     }
-    
+
     //todo: this and lower
     [HttpPost("{teamId:guid}/folders")]
     public async Task<IActionResult> PostTeamFolderAsync(Guid teamId)
     {
         throw new NotImplementedException();
     }
-    
+
     [HttpPost("{teamId:guid}/folders/{folderId:guid}")]
     public async Task<IActionResult> GetTeamFolderAsync(Guid teamId, Guid folderId)
     {
         throw new NotImplementedException();
     }
-    
+
     [HttpPost("{teamId:guid}/files")]
     public async Task<IActionResult> PostTeamFileAsync(Guid teamId)
     {
