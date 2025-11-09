@@ -12,13 +12,6 @@ namespace StudentProjects.DataLayer.Data.Migrations
         {
             migrationBuilder.AddColumn<int>(
                 name: "Status",
-                table: "Projects",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
-
-            migrationBuilder.AddColumn<int>(
-                name: "Status",
                 table: "Cases",
                 type: "integer",
                 nullable: false,
@@ -28,10 +21,6 @@ namespace StudentProjects.DataLayer.Data.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Status",
-                table: "Projects");
-
             migrationBuilder.DropColumn(
                 name: "Status",
                 table: "Cases");
