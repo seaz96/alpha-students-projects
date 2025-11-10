@@ -29,9 +29,9 @@ public class BaseRepository<T>(DataContext context) where T : BaseEntity
         await DataContext.SaveChangesAsync();
     }
 
-    public async Task DeleteByIdAsync(Guid id)
+    public async Task DeleteAsync(T entity)
     {
-        await DataContext.Set<T>().Where(x => x.Id == id).ExecuteDeleteAsync();
+        DataContext.Set<T>().Remove(entity);
         await DataContext.SaveChangesAsync();
     }
 }

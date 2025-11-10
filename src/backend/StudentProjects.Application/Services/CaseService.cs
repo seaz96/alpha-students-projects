@@ -64,8 +64,12 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
         return entity?.ToResponse();
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task<Case> DeleteAsync(Guid id)
     {
-        await caseRepository.DeleteByIdAsync(id);
+        var entity = await caseRepository.FindTrackedAsync(id);
+        if (entity is null)
+            throw new CaseNotFoundException();
+        await caseRepository.DeleteAsync(entity);
+        return entity.ToResponse();
     }
 }

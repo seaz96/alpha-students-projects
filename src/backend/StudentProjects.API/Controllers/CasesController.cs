@@ -42,10 +42,9 @@ public class CasesController(CaseService caseService, ReviewsService reviewsServ
 
     [HttpDelete("{caseId:guid}")]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult> DeleteAsync(Guid caseId)
+    public async Task<ActionResult<Case>> DeleteAsync(Guid caseId)
     {
-        await caseService.DeleteAsync(caseId);
-        return Ok();
+        return Ok(await caseService.DeleteAsync(caseId));
     }
 
     [HttpGet("{caseId:guid}")]
