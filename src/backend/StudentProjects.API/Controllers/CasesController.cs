@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.API.Utility;
 using StudentProjects.Application.Services;
@@ -7,7 +8,9 @@ using StudentProjects.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
-[ApiController, Route("v1/cases")]
+[Authorize]
+[ApiController]
+[Route("v1/cases")]
 public class CasesController(CaseService caseService, ReviewsService reviewsService) : ControllerBase
 {
     [HttpPost]  

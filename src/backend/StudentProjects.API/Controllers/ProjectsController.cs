@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.Application.Services;
 using StudentProjects.Models.Exceptions;
@@ -6,6 +7,7 @@ using StudentProjects.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("v1/projects")]
 public class ProjectsController(ProjectsService projectsService) : ControllerBase
