@@ -7,6 +7,8 @@ FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 COPY ["StudentProjects.API/StudentProjects.API.csproj", "StudentProjects.API/"]
 COPY ["StudentProjects.Domain/StudentProjects.Domain.csproj", "StudentProjects.Domain/"]
+COPY ["StudentProjects.Models/StudentProjects.Models.csproj", "StudentProjects.Models/"]
+COPY ["StudentProjects.Application/StudentProjects.Application.csproj", "StudentProjects.Application/"]
 COPY ["StudentProjects.DataLayer/StudentProjects.DataLayer.csproj", "StudentProjects.DataLayer/"]
 RUN dotnet restore "StudentProjects.API/StudentProjects.API.csproj"
 COPY . .
