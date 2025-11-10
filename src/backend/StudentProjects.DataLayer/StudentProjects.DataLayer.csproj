@@ -8,22 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.EntityFrameworkCore">
-        <HintPath>..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore\9.0.10\lib\net8.0\Microsoft.EntityFrameworkCore.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.EntityFrameworkCore.Abstractions">
-        <HintPath>..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore.abstractions\9.0.10\lib\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.EntityFrameworkCore.Relational">
-        <HintPath>..\..\..\..\..\.nuget\packages\microsoft.entityframeworkcore.relational\9.0.10\lib\net8.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
-      </Reference>
-      <Reference Include="Npgsql.EntityFrameworkCore.PostgreSQL">
-        <HintPath>..\..\..\..\..\.nuget\packages\npgsql.entityframeworkcore.postgresql\9.0.4\lib\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll</HintPath>
-      </Reference>
+      <ProjectReference Include="..\StudentProjects.Domain\StudentProjects.Domain.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\StudentProjects.Domain\StudentProjects.Domain.csproj" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.10" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
 
 </Project>

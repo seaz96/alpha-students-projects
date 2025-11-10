@@ -12,9 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation">
-        <HintPath>..\..\..\..\..\.nuget\packages\microsoft.aspnetcore.app.ref\9.0.9\ref\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll</HintPath>
-      </Reference>
+      <PackageReference Include="Microsoft.AspNetCore.Cryptography.KeyDerivation" Version="9.0.10" />
     </ItemGroup>
 
 </Project>
