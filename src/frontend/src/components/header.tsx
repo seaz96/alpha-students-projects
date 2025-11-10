@@ -2,11 +2,17 @@ import { Link } from "react-router";
 import { Button } from "./ui/button";
 import { ButtonGroup } from "./ui/button-group";
 import { useAppSelector } from "@/app/hooks";
-import { selectIsAuthenticated } from "@/features/users/usersSlice";
+import {
+  selectAuthStatus,
+  selectIsAuthenticated,
+} from "@/features/users/usersSlice";
 import AlfaLogo from "@/assets/alfa-logo";
 
 export default function Header() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
+  const authStatus = useAppSelector(selectAuthStatus);
+
+  if (authStatus !== "succeeded") return null;
 
   return (
     <header className="bg-background sticky top-0">

@@ -20,14 +20,14 @@ import {
 } from "@/features/users/usersApi";
 
 const crediantialsSchema = z.object({
-  email: z.email(),
+  email: z.email({ error: "Введите корректный email" }),
   password: z
     .string()
     .min(8, { error: "Пароль должен быть длиннее 8 символов" }),
 });
 
 export default function SignIn() {
-  const [login, { isSuccess: isSuccessLogin }] = useLoginMutation();
+  const [login, { isSuccess: isSuccessLogin, isError }] = useLoginMutation();
   const [register, { isSuccess: isSuccessRegister }] = useRegisterMutation();
   const navigate = useNavigate();
 
@@ -109,12 +109,17 @@ export default function SignIn() {
                     </FormItem>
                   )}
                 />
+                {isError && (
+                  <p className="text-destructive text-sm">
+                    Неправильный логин или пароль
+                  </p>
+                )}
                 <Button type="submit" className="w-full">
                   Войти
                 </Button>
               </form>
             </Form>
-          </TabsContent>
+          </TabsContent>{" "}
           <TabsContent value="signup">
             <Form {...registerForm}>
               <form
