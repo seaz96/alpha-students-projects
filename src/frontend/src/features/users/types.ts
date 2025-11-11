@@ -1,6 +1,6 @@
 export type UserRole = "Admin" | "Manager" | "User";
 
-export interface User {
+export interface IUser {
   id: string;
   email: string;
   firstName: string;
@@ -10,7 +10,7 @@ export interface User {
 }
 
 export interface AuthState {
-  user: User | null;
+  user: IUser | null;
   token: string | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;

@@ -3,15 +3,18 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit";
 import { combineSlices, configureStore } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { usersApi } from "@/features/users/usersApi";
+import { casesApi } from "@/features/cases/casesApi";
 
-const rootReducer = combineSlices(usersSlice, usersApi);
+const rootReducer = combineSlices(usersSlice, usersApi, casesApi);
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(usersApi.middleware);
+      return getDefaultMiddleware()
+        .concat(usersApi.middleware)
+        .concat(casesApi.middleware);
     },
     preloadedState,
   });

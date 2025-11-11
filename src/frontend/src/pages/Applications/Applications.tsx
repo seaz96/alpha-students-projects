@@ -1,5 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CreateApplication from "./CreateApplication";
+import ApplicationsDataTable from "./ApplicationsDataTable";
 
 export default function Applications() {
   return (
@@ -14,6 +15,7 @@ export default function Applications() {
         </TabsList>
         <TabsContent value="applications">
           <CreateApplication />
+          <ApplicationsDataTable />
         </TabsContent>
         <TabsContent value="cases"></TabsContent>
       </Tabs>

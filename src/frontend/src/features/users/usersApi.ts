@@ -1,37 +1,37 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { User } from "./types";
+import type { IUser } from "./types";
 
 export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery,
   tagTypes: ["User"],
   endpoints: (builder) => ({
-    getUsers: builder.query<User[], void>({
+    getUsers: builder.query<IUser[], void>({
       query: () => ({
         url: "/users",
         method: "GET",
       }),
       providesTags: ["User"],
     }),
-    checkAuth: builder.query<User, void>({
+    checkAuth: builder.query<IUser, void>({
       query: () => ({
-        url: "/users/info",
+        url: "/users/current",
         method: "GET",
         credentials: "include",
       }),
       providesTags: ["User"],
     }),
-    patchUserInfo: builder.mutation<User, Partial<User>>({
+    patchUserInfo: builder.mutation<IUser, Partial<IUser>>({
       query: (user) => ({
-        url: `/users/info`,
+        url: `/users/current`,
         method: "PATCH",
         body: user,
         credentials: "include",
       }),
       invalidatesTags: ["User"],
     }),
-    patchUserRole: builder.mutation<User, { id: string; role: string }>({
+    patchUserRole: builder.mutation<IUser, { id: string; role: string }>({
       query: (user) => ({
         url: `/users/role`,
         method: "PATCH",
