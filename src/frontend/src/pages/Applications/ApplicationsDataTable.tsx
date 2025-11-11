@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/app/hooks";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import {
@@ -5,6 +6,7 @@ import {
   useGetCasesQuery,
 } from "@/features/cases/casesApi";
 import type { ICase } from "@/features/cases/types";
+import { selectUser } from "@/features/users/usersSlice";
 import { getInitials } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import {
@@ -14,8 +16,11 @@ import {
   Trash2Icon,
 } from "lucide-react";
 import { useMemo } from "react";
+import ReviewPopover from "./ReviewPopover";
 
 export default function ApplicationsDataTable() {
+  const user = useAppSelector(selectUser);
+
   const { data } = useGetCasesQuery({
     limit: 10,
     offset: 0,
@@ -60,31 +65,38 @@ export default function ApplicationsDataTable() {
         header: "Лайки",
         cell: ({ row }) => (
           <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon-sm">
-              <ArrowUpIcon />
-            </Button>
+            <ReviewPopover caseId={row.original.id} isDislike={false}>
+              <Button variant="ghost" size="icon-sm">
+                <ArrowUpIcon />
+              </Button>
+            </ReviewPopover>
             <p>{row.original.likes - row.original.dislikes}</p>
-            <Button variant="ghost" size="icon-sm">
-              <ArrowDownIcon />
-            </Button>
+            <ReviewPopover caseId={row.original.id} isDislike={true}>
+              <Button variant="ghost" size="icon-sm">
+                <ArrowDownIcon />
+              </Button>
+            </ReviewPopover>
           </div>
         ),
       },
       {
         accessorKey: "delete",
         header: "",
-        cell: ({ row }) => (
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={() => deleteCase(row.original.id)}
-          >
-            <Trash2Icon />
-          </Button>
-        ),
+        cell: ({ row }) => {
+          if (!user || user.id !== row.original.author.id) return null;
+          return (
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => deleteCase(row.original.id)}
+            >
+              <Trash2Icon />
+            </Button>
+          );
+        },
       },
     ],
-    [deleteCase],
+    [deleteCase, user],
   );
 
   return (

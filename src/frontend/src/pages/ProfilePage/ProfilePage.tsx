@@ -64,7 +64,7 @@ export default function ProfilePage() {
           </div>
           <FormField
             control={userForm.control}
-            name="lastName"
+            name="middleName"
             render={({ field }) => (
               <FormItem className="gap-1">
                 <FormLabel>Фамилия</FormLabel>
@@ -90,7 +90,7 @@ export default function ProfilePage() {
           />
           <FormField
             control={userForm.control}
-            name="middleName"
+            name="lastName"
             render={({ field }) => (
               <FormItem className="gap-1">
                 <FormLabel>Отчество</FormLabel>

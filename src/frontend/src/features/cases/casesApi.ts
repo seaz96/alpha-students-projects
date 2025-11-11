@@ -44,7 +44,7 @@ export const casesApi = createApi({
     reviewCase: builder.mutation<void, { id: string; review: IReview }>({
       query: ({ id, review }) => ({
         url: `/cases/${id}/reviews`,
-        method: "POST",
+        method: "PUT",
         body: review,
         credentials: "include",
       }),

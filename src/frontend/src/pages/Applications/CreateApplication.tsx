@@ -35,6 +35,7 @@ export default function CreateApplication() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     createCase(values);
+    form.reset();
   }
 
   return (

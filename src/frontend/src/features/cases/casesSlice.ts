@@ -24,16 +24,6 @@ export const casesSlice = createAppSlice({
           state.cases.push(action.payload);
         },
       );
-    //
-    // .addMatcher(
-    //   casesApi.endpoints.deleteCase.matchFulfilled,
-    //   (state, action) => {
-    //     state.cases = state.cases.filter(
-    //                                               ↓ TODO: return deleted case in response
-    //       (caseItem) => caseItem.id !== action.payload,
-    //     );
-    //   },
-    // );
   },
   selectors: {
     selectCases: (state) => state.cases,

@@ -8,6 +8,6 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getInitials(user: IUser): string {
   const firstNameInitial = user.firstName ? `${user.firstName[0]}.` : "";
-  const middleNameInitial = user.middleName ? `${user.middleName[0]}.` : "";
-  return `${user.lastName} ${firstNameInitial}${middleNameInitial}`;
+  const lastNameInitial = user.lastName ? `${user.lastName[0]}.` : "";
+  return `${user.middleName} ${firstNameInitial}${lastNameInitial}`;
 }
