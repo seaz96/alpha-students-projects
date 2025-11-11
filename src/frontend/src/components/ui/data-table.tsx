@@ -24,7 +24,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function DataTable<TData, TValue>({
+export function DataTable<TData extends { id: string }, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -35,7 +35,9 @@ export function DataTable<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
+
     getSortedRowModel: getSortedRowModel(),
+    getRowId: (row) => row.id,
     state: {
       sorting,
     },

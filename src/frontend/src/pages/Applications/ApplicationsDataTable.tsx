@@ -87,6 +87,7 @@ export default function ApplicationsDataTable() {
         header: "Кейс",
         cell: ({ row }) => (
           <Checkbox
+            disabled={user?.id !== row.original.author.id}
             defaultChecked={row.original.type == "Submitted"}
             onCheckedChange={() => {
               changeCaseType({
@@ -102,7 +103,7 @@ export default function ApplicationsDataTable() {
         accessorKey: "delete",
         header: "",
         cell: ({ row }) => {
-          if (!user || user.id !== row.original.author.id) return null;
+          if (user?.id !== row.original.author.id) return null;
           return (
             <Button
               size="icon"
@@ -115,7 +116,7 @@ export default function ApplicationsDataTable() {
         },
       },
     ],
-    [deleteCase, user],
+    [changeCaseType, deleteCase, user?.id],
   );
 
   return (

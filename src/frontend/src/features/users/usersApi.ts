@@ -29,7 +29,6 @@ export const usersApi = createApi({
         body: user,
         credentials: "include",
       }),
-      invalidatesTags: ["User"],
     }),
     patchUserRole: builder.mutation<IUser, { id: string; role: string }>({
       query: (user) => ({
