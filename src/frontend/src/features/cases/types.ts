@@ -8,6 +8,7 @@ export interface ICase {
   createdAt: string;
   likes: number;
   dislikes: number;
+  type: "Unknown" | "Request" | "Submitted";
 }
 
 export interface IReview {

@@ -58,6 +58,18 @@ export const casesApi = createApi({
       }),
       providesTags: ["Case"],
     }),
+    changeCaseType: builder.mutation<
+      void,
+      { id: string; type: "Request" | "Submitted" }
+    >({
+      query: ({ id, type }) => ({
+        url: `/cases/${id}/type`,
+        method: "PUT",
+        body: { type },
+        credentials: "include",
+      }),
+      invalidatesTags: ["Case"],
+    }),
   }),
 });
 
@@ -68,4 +80,5 @@ export const {
   useGetCaseQuery,
   useReviewCaseMutation,
   useGetReviewsQuery,
+  useChangeCaseTypeMutation,
 } = casesApi;

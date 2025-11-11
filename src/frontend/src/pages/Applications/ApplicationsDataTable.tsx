@@ -2,6 +2,7 @@ import { useAppSelector } from "@/app/hooks";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import {
+  useChangeCaseTypeMutation,
   useDeleteCaseMutation,
   useGetCasesQuery,
 } from "@/features/cases/casesApi";
@@ -17,6 +18,7 @@ import {
 } from "lucide-react";
 import { useMemo } from "react";
 import ReviewPopover from "./ReviewPopover";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export default function ApplicationsDataTable() {
   const user = useAppSelector(selectUser);
@@ -27,6 +29,7 @@ export default function ApplicationsDataTable() {
   });
 
   const [deleteCase] = useDeleteCaseMutation();
+  const [changeCaseType] = useChangeCaseTypeMutation();
 
   const columns = useMemo<ColumnDef<ICase>[]>(
     () => [
@@ -78,6 +81,22 @@ export default function ApplicationsDataTable() {
             </ReviewPopover>
           </div>
         ),
+      },
+      {
+        accessorKey: "type",
+        header: "Кейс",
+        cell: ({ row }) => (
+          <Checkbox
+            defaultChecked={row.original.type == "Submitted"}
+            onCheckedChange={() => {
+              changeCaseType({
+                id: row.original.id,
+                type: row.original.type != "Request" ? "Request" : "Submitted",
+              });
+            }}
+          />
+        ),
+        enableSorting: true,
       },
       {
         accessorKey: "delete",
