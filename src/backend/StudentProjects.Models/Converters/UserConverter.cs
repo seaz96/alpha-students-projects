@@ -21,7 +21,7 @@ public static class UserConverter
         return new User(
             user.Id,
             user.FirstName ?? "",
-            user.LastName ?? "",
-            user.MiddleName ?? "");
+            user.MiddleName ?? "",
+            user.LastName ?? "");
     }
 }
