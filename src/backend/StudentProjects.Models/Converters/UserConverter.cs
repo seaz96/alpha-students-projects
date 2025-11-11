@@ -12,8 +12,8 @@ public static class UserConverter
             user.Email,
             user.Role,
             user.FirstName ?? "",
-            user.LastName ?? "",
             user.MiddleName ?? "");
+            user.LastName ?? "",
     }
 
     public static User ToDto(this Domain.Entities.User user)
