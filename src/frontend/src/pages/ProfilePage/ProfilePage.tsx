@@ -56,7 +56,7 @@ export default function ProfilePage() {
       <Form {...userForm}>
         <form
           onSubmit={userForm.handleSubmit(onSubmitUserForm)}
-          className="mt-6 max-w-96 space-y-6"
+          className="mt-6 max-w-96 space-y-4"
         >
           <div className="grid gap-1">
             <Label>Почта</Label>

@@ -50,10 +50,14 @@ export const casesApi = createApi({
       }),
       invalidatesTags: ["Case"],
     }),
-    getReviews: builder.query<IReviewWithAuthor[], string>({
-      query: (id) => ({
+    getReviews: builder.query<
+      IReviewWithAuthor[],
+      { id: string; limit: number; offset: number }
+    >({
+      query: ({ id, limit, offset }) => ({
         url: `/cases/${id}/reviews`,
         method: "GET",
+        params: { limit: limit, offset: offset },
         credentials: "include",
       }),
       providesTags: ["Case"],

@@ -130,3 +130,9 @@
 button {
   @apply cursor-pointer;
 }
+
+/* shad.cn Dialog component fix */
+body[data-scroll-locked] {
+  margin-right: 0 !important;
+  overflow: visible !important;
+}

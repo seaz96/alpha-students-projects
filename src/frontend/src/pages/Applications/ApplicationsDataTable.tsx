@@ -8,17 +8,15 @@ import {
 } from "@/features/cases/casesApi";
 import type { ICase } from "@/features/cases/types";
 import { selectUser } from "@/features/users/usersSlice";
-import { getInitials } from "@/lib/utils";
+import { cn, getInitials } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowDownIcon,
-  ArrowUpDownIcon,
-  ArrowUpIcon,
-  Trash2Icon,
-} from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, Trash2Icon } from "lucide-react";
 import { useMemo } from "react";
 import ReviewPopover from "./ReviewPopover";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import Application from "./Application";
+import ApplicationReviewsPopover from "./ApplicationReviewsPopover";
 
 export default function ApplicationsDataTable() {
   const user = useAppSelector(selectUser);
@@ -36,7 +34,16 @@ export default function ApplicationsDataTable() {
       {
         accessorKey: "name",
         header: "Название",
-        cell: ({ row }) => <p>{row.original.name}</p>,
+        cell: ({ row }) => (
+          <Dialog>
+            <DialogTrigger asChild>
+              <p>{row.original.name}</p>
+            </DialogTrigger>
+            <DialogContent>
+              <Application case={row.original} />
+            </DialogContent>
+          </Dialog>
+        ),
         enableSorting: true,
         enableHiding: false,
       },
@@ -51,10 +58,18 @@ export default function ApplicationsDataTable() {
         accessorKey: "createdAt",
         header: ({ column }) => (
           <button
-            className="flex items-center gap-2"
+            className="flex h-full items-center"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
-            Дата создания <ArrowUpDownIcon className="ml-2 size-4" />
+            Дата создания
+            {
+              <ArrowUpIcon
+                className={cn("ml-2 size-4", {
+                  "rotate-180": column.getIsSorted() === "desc",
+                  "opacity-0": column.getIsSorted() === false,
+                })}
+              />
+            }
           </button>
         ),
         cell: ({ row }) => (
@@ -67,13 +82,16 @@ export default function ApplicationsDataTable() {
         accessorKey: "likes",
         header: "Лайки",
         cell: ({ row }) => (
-          <div className="flex items-center gap-1">
+          <div className="flex items-center">
             <ReviewPopover caseId={row.original.id} isDislike={false}>
               <Button variant="ghost" size="icon-sm">
                 <ArrowUpIcon />
               </Button>
             </ReviewPopover>
-            <p>{row.original.likes - row.original.dislikes}</p>
+            <ApplicationReviewsPopover
+              likes={row.original.likes - row.original.dislikes}
+              id={row.original.id}
+            />
             <ReviewPopover caseId={row.original.id} isDislike={true}>
               <Button variant="ghost" size="icon-sm">
                 <ArrowDownIcon />
@@ -84,7 +102,22 @@ export default function ApplicationsDataTable() {
       },
       {
         accessorKey: "type",
-        header: "Кейс",
+        header: ({ column }) => (
+          <button
+            className="flex h-full items-center"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Кейс
+            {
+              <ArrowUpIcon
+                className={cn("ml-2 size-4", {
+                  "rotate-180": column.getIsSorted() === "desc",
+                  "opacity-0": column.getIsSorted() === false,
+                })}
+              />
+            }
+          </button>
+        ),
         cell: ({ row }) => (
           <Checkbox
             disabled={user?.id !== row.original.author.id}
