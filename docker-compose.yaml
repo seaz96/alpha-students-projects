@@ -14,6 +14,15 @@ services:
     networks:
       - project
 
+  frontend:
+    container_name: frontend
+    image: ghcr.io/seaz96/alpha-students-projects-frontend:main
+    volumes:
+      - ./src:/app/src
+    ports:
+      - "80"
+    networks:
+      - project
   backend:
     container_name: server
     image: ghcr.io/seaz96/alpha-students-projects-backend:main
