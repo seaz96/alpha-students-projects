@@ -13,7 +13,6 @@ services:
       - backend
     networks:
       - project
-
   frontend:
     container_name: frontend
     image: ghcr.io/seaz96/alpha-students-projects-frontend:main

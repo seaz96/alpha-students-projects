@@ -7,6 +7,6 @@ public class StudentsService(StudentsRepository studentsRepository)
 {
     public async Task UpdateTeamStudentsAsync(Guid teamId, PatchStudents request)
     {
-        var existingStudents = await studentsRepository.QueryAsync();
+        //var existingStudents = await studentsRepository.QueryAsync();
     }
 }
