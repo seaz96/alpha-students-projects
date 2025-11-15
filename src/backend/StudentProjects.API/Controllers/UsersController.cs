@@ -37,6 +37,15 @@ public class UsersController(UserService userService) : ControllerBase
         return Ok(user);
     }
 
+    [HttpPost("logout")]
+    [AllowAnonymous]
+    [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
+    public async Task<ActionResult<UserAccount>> LogoutAsync()
+    {
+        RemoveAuthCookie();
+        return Ok();
+    }
+
     [HttpGet("current")]
     [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
@@ -86,6 +95,17 @@ public class UsersController(UserService userService) : ControllerBase
             Secure = false,
             SameSite = SameSiteMode.Strict,
             Expires = DateTimeOffset.Now.Add(AuthOptions.TokenLifetime)
+        });
+    }
+
+    private void RemoveAuthCookie()
+    {
+        Response.Cookies.Append(AuthOptions.CookieName, "", new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = false,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.Now.AddDays(-1)
         });
     }
 }
