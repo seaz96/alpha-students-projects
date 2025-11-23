@@ -80,7 +80,22 @@ export default function ApplicationsDataTable() {
       },
       {
         accessorKey: "likes",
-        header: "Лайки",
+        header: ({ column }) => (
+          <button
+            className="flex h-full items-center"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Лайки
+            {
+              <ArrowUpIcon
+                className={cn("ml-2 size-4", {
+                  "rotate-180": column.getIsSorted() === "desc",
+                  "opacity-0": column.getIsSorted() === false,
+                })}
+              />
+            }
+          </button>
+        ),
         cell: ({ row }) => (
           <div className="flex items-center">
             <ReviewPopover caseId={row.original.id} isDislike={false}>

@@ -76,6 +76,8 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   --brand: oklch(0.6181 0.2257 29.31);
+
+  font-family: Open Sans;
 }
 
 .dark {
