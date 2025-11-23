@@ -48,4 +48,10 @@ public class ProjectsService(ProjectRepository projectRepository, UserService us
             ? throw new ProjectNotFoundException()
             : project.ToClientModel();
     }
+
+    public async Task<List<Models.Response.Project>> QueryAsync(int offset, int limit)
+    {
+        var projects = await projectRepository.QueryAsync(offset, limit);
+        return projects.Select(x => x.ToClientModel()).ToList();
+    }
 }

@@ -11,4 +11,9 @@ public class ProjectRepository(DataContext context) : BaseRepository<Project>(co
             .Include(x => x.Author)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+    public override async Task<List<Project>> QueryAsync(int offset, int limit)
+    {
+        return await DataContext.Projects.Include(x => x.Author).Skip(offset).Take(limit).ToListAsync();
+    }
 }

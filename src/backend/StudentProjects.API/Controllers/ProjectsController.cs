@@ -30,6 +30,13 @@ public class ProjectsController(ProjectsService projectsService) : ControllerBas
         return Ok(await projectsService.GetAsync(projectId));
     }
 
+    [HttpGet]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    public async Task<ActionResult<ICollection<Project>>> GetAsync([FromQuery] CommonQuery request)
+    {
+        return Ok(await projectsService.QueryAsync(request.Offset, request.Limit));
+    }
+
     [HttpPatch("{projectId:guid}")]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]

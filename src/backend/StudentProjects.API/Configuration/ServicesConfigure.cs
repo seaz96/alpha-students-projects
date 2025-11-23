@@ -10,5 +10,8 @@ public static class ServicesConfigure
         services.AddTransient<UserService>();
         services.AddTransient<CaseService>();
         services.AddTransient<ReviewsService>();
+        services.AddTransient<TeamsService>();
+        services.AddTransient<StudentsService>();
+        services.AddTransient<ProjectsService>();
     }
 }
