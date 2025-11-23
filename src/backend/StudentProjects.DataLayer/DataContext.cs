@@ -66,7 +66,8 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
         modelBuilder.Entity<Todo>()
             .HasMany(e => e.Children)
             .WithOne(e => e.Parent)
-            .HasForeignKey(e => e.ParentId);
+            .HasForeignKey(e => e.ParentId)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<Student>()
             .HasOne(e => e.Position)
             .WithMany()

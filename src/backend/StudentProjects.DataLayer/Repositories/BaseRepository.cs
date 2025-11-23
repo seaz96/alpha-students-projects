@@ -29,7 +29,7 @@ public class BaseRepository<T>(DataContext context) where T : BaseEntity
         await DataContext.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(T entity)
+    public virtual async Task DeleteAsync(T entity)
     {
         DataContext.Set<T>().Remove(entity);
         await DataContext.SaveChangesAsync();

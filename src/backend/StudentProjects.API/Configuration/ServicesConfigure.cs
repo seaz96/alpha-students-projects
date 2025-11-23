@@ -15,5 +15,6 @@ public static class ServicesConfigure
         services.AddTransient<ProjectsService>();
         services.AddTransient<StagesService>();
         services.AddTransient<MeetingsService>();
+        services.AddTransient<TodoService>();
     }
 }

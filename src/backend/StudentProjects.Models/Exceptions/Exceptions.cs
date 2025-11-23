@@ -31,3 +31,6 @@ public class StageNotFoundException(string message = "Stage with specified id no
 
 public class MeetingNotFoundException(string message = "Meeting with specified id not found.")
     : ApiException("urn:error:meeting-not-found", HttpStatusCode.NotFound, message);
+
+public class TodoNotFoundException(string message = "Todo with specified id not found.")
+    : ApiException("urn:error:todo-not-found", HttpStatusCode.NotFound, message);

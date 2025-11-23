@@ -24,7 +24,7 @@ public class TeamsController(TeamsService teamsService) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Team>>> QueryAsync([FromBody] QueryTeams request)
+    public async Task<ActionResult<ICollection<Team>>> QueryAsync([FromQuery] QueryTeams request)
     {
         return Ok(await teamsService.QueryAsync(request));  
     }
