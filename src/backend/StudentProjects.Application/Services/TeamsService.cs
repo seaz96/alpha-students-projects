@@ -28,4 +28,21 @@ public class TeamsService(TeamsRepository teamsRepository)
             ? throw new TeamNotFoundException()
             : team.ToClientModel();
     }
+
+    public async Task<List<Models.Response.Team>> QueryAsync(QueryTeams request)
+    {
+        var teams = await teamsRepository.QueryAsync(request.ProjectId, request.Offset, request.Limit);
+        return teams.Select(x => x.ToClientModel()).ToList();
+    }
+
+    public async Task<Models.Response.Team> UpdateAsync(Guid teamId, PatchTeam request)
+    {
+        var team = await teamsRepository.FindTrackedAsync(teamId);
+        if (team is null) throw new TeamNotFoundException();
+        team.Description = request.Description;
+        team.Name = request.Name;
+        team.TeamprojectLink = request.TeamprojectLink;
+        await teamsRepository.UpdateAsync(team);
+        return await GetAsync(teamId);
+    }
 }

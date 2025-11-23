@@ -26,13 +26,13 @@ public class TeamsController(TeamsService teamsService) : ControllerBase
     [HttpGet]
     public async Task<ActionResult<ICollection<Team>>> QueryAsync([FromBody] QueryTeams request)
     {
-        throw new NotImplementedException();    
+        return Ok(await teamsService.QueryAsync(request));  
     }
 
     [HttpPatch("{teamId:guid}")]
     public async Task<ActionResult<Team>> PatchTeamAsync([FromRoute] Guid teamId, [FromBody] PatchTeam request)
     {
-        throw new NotImplementedException();
+        return Ok(await teamsService.UpdateAsync(teamId, request));
     }
 
     [HttpPatch("{teamId:guid}/students")]
