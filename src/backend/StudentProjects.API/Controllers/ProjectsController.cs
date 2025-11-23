@@ -12,7 +12,7 @@ namespace StudentProjects.API.Controllers;
 [Route("v1/projects")]
 public class ProjectsController(ProjectsService projectsService) : ControllerBase
 {
-    [HttpGet]
+    [HttpPost]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
