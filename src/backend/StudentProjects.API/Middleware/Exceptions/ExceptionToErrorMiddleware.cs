@@ -25,6 +25,7 @@ public class ExceptionToErrorMiddleware(RequestDelegate next)
                 StageNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 TeamNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 ProjectNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
+                MeetingNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 _ => new("urn:error:unknown", HttpStatusCode.InternalServerError, "Unhandled exception occured.")
             };
 

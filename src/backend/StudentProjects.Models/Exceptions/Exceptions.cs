@@ -28,3 +28,6 @@ public class TeamNotFoundException(string message = "Team with specified id not 
 
 public class StageNotFoundException(string message = "Stage with specified id not found.")
     : ApiException("urn:error:stage-not-found", HttpStatusCode.NotFound, message);
+
+public class MeetingNotFoundException(string message = "Meeting with specified id not found.")
+    : ApiException("urn:error:meeting-not-found", HttpStatusCode.NotFound, message);
