@@ -22,6 +22,9 @@ public class ExceptionToErrorMiddleware(RequestDelegate next)
                 CaseNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 ReviewNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 ForbiddenException ex => new(ex.Type, ex.StatusCode, ex.Message),
+                StageNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
+                TeamNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
+                ProjectNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 _ => new("urn:error:unknown", HttpStatusCode.InternalServerError, "Unhandled exception occured.")
             };
 

@@ -7,6 +7,6 @@ public class UserRepository(DataContext context) : BaseRepository<User>(context)
 {
     public Task<User?> GetByEmailAsync(string email)
     {
-        return  DataContext.Users.FirstOrDefaultAsync(x => x.Email == email);
+        return DataContext.Users.FirstOrDefaultAsync(x => x.Email == email);
     }
 }

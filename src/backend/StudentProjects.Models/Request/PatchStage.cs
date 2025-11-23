@@ -5,6 +5,6 @@ public record PatchStage(
     DateTime StartDate,
     DateTime EndDate,
     int? UrfuScore,
-    int? UrfuComment,
+    string? UrfuComment,
     int? MentorScore,
-    int? MentorComment);
+    string? MentorComment);

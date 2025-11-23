@@ -25,3 +25,6 @@ public class ProjectNotFoundException(string message = "Project with specified i
 
 public class TeamNotFoundException(string message = "Team with specified id not found.")
     : ApiException("urn:error:team-not-found", HttpStatusCode.NotFound, message);
+
+public class StageNotFoundException(string message = "Stage with specified id not found.")
+    : ApiException("urn:error:stage-not-found", HttpStatusCode.NotFound, message);

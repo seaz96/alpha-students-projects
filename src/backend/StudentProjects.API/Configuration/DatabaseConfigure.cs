@@ -14,7 +14,7 @@ public static class DatabaseConfigure
         services.AddTransient<TeamsRepository>();
         services.AddTransient<StudentsRepository>();
         services.AddTransient<ProjectRepository>();
-
+        services.AddTransient<StageRepository>();
 
         var dbHost = configuration.GetValue<string>("DATABASE_HOST");
         var dbPassword = configuration.GetValue<string>("DATABASE_PASSWORD");
