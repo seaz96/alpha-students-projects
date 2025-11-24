@@ -1,5 +1,5 @@
 import CreateNewProject from "./CreateNewProject";
-import ProjectsList from "./ProjectsList";
+import ProjectsDataTable from "./ProjectsDataTable";
 
 export default function Projects() {
   return (
@@ -9,7 +9,7 @@ export default function Projects() {
       </h1>
       <div>
         <CreateNewProject className="mt-4" />
-        <ProjectsList />
+        <ProjectsDataTable />
       </div>
     </div>
   );
