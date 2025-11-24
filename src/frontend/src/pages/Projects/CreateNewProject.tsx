@@ -22,6 +22,7 @@ export default function CreateNewProject({
   className,
   ...rest
 }: ComponentProps<"div">) {
+  // TODO: Pagination
   const { data, isLoading } = useGetCasesQuery({ limit: 9999, offset: 0 });
   const [isOpen, setIsOpen] = useState(false);
   const [value, setValue] = useState("");

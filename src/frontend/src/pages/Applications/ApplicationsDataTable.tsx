@@ -22,7 +22,8 @@ export default function ApplicationsDataTable() {
   const user = useAppSelector(selectUser);
 
   const { data } = useGetCasesQuery({
-    limit: 10,
+    // TODO: Pagination
+    limit: 9999,
     offset: 0,
   });
 

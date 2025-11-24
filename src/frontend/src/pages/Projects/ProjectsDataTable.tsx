@@ -6,7 +6,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 
 export default function ProjectsDataTable() {
-  const { data } = useGetProjectsQuery({ limit: 10, offset: 0 });
+  // TODO: Pagination
+  const { data } = useGetProjectsQuery({ limit: 9999, offset: 0 });
 
   const columns = useMemo<ColumnDef<IProject>[]>(
     () => [
