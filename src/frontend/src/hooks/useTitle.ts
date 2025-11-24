@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 
-const useTitle = (title: string) => {
+const useTitle = (title: string | undefined) => {
   useEffect(() => {
     const previousTitle = document.title;
-    document.title = title + " | " + import.meta.env.VITE_APP_NAME;
+    if (title !== undefined)
+      document.title = title + " | " + import.meta.env.VITE_APP_NAME;
+    else document.title = import.meta.env.VITE_APP_NAME;
     return () => {
       document.title = previousTitle;
     };
