@@ -15,7 +15,11 @@ export default function TeamsDataTable({ projectId }: { projectId: string }) {
       {
         accessorKey: "name",
         header: "Команды",
-        cell: ({ row }) => <p>{row.original.name}</p>,
+        cell: ({ row }) => (
+          <Link to={`teams/${row.original.id}`} className="hover:underline">
+            {row.original.name}
+          </Link>
+        ),
       },
       {
         accessorKey: "description",

@@ -38,7 +38,9 @@ export default function ApplicationsDataTable() {
         cell: ({ row }) => (
           <Dialog>
             <DialogTrigger asChild>
-              <p>{row.original.name}</p>
+              <p className="cursor-pointer py-1 hover:underline">
+                {row.original.name}
+              </p>
             </DialogTrigger>
             <DialogContent>
               <Application case={row.original} />

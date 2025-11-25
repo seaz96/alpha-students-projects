@@ -16,7 +16,7 @@ export default function ProjectsDataTable() {
         accessorKey: "name",
         header: "Название",
         cell: ({ row }) => (
-          <Link to={row.original.id} className="py-2">
+          <Link to={row.original.id} className="py-2 hover:underline">
             <span className="block py-1">{row.original.name}</span>
           </Link>
         ),
