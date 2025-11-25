@@ -15,7 +15,8 @@ public class TeamsService(TeamsRepository teamsRepository)
             Id = Guid.NewGuid(),
             Description = request.Description,
             Name = request.Name,
-            ProjectId = request.ProjectId
+            ProjectId = request.ProjectId,
+            TeamprojectLink = request.TeamprojectLink
         };
         await teamsRepository.AddAsync(team);
         return await GetAsync(team.Id);
