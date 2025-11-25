@@ -8,6 +8,7 @@ import Applications from "./pages/Applications/Applications";
 import AuthOnly from "./components/auth-only";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Projects from "./pages/Projects/Projects";
+import Project from "./pages/Project/Project";
 
 export default function AppRouter() {
   return (
@@ -19,6 +20,7 @@ export default function AppRouter() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/applications" element={<Applications />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:id" element={<Project />} />
           </Route>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

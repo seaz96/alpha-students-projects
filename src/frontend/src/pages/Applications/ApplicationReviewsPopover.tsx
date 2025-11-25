@@ -8,7 +8,6 @@ import { Spinner } from "@/components/ui/spinner";
 import { useGetReviewsQuery } from "@/features/cases/casesApi";
 import { getInitials } from "@/lib/utils";
 import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
-import { useEffect } from "react";
 
 export default function ApplicationReviewsPopover({
   likes,
@@ -18,10 +17,6 @@ export default function ApplicationReviewsPopover({
   id: string;
 }) {
   const { data, isLoading } = useGetReviewsQuery({ id, limit: 99, offset: 0 });
-
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
 
   if (isLoading || data === undefined)
     return (

@@ -4,6 +4,7 @@ import type { IProject } from "@/features/projects/types";
 import { getInitials } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
+import { Link } from "react-router";
 
 export default function ProjectsDataTable() {
   // TODO: Pagination
@@ -14,7 +15,11 @@ export default function ProjectsDataTable() {
       {
         accessorKey: "name",
         header: "Название",
-        cell: ({ row }) => <p>{row.original.name}</p>,
+        cell: ({ row }) => (
+          <Link to={row.original.id} className="py-2">
+            <span className="block py-1">{row.original.name}</span>
+          </Link>
+        ),
         enableSorting: true,
         enableHiding: false,
       },

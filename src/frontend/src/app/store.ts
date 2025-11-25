@@ -5,8 +5,15 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import { usersApi } from "@/features/users/usersApi";
 import { casesApi } from "@/features/cases/casesApi";
 import { projectsApi } from "@/features/projects/projectsApi";
+import { teamsApi } from "@/features/teams/teamsApi";
 
-const rootReducer = combineSlices(usersSlice, usersApi, casesApi, projectsApi);
+const rootReducer = combineSlices(
+  usersSlice,
+  usersApi,
+  casesApi,
+  projectsApi,
+  teamsApi,
+);
 export type RootState = ReturnType<typeof rootReducer>;
 
 export const makeStore = (preloadedState?: Partial<RootState>) => {
@@ -16,7 +23,8 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
       return getDefaultMiddleware()
         .concat(usersApi.middleware)
         .concat(casesApi.middleware)
-        .concat(projectsApi.middleware);
+        .concat(projectsApi.middleware)
+        .concat(teamsApi.middleware);
     },
     preloadedState,
   });
