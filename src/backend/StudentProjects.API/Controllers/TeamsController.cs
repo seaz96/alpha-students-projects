@@ -35,16 +35,23 @@ public class TeamsController(TeamsService teamsService) : ControllerBase
         return Ok(await teamsService.UpdateAsync(teamId, request));
     }
 
-    [HttpPatch("{teamId:guid}/students")]
-    public async Task<IActionResult> PatchStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudents request)
+    [HttpPut("{teamId:guid}/students")]
+    public async Task<IActionResult> PutStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudents request)
     {
         throw new NotImplementedException();
     }
 
-    [HttpPatch("{teamId:guid}/result")]
-    public async Task<IActionResult> PatchResultAsync([FromRoute] Guid teamId, [FromBody] PatchTeamResult request)
+    //todo(azanov.n): подумать над тем, чтобы в отдельный контроллер вынести
+    [HttpGet("{teamId:guid}/result")]
+    public async Task<ActionResult<ResultMeta>> GetResultAsync([FromRoute] Guid teamId)
     {
-        throw new NotImplementedException();
+        return Ok(await teamsService.GetResultAsync(teamId));
+    }
+
+    [HttpPut("{teamId:guid}/result")]
+    public async Task<ActionResult<ResultMeta>> PutResultAsync([FromRoute] Guid teamId, [FromBody] PutTeamResult request)
+    {
+        return Ok(await teamsService.UpdateResultAsync(teamId, request));
     }
 
     //todo: this and lower

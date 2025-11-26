@@ -20,7 +20,7 @@ public class UsersController(UserService userService) : ControllerBase
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<UserAccount>> LoginAsync([FromBody] LoginUser request)
     {
-        var user = await userService.LoginUserAsync(request);
+        var user = await userService.LoginAsync(request);
         SetAuthCookie(user);
         return Ok(user);
     }
@@ -52,7 +52,7 @@ public class UsersController(UserService userService) : ControllerBase
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<UserAccount>> GetInfoAsync()
     {
-        var user = await userService.GetAuthorizedUserAccountAsync();
+        var user = await userService.GetAuthorizedAccountAsync();
         return Ok(user);
     }
 
@@ -62,7 +62,7 @@ public class UsersController(UserService userService) : ControllerBase
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<UserAccount>> PatchInfoAsync(PatchUser request)
     {
-        return Ok(await userService.UpdateUserInfoAsync(request));
+        return Ok(await userService.UpdateInfoAsync(request));
     }
 
     [HttpPatch("{userId:guid}/role")]
@@ -72,7 +72,7 @@ public class UsersController(UserService userService) : ControllerBase
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<UserAccount>> PatchRoleAsync([FromRoute] Guid userId, [FromQuery] UserRole role)
     {
-        return Ok(await userService.UpdateUserRoleAsync(userId, role));
+        return Ok(await userService.UpdateRoleAsync(userId, role));
     }
 
     [HttpGet]
@@ -82,7 +82,7 @@ public class UsersController(UserService userService) : ControllerBase
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
     public async Task<ActionResult<IEnumerable<UserAccount>>> GetUsersAsync([FromQuery] CommonQuery request)
     {
-        return Ok(await userService.QueryUserAccountsAsync(request));
+        return Ok(await userService.QueryAccountsAsync(request));
     }
 
     private void SetAuthCookie(UserAccount userAccount)

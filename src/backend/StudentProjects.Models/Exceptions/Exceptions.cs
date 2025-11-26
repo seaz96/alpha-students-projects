@@ -34,3 +34,6 @@ public class MeetingNotFoundException(string message = "Meeting with specified i
 
 public class TodoNotFoundException(string message = "Todo with specified id not found.")
     : ApiException("urn:error:todo-not-found", HttpStatusCode.NotFound, message);
+
+public class ResultMetaNotFoundException(string message = "Result meta with specified id not found.")
+    : ApiException("urn:error:result-meta-not-found", HttpStatusCode.NotFound, message);

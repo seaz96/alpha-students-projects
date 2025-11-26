@@ -6,7 +6,7 @@ using StudentProjects.Models.Request;
 
 namespace StudentProjects.Application.Services;
 
-public class TeamsService(TeamsRepository teamsRepository)
+public class TeamsService(TeamsRepository teamsRepository, ResultMetasRepository resultMetasRepository)
 {
     public async Task<Models.Response.Team> CreateAsync(PostTeam request)
     {
@@ -45,5 +45,25 @@ public class TeamsService(TeamsRepository teamsRepository)
         team.TeamprojectLink = request.TeamprojectLink;
         await teamsRepository.UpdateAsync(team);
         return await GetAsync(teamId);
+    }
+
+    public async Task<Models.Response.ResultMeta> UpdateResultAsync(Guid teamId, PutTeamResult request)
+    {
+        var meta = await resultMetasRepository.FindTrackedByTeamIdAsync(teamId)
+                   ?? new ResultMeta
+                   {
+                       Id = Guid.NewGuid(),
+                       TeamId = teamId
+                   };
+        meta.Comment = request.Comment ?? meta.Comment;
+        meta.Score = request.Score;
+        await resultMetasRepository.AddOrUpdateAsync(meta);
+        return meta.ToClientModel();
+    }
+
+    public async Task<Models.Response.ResultMeta> GetResultAsync(Guid teamId)
+    {
+        var meta = await resultMetasRepository.FindTrackedByTeamIdAsync(teamId);
+        return meta is null ? throw new ResultMetaNotFoundException() : meta.ToClientModel();
     }
 }

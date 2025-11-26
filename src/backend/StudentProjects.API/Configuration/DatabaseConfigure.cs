@@ -17,6 +17,7 @@ public static class DatabaseConfigure
         services.AddTransient<StageRepository>();
         services.AddTransient<MeetingRepository>();
         services.AddTransient<TodosRepository>();
+        services.AddTransient<ResultMetasRepository>();
 
         var dbHost = configuration.GetValue<string>("DATABASE_HOST");
         var dbPassword = configuration.GetValue<string>("DATABASE_PASSWORD");

@@ -13,7 +13,7 @@ namespace StudentProjects.Application.Services;
 
 public class UserService(UserRepository userRepository, IHttpContextAccessor contextAccessor)
 {
-    public async Task<UserAccount> LoginUserAsync(LoginUser request)
+    public async Task<UserAccount> LoginAsync(LoginUser request)
     {
         var user = await userRepository.GetByEmailAsync(request.Email);
         if (user is null)
@@ -42,7 +42,7 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user.ToAccountResponse();
     }
 
-    public async Task<UserAccount> UpdateUserInfoAsync(PatchUser patch)
+    public async Task<UserAccount> UpdateInfoAsync(PatchUser patch)
     {
         var user = await GetAuthorizedUserAsync();
         user.FirstName = patch.FirstName;
@@ -52,7 +52,7 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user.ToAccountResponse();
     }
 
-    public async Task<UserAccount> UpdateUserRoleAsync(Guid userId, UserRole role)
+    public async Task<UserAccount> UpdateRoleAsync(Guid userId, UserRole role)
     {
         var user = await userRepository.FindTrackedAsync(userId);
         if (user is null)
@@ -62,13 +62,13 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user.ToAccountResponse();
     }
 
-    public async Task<List<UserAccount>> QueryUserAccountsAsync(CommonQuery request)
+    public async Task<List<UserAccount>> QueryAccountsAsync(CommonQuery request)
     {
         var users = await userRepository.QueryAsync(request.Offset, request.Limit);
         return users.Select(x => x.ToAccountResponse()).ToList();
     }
 
-    public async Task<UserAccount> GetAuthorizedUserAccountAsync()
+    public async Task<UserAccount> GetAuthorizedAccountAsync()
     {
         return (await GetAuthorizedUserAsync()).ToAccountResponse();
     }
