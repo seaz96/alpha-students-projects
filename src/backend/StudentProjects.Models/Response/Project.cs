@@ -8,4 +8,5 @@ public record Project(
     string Description,
     ProjectStatus Status,
     DateTime CreatedAt,
-    User Author);
+    User Author,
+    IEnumerable<User> Mentors);

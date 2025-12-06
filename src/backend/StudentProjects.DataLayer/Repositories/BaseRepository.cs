@@ -12,9 +12,11 @@ public class BaseRepository<T>(DataContext context) where T : BaseEntity
         return await DataContext.Set<T>().FindAsync(id);
     }
 
-    public virtual async Task<List<T>> QueryAsync(int offset, int limit)
+    public virtual async Task<(List<T> Data, int Count)> QueryAsync(int offset, int limit)
     {
-        return await DataContext.Set<T>().Skip(offset).Take(limit).ToListAsync();
+        var count = await DataContext.Set<T>().CountAsync();
+        var data = await DataContext.Set<T>().Skip(offset).Take(limit).ToListAsync();
+        return (data, count);
     }
 
     public async Task AddAsync(T entity)

@@ -6,15 +6,14 @@ namespace StudentProjects.DataLayer.Repositories;
 
 public class CaseRepository(DataContext context) : BaseRepository<Case>(context)
 {
-    public async Task<List<Case>> QueryAsync(int offset, int limit, CaseType? type)
+    public async Task<(List<Case> Data, int Count)> QueryAsync(int offset, int limit, CaseType? type)
     {
-        return await DataContext.Cases
+        var query = DataContext.Cases
             .Include(c => c.Author)
             .Include(x => x.Reviews)
-            .Where(x => type == null || x.Type == type)
-            .Skip(offset)
-            .Take(limit)
-            .ToListAsync();
+            .Where(x => type == null || x.Type == type);
+
+        return (await query.Skip(offset).Take(limit).ToListAsync(), await query.CountAsync());
     }
 
     public override async Task<Case?> FindTrackedAsync(Guid id)

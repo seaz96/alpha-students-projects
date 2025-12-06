@@ -13,4 +13,5 @@ public class Project : BaseEntity
 
     public virtual User Author { get; set; }
     public virtual ICollection<Team> Teams { get; set; }
+    public virtual ICollection<User> Mentors { get; set; }
 }

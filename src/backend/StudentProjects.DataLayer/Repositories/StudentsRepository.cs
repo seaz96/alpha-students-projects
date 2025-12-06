@@ -5,8 +5,8 @@ namespace StudentProjects.DataLayer.Repositories;
 
 public class StudentsRepository(DataContext context) : BaseRepository<Student>(context)
 {
-    public virtual async Task<List<Student>> QueryAsync(int offset, int limit)
+    public override async Task<(List<Student> Data, int Count)> QueryAsync(int offset, int limit)
     {
-        return await DataContext.Students.Skip(offset).Take(limit).ToListAsync();
+        return (await DataContext.Students.Skip(offset).Take(limit).ToListAsync(), await DataContext.Students.CountAsync());
     }
 }

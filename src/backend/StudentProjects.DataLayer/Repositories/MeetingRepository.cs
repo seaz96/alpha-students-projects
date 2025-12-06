@@ -5,13 +5,12 @@ namespace StudentProjects.DataLayer.Repositories;
 
 public class MeetingRepository(DataContext context) : BaseRepository<Meeting>(context)
 {
-    public async Task<List<Meeting>> QueryAsync(Guid? teamId, int offset, int limit)
+    public async Task<(List<Meeting> Data, int Count)> QueryAsync(Guid? teamId, int offset, int limit)
     {
-        return await DataContext.Meetings
+        var query = DataContext.Meetings
             .Where(x => teamId == null || x.TeamId == teamId)
-            .Skip(offset)
-            .Take(limit)
-            .AsNoTracking()
-            .ToListAsync();
+            .AsNoTracking();
+        
+        return (await query.Skip(offset).Take(limit).ToListAsync(), await query.CountAsync());
     }
 }

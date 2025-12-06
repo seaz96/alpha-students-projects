@@ -20,9 +20,12 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<User>()
-            .HasMany(e => e.Projects)
+            .HasMany(e => e.AuthorProjects)
             .WithOne(e => e.Author)
             .HasForeignKey(e => e.AuthorId);
+        modelBuilder.Entity<User>()
+            .HasMany(e => e.MentorProjects)
+            .WithMany(e => e.Mentors);
         modelBuilder.Entity<Project>()
             .HasMany(e => e.Teams)
             .WithOne(e => e.Project)

@@ -38,7 +38,7 @@ public class CasesController(CaseService caseService, ReviewsService reviewsServ
 
     [HttpGet]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<ICollection<Case>>> GetAsync([FromQuery] QueryCases request)
+    public async Task<ActionResult<QueryResponse<Case>>> GetAsync([FromQuery] QueryCases request)
     {
         return Ok(await caseService.GetAsync(request));
     }
@@ -73,7 +73,7 @@ public class CasesController(CaseService caseService, ReviewsService reviewsServ
 
     [HttpGet("{caseId:guid}/reviews")]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<ICollection<Review>>> GetReviewsAsync(
+    public async Task<ActionResult<QueryResponse<Review>>> GetReviewsAsync(
         [FromRoute] Guid caseId,
         [FromQuery] CommonQuery request)
     {

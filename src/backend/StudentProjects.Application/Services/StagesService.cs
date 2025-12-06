@@ -1,8 +1,9 @@
 using StudentProjects.DataLayer.Repositories;
-using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
+using StudentProjects.Models.Response;
+using Stage = StudentProjects.Domain.Entities.Stage;
 
 namespace StudentProjects.Application.Services;
 
@@ -42,11 +43,10 @@ public class StagesService(StageRepository stageRepository)
         return stage.ToClientModel();
     }
 
-    public async Task<List<Models.Response.Stage>> QueryAsync(QueryStages request)
+    public async Task<QueryResponse<Models.Response.Stage>> QueryAsync(QueryStages request)
     {
-        return (await stageRepository.QueryAsync(request.TeamId, request.Offset, request.Limit))
-            .Select(x => x.ToClientModel())
-            .ToList();
+        var response = await stageRepository.QueryAsync(request.TeamId, request.Offset, request.Limit);
+        return new QueryResponse<Models.Response.Stage>(response.Data.Select(x => x.ToClientModel()), response.Count);
     }
 
     public async Task<Models.Response.Stage> GetAsync(Guid stageId)

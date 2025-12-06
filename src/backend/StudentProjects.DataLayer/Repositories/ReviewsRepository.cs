@@ -25,15 +25,14 @@ public class ReviewsRepository(DataContext context)
         return await context.Reviews.FindAsync(caseId, userId);
     }
 
-    public async Task<List<Review>> QueryAsync(Guid caseId, int offset, int limit)
+    public async Task<(List<Review> Data, int Count)> QueryAsync(Guid caseId, int offset, int limit)
     {
-        return await context.Reviews
-            .Include(x => x.Case)
-            .Include(x => x.User)
-            .Where(x => x.CaseId == caseId)
-            .Skip(offset)
-            .Take(limit)
-            .AsNoTracking()
-            .ToListAsync();
+       var query = context.Reviews
+           .Include(x => x.Case)
+           .Include(x => x.User)
+           .Where(x => x.CaseId == caseId)
+           .AsNoTracking();
+
+        return (await query.Skip(offset).Take(limit).ToListAsync(), await query.CountAsync());
     }
 }

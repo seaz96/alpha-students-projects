@@ -34,7 +34,7 @@ public class TodosController(TodoService todoService) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Todo>>> GetAsync([FromQuery] Guid meetingId)
+    public async Task<ActionResult<QueryResponse<Todo>>> GetAsync([FromQuery] Guid meetingId)
     {
         return Ok(await todoService.QueryAsync(meetingId));
     }

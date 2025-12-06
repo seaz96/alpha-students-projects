@@ -12,6 +12,7 @@ public static class ProjectConverter
             project.Description ?? "",
             project.Status,
             project.CreatedAt,
-            project.Author.ToDto());
+            project.Author.ToDto(),
+            project.Mentors.Select(x => x.ToDto()));
     }
 }

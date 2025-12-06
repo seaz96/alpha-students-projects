@@ -32,7 +32,7 @@ public class ProjectsController(ProjectsService projectsService) : ControllerBas
 
     [HttpGet]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    public async Task<ActionResult<ICollection<Project>>> GetAsync([FromQuery] CommonQuery request)
+    public async Task<ActionResult<QueryResponse<Project>>> GetAsync([FromQuery] CommonQuery request)
     {
         return Ok(await projectsService.QueryAsync(request.Offset, request.Limit));
     }
@@ -46,5 +46,16 @@ public class ProjectsController(ProjectsService projectsService) : ControllerBas
         [FromBody] PatchProject request)
     {
         return Ok(await projectsService.UpdateAsync(projectId, request));
+    }
+
+    [HttpPut("{projectId:guid}/mentors")]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Project>> PutMentorsAsync(
+        [FromRoute] Guid projectId,
+        [FromBody] PutProjectMentors request)
+    {
+        return Ok(await projectsService.UpdateMentorsAsync(projectId, request.Mentors));
     }
 }

@@ -23,7 +23,7 @@ public class StagesController(StagesService stagesService) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Stage>>> GetAsync([FromQuery] QueryStages request)
+    public async Task<ActionResult<QueryResponse<Stage>>> GetAsync([FromQuery] QueryStages request)
     {
         return Ok(await stagesService.QueryAsync(request));
     }

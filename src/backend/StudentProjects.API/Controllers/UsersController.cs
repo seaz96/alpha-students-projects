@@ -40,10 +40,10 @@ public class UsersController(UserService userService) : ControllerBase
     [HttpPost("logout")]
     [AllowAnonymous]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
-    public async Task<ActionResult<UserAccount>> LogoutAsync()
+    public Task<ActionResult<UserAccount>> LogoutAsync()
     {
         RemoveAuthCookie();
-        return Ok();
+        return Task.FromResult<ActionResult<UserAccount>>(Ok());
     }
 
     [HttpGet("current")]

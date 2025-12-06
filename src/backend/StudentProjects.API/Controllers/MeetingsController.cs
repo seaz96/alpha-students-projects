@@ -22,7 +22,7 @@ public class MeetingsController(MeetingsService meetingsService) : ControllerBas
     }
 
     [HttpGet]
-    public async Task<ActionResult<ICollection<Meeting>>> QueryAsync([FromQuery] QueryMeetings request)
+    public async Task<ActionResult<QueryResponse<Meeting>>> QueryAsync([FromQuery] QueryMeetings request)
     {
         return Ok(await meetingsService.QueryAsync(request));
     }

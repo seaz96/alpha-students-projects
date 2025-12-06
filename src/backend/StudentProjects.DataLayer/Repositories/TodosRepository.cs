@@ -5,12 +5,13 @@ namespace StudentProjects.DataLayer.Repositories;
 
 public class TodosRepository(DataContext context) : BaseRepository<Todo>(context)
 {
-    public async Task<List<Todo>> QueryAsync(Guid meetingId)
+    public async Task<(List<Todo> Data, int Count)> QueryAsync(Guid meetingId)
     {
-        return await DataContext.Todos
+        var query = context.Todos
             .Where(x => x.MeetingId == meetingId)
-            .AsNoTracking()
-            .ToListAsync();
+            .AsNoTracking();
+
+        return (await query.ToListAsync(), await query.CountAsync());
     }
 
     public override async Task DeleteAsync(Todo entity)

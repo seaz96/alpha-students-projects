@@ -1,8 +1,10 @@
 using StudentProjects.DataLayer.Repositories;
-using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
+using StudentProjects.Models.Response;
+using ResultMeta = StudentProjects.Domain.Entities.ResultMeta;
+using Team = StudentProjects.Domain.Entities.Team;
 
 namespace StudentProjects.Application.Services;
 
@@ -30,10 +32,10 @@ public class TeamsService(TeamsRepository teamsRepository, ResultMetasRepository
             : team.ToClientModel();
     }
 
-    public async Task<List<Models.Response.Team>> QueryAsync(QueryTeams request)
+    public async Task<QueryResponse<Models.Response.Team>> QueryAsync(QueryTeams request)
     {
         var teams = await teamsRepository.QueryAsync(request.ProjectId, request.Offset, request.Limit);
-        return teams.Select(x => x.ToClientModel()).ToList();
+        return new QueryResponse<Models.Response.Team>(teams.Data.Select(x => x.ToClientModel()), teams.Count);
     }
 
     public async Task<Models.Response.Team> UpdateAsync(Guid teamId, PatchTeam request)

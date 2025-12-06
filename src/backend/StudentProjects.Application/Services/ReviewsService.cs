@@ -1,9 +1,10 @@
 using StudentProjects.DataLayer;
 using StudentProjects.DataLayer.Repositories;
-using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
+using StudentProjects.Models.Response;
+using Review = StudentProjects.Domain.Entities.Review;
 
 namespace StudentProjects.Application.Services;
 
@@ -22,9 +23,10 @@ public class ReviewsService(ReviewsRepository reviewsRepository)
         return await GetByIdAsync(caseId, userId);
     }
 
-    public async Task<List<Models.Response.Review>> QueryAsync(Guid caseId, CommonQuery query)
+    public async Task<QueryResponse<Models.Response.Review>> QueryAsync(Guid caseId, CommonQuery query)
     {
-        return (await reviewsRepository.QueryAsync(caseId, query.Offset, query.Limit)).Select(x => x.ToClientModel()).ToList();
+        var response = await reviewsRepository.QueryAsync(caseId, query.Offset, query.Limit);
+        return new QueryResponse<Models.Response.Review>(response.Data.Select(x => x.ToClientModel()), response.Count);
     }
 
     private async Task<Models.Response.Review> GetByIdAsync(Guid caseId, Guid userId)

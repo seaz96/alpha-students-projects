@@ -11,7 +11,8 @@ public class User : BaseEntity
     public string? LastName { get; set; }
     public UserRole Role { get; set; } = UserRole.User;
 
-    public virtual ICollection<Project> Projects { get; set; }
+    public virtual ICollection<Project> AuthorProjects { get; set; }
+    public virtual ICollection<Project> MentorProjects { get; set; }
     public virtual ICollection<Review> Reviews { get; set; }
     public virtual ICollection<Case> Cases { get; set; }
 }

@@ -2,4 +2,4 @@ using StudentProjects.Domain.Enums;
 
 namespace StudentProjects.Models.Request;
 
-public record PatchProject(string? Name, string? Description, ProjectStatus? Status);
+public record PatchProject(string? Name, string? Description, ProjectStatus? Status, List<Guid>? Mentors);

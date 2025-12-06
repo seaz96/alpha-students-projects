@@ -3,6 +3,7 @@ using StudentProjects.Domain.Enums;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
+using StudentProjects.Models.Response;
 using Case = StudentProjects.Models.Response.Case;
 
 namespace StudentProjects.Application.Services;
@@ -52,10 +53,10 @@ public class CaseService(CaseRepository caseRepository, UserService userService)
         return entity.ToResponse();
     }
 
-    public async Task<IEnumerable<Case>> GetAsync(QueryCases request)
+    public async Task<QueryResponse<Case>> GetAsync(QueryCases request)
     {
         var cases = await caseRepository.QueryAsync(request.Offset, request.Limit, request.Type);
-        return cases.Select(x => x.ToResponse());
+        return new QueryResponse<Case>(cases.Data.Select(x => x.ToResponse()), cases.Count);
     }
 
     public async Task<Case?> GetAsync(Guid id)

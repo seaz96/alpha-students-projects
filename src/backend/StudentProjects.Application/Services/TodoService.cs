@@ -1,8 +1,9 @@
 using StudentProjects.DataLayer.Repositories;
-using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
+using StudentProjects.Models.Response;
+using Todo = StudentProjects.Domain.Entities.Todo;
 
 namespace StudentProjects.Application.Services;
 
@@ -48,8 +49,9 @@ public class TodoService(TodosRepository todosRepository)
         return (await todosRepository.FindTrackedAsync(todoId) ?? throw new TodoNotFoundException()).ToClientModel();
     }
 
-    public async Task<List<Models.Response.Todo>> QueryAsync(Guid meetingId)
+    public async Task<QueryResponse<Models.Response.Todo>> QueryAsync(Guid meetingId)
     {
-        return (await todosRepository.QueryAsync(meetingId)).Select(x => x.ToClientModel()).ToList();
+        var response = await todosRepository.QueryAsync(meetingId);
+        return new QueryResponse<Models.Response.Todo>(response.Data.Select(x => x.ToClientModel()), response.Count);
     }
 }

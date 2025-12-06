@@ -1,8 +1,9 @@
 using StudentProjects.DataLayer.Repositories;
-using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
+using StudentProjects.Models.Response;
+using Meeting = StudentProjects.Domain.Entities.Meeting;
 
 namespace StudentProjects.Application.Services;
 
@@ -36,11 +37,10 @@ public class MeetingsService(MeetingRepository meetingRepository)
         return meeting.ToClientModel();
     }
 
-    public async Task<List<Models.Response.Meeting>> QueryAsync(QueryMeetings request)
+    public async Task<QueryResponse<Models.Response.Meeting>> QueryAsync(QueryMeetings request)
     {
-        return (await meetingRepository.QueryAsync(request.TeamId, request.Offset, request.Limit))
-            .Select(x => x.ToClientModel())
-            .ToList();
+        var response = await meetingRepository.QueryAsync(request.TeamId, request.Offset, request.Limit);
+        return new QueryResponse<Models.Response.Meeting>(response.Data.Select(x => x.ToClientModel()), response.Count);
     }
 
     public async Task<Models.Response.Meeting> GetAsync(Guid id)

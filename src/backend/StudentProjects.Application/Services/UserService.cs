@@ -62,10 +62,10 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user.ToAccountResponse();
     }
 
-    public async Task<List<UserAccount>> QueryAccountsAsync(CommonQuery request)
+    public async Task<QueryResponse<UserAccount>> QueryAccountsAsync(CommonQuery request)
     {
         var users = await userRepository.QueryAsync(request.Offset, request.Limit);
-        return users.Select(x => x.ToAccountResponse()).ToList();
+        return new QueryResponse<UserAccount>(users.Data.Select(x => x.ToAccountResponse()).ToList(), users.Count);
     }
 
     public async Task<UserAccount> GetAuthorizedAccountAsync()
@@ -76,6 +76,11 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
     public async Task<StudentProjects.Models.Response.User> GetAuthorizedUserDtoAsync()
     {
         return (await GetAuthorizedUserAsync()).ToDto();
+    }
+
+    public async Task<List<UserAccount>> GetUsersAsync(IEnumerable<Guid> ids)
+    {
+        return (await userRepository.GetBatchByIdAsync(ids)).Select(x => x.ToAccountResponse()).ToList();
     }
 
     private async Task<User> GetAuthorizedUserAsync()
