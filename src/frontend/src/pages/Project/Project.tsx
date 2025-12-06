@@ -1,18 +1,42 @@
 import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { useGetProjectQuery } from "@/features/projects/projectsApi";
+import {
+  useGetProjectQuery,
+  usePatchProjectMutation,
+} from "@/features/projects/projectsApi";
 import useTitle from "@/hooks/useTitle";
 import { formatter, getInitials } from "@/lib/utils";
 import { useParams } from "react-router";
 import TeamsDataTable from "./TeamsDataTable";
+import { Button } from "@/components/ui/button";
+import { SaveIcon } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Project() {
   const { id } = useParams();
 
-  const { data, isLoading, isError, error } = useGetProjectQuery(id!);
+  const { data, isLoading, isError, error, isSuccess } = useGetProjectQuery(
+    id!,
+  );
 
   useTitle(data?.name);
+
+  const [description, setDescription] = useState("");
+  useEffect(() => {
+    if (isSuccess && data !== undefined) setDescription(data.description);
+  }, [isSuccess, data]);
+
+  const [patchProject] = usePatchProjectMutation();
+  const saveProject = useCallback(async () => {
+    if (!data) return;
+    await patchProject({
+      projectId: id!,
+      name: data?.name,
+      description,
+      status: data.status,
+    });
+  }, [data, id, patchProject, description]);
 
   if (isLoading) {
     return <Spinner />;
@@ -49,7 +73,19 @@ export default function Project() {
           </div>
         </div>
         <Label className="mt-4 mb-2">Описание</Label>
-        <Textarea value={data.description} />
+        <Textarea
+          value={description}
+          onChange={(e) => setDescription(e.currentTarget.value)}
+        />
+        <Button
+          size="sm"
+          variant="outline"
+          className="mt-2"
+          onClick={saveProject}
+        >
+          <SaveIcon />
+          Сохранить
+        </Button>
         <TeamsDataTable projectId={data.id} />
       </div>
     </div>

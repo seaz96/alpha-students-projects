@@ -1,6 +1,6 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { GetProjectsArgs, IProject } from "./types";
+import type { GetProjectsArgs, IProject, PatchProjectArgs } from "./types";
 
 export const projectsApi = createApi({
   reducerPath: "projcetsApi",
@@ -33,6 +33,15 @@ export const projectsApi = createApi({
       }),
       invalidatesTags: ["Project"],
     }),
+    patchProject: builder.mutation<IProject, PatchProjectArgs>({
+      query: ({ projectId, ...rest }) => ({
+        url: `/projects/${projectId}`,
+        method: "PATCH",
+        body: rest,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Project"],
+    }),
   }),
 });
 
@@ -40,4 +49,5 @@ export const {
   useGetProjectsQuery,
   useGetProjectQuery,
   useCreateProjectMutation,
+  usePatchProjectMutation,
 } = projectsApi;

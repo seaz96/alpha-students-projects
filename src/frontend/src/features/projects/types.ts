@@ -5,6 +5,13 @@ export interface GetProjectsArgs {
   offset: number;
 }
 
+export interface PatchProjectArgs {
+  projectId: string;
+  name: string;
+  description: string;
+  status: ProjectStatus;
+}
+
 export interface IProject {
   id: string;
   name: string;
