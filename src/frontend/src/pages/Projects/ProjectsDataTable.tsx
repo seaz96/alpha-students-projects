@@ -1,14 +1,19 @@
+import { useAppSelector } from "@/app/hooks";
+import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
 import { useGetProjectsQuery } from "@/features/projects/projectsApi";
 import type { IProject } from "@/features/projects/types";
+import { selectUser } from "@/features/users/usersSlice";
 import { getInitials } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
+import { Trash2Icon } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router";
 
 export default function ProjectsDataTable() {
   // TODO: Pagination
   const { data } = useGetProjectsQuery({ limit: 9999, offset: 0 });
+  const user = useAppSelector(selectUser);
 
   const columns = useMemo<ColumnDef<IProject>[]>(
     () => [
@@ -37,8 +42,28 @@ export default function ProjectsDataTable() {
         ),
         enableSorting: true,
       },
+      {
+        accessorKey: "control",
+        header: "",
+        cell: ({ row }) => {
+          if (!(user?.id === row.original.author.id || user?.role === "Admin"))
+            return;
+
+          return (
+            <>
+              <Button
+                size="icon"
+                variant="ghost"
+                onClick={() => null /* TODO: Удалить проект */}
+              >
+                <Trash2Icon />
+              </Button>
+            </>
+          );
+        },
+      },
     ],
-    [],
+    [user?.id, user?.role],
   );
 
   return (

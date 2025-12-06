@@ -9,6 +9,7 @@ import AuthOnly from "./components/auth-only";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Projects from "./pages/Projects/Projects";
 import Project from "./pages/Project/Project";
+import Team from "./pages/Team/Team";
 
 export default function AppRouter() {
   return (
@@ -21,6 +22,10 @@ export default function AppRouter() {
             <Route path="/applications" element={<Applications />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<Project />} />
+            <Route
+              path="/projects/:projectId/teams/:teamId"
+              element={<Team />}
+            />
           </Route>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />
