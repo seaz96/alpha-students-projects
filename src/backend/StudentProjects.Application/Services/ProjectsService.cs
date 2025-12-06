@@ -57,6 +57,13 @@ public class ProjectsService(ProjectRepository projectRepository, UserService us
         return new QueryResponse<Models.Response.Project>(projects.Data.Select(x => x.ToClientModel()), projects.Count);
     }
 
+    public async Task<Models.Response.Project> DeleteAsync(Guid id)
+    {
+        var project = await projectRepository.FindTrackedAsync(id) ?? throw new ProjectNotFoundException();
+        await projectRepository.DeleteAsync(project);
+        return project.ToClientModel();
+    }
+
     public async Task<Models.Response.Project> UpdateMentorsAsync(Guid projectId, IEnumerable<Guid> mentorIds)
     {
         var mentors = await userService.GetUsersAsync(mentorIds);

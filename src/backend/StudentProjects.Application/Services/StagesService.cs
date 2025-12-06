@@ -53,4 +53,11 @@ public class StagesService(StageRepository stageRepository)
     {
         return (await stageRepository.FindTrackedAsync(stageId) ?? throw new StageNotFoundException()).ToClientModel();
     }
+
+    public async Task<Models.Response.Stage> DeleteAsync(Guid stageId)
+    {
+        var stage = await stageRepository.FindTrackedAsync(stageId) ?? throw new StageNotFoundException();
+        await stageRepository.DeleteAsync(stage);
+        return stage.ToClientModel();
+    }
 }

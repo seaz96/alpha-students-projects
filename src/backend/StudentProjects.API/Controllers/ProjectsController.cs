@@ -21,6 +21,15 @@ public class ProjectsController(ProjectsService projectsService) : ControllerBas
         return Ok(await projectsService.PostAsync(request));
     }
 
+    [HttpDelete("{projectId:guid}")]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<Project>> DeleteAsync([FromRoute] Guid projectId)
+    {
+        return Ok(await projectsService.DeleteAsync(projectId));
+    }
+
     [HttpGet("{projectId:guid}")]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]

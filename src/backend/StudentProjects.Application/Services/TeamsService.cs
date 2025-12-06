@@ -38,6 +38,13 @@ public class TeamsService(TeamsRepository teamsRepository, ResultMetasRepository
         return new QueryResponse<Models.Response.Team>(teams.Data.Select(x => x.ToClientModel()), teams.Count);
     }
 
+    public async Task<Models.Response.Team> DeleteAsync(Guid id)
+    {
+        var project = await teamsRepository.FindTrackedAsync(id) ?? throw new ProjectNotFoundException();
+        await teamsRepository.DeleteAsync(project);
+        return project.ToClientModel();
+    }
+
     public async Task<Models.Response.Team> UpdateAsync(Guid teamId, PatchTeam request)
     {
         var team = await teamsRepository.FindTrackedAsync(teamId);

@@ -29,14 +29,32 @@ public class TeamsController(TeamsService teamsService) : ControllerBase
         return Ok(await teamsService.QueryAsync(request));  
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult<Team>> DeleteAsync([FromRoute] Guid id)
+    {
+        return Ok(await teamsService.DeleteAsync(id));
+    }
+
     [HttpPatch("{teamId:guid}")]
     public async Task<ActionResult<Team>> PatchTeamAsync([FromRoute] Guid teamId, [FromBody] PatchTeam request)
     {
         return Ok(await teamsService.UpdateAsync(teamId, request));
     }
 
+    [HttpPost("{teamId:guid}/students")]
+    public async Task<IActionResult> AddStudentsAsync([FromRoute] Guid teamId, [FromBody] PostStudents request)
+    {
+        throw new NotImplementedException();
+    }
+
     [HttpPut("{teamId:guid}/students")]
     public async Task<IActionResult> PutStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudents request)
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpDelete("{teamId:guid}/students")]
+    public async Task<IActionResult> DeleteStudentsAsync([FromRoute] Guid teamId, [FromBody] DeleteStudents request)
     {
         throw new NotImplementedException();
     }

@@ -47,4 +47,11 @@ public class MeetingsService(MeetingRepository meetingRepository)
     {
         return (await meetingRepository.FindTrackedAsync(id) ?? throw new MeetingNotFoundException()).ToClientModel();
     }
+
+    public async Task<Models.Response.Meeting> DeleteAsync(Guid id)
+    {
+        var meeting = await meetingRepository.FindTrackedAsync(id) ?? throw new MeetingNotFoundException();
+        await  meetingRepository.DeleteAsync(meeting);
+        return meeting.ToClientModel();
+    }
 }

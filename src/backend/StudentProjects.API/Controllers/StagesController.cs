@@ -33,4 +33,10 @@ public class StagesController(StagesService stagesService) : ControllerBase
     {
         return Ok(await stagesService.GetAsync(id));
     }
+
+    [HttpDelete("{id:guid}")]
+    public async Task<ActionResult<Stage>> DeleteAsync([FromRoute] Guid id)
+    {
+        return Ok(await stagesService.DeleteAsync(id));
+    }
 }
