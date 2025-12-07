@@ -29,7 +29,7 @@ public class TeamsService(TeamsRepository teamsRepository, ResultMetasRepository
         var team = await teamsRepository.FindTrackedAsync(teamId);
         return team is null
             ? throw new TeamNotFoundException()
-            : team.ToClientModel();
+            : team.ToClientModel(true);
     }
 
     public async Task<QueryResponse<Models.Response.Team>> QueryAsync(QueryTeams request)

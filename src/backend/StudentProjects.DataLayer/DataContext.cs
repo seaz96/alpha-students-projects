@@ -71,7 +71,7 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
             .WithOne(e => e.Parent)
             .HasForeignKey(e => e.ParentId)
             .OnDelete(DeleteBehavior.Cascade);
-        modelBuilder.Entity<Student>()
+        modelBuilder.Entity<TeamStudent>()
             .HasOne(e => e.Position)
             .WithMany()
             .HasForeignKey(e => e.PositionId);

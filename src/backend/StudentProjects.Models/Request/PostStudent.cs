@@ -7,4 +7,5 @@ public record PostStudent(
     string? Phone,
     string? Email,
     string? Telegram,
+    string? AcademicGroup,
     Guid? PositionId);

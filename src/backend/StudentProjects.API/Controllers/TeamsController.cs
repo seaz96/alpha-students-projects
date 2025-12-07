@@ -9,7 +9,7 @@ namespace StudentProjects.API.Controllers;
 [Authorize]
 [ApiController]
 [Route("v1/teams")]
-public class TeamsController(TeamsService teamsService) : ControllerBase
+public class TeamsController(TeamsService teamsService, StudentsService studentsService) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<Team>> PostAsync([FromBody] PostTeam request)
@@ -42,21 +42,21 @@ public class TeamsController(TeamsService teamsService) : ControllerBase
     }
 
     [HttpPost("{teamId:guid}/students")]
-    public async Task<IActionResult> AddStudentsAsync([FromRoute] Guid teamId, [FromBody] PostStudents request)
+    public async Task<ActionResult<ICollection<TeamStudent>>> AddStudentsAsync([FromRoute] Guid teamId, [FromBody] PostStudents request)
     {
-        throw new NotImplementedException();
+        return Ok(await studentsService.AddTeamStudentsAsync(teamId, request));
     }
 
-    [HttpPut("{teamId:guid}/students")]
-    public async Task<IActionResult> PutStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudents request)
+    [HttpPatch("{teamId:guid}/students")]
+    public async Task<IActionResult> PatchStudentsAsync([FromRoute] Guid teamId, [FromBody] PatchStudents request)
     {
-        throw new NotImplementedException();
+        return Ok(await studentsService.UpdateTeamStudentsAsync(teamId, request));
     }
 
     [HttpDelete("{teamId:guid}/students")]
     public async Task<IActionResult> DeleteStudentsAsync([FromRoute] Guid teamId, [FromBody] DeleteStudents request)
     {
-        throw new NotImplementedException();
+        return Ok(await studentsService.DeleteTeamStudentsAsync(teamId, request));
     }
 
     //todo(azanov.n): подумать над тем, чтобы в отдельный контроллер вынести
