@@ -80,7 +80,7 @@ public class UsersController(UserService userService) : ControllerBase
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
-    public async Task<ActionResult<IEnumerable<UserAccount>>> GetUsersAsync([FromQuery] CommonQuery request)
+    public async Task<ActionResult<IEnumerable<UserAccount>>> GetUsersAsync([FromQuery] QueryUserAccounts request)
     {
         return Ok(await userService.QueryAccountsAsync(request));
     }

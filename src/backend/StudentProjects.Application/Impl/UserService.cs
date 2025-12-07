@@ -62,9 +62,9 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user.ToAccountResponse();
     }
 
-    public async Task<QueryResponse<UserAccount>> QueryAccountsAsync(CommonQuery request)
+    public async Task<QueryResponse<UserAccount>> QueryAccountsAsync(QueryUserAccounts request)
     {
-        var users = await userRepository.QueryAsync(request.Offset, request.Limit);
+        var users = await userRepository.QueryAsync(request.Offset, request.Limit, request.Query);
         return new QueryResponse<UserAccount>(users.Data.Select(x => x.ToAccountResponse()).ToList(), users.Count);
     }
 
