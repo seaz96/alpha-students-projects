@@ -66,7 +66,7 @@ public class UsersController(UserService userService) : ControllerBase
     }
 
     [HttpPatch("{userId:guid}/role")]
-    [Authorize(Roles = "Admin,SuperAdmin")]
+    [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
@@ -76,7 +76,7 @@ public class UsersController(UserService userService) : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin,SuperAdmin")]
+    [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
