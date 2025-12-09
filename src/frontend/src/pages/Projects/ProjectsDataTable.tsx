@@ -1,7 +1,10 @@
 import { useAppSelector } from "@/app/hooks";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { useGetProjectsQuery } from "@/features/projects/projectsApi";
+import {
+  useDeleteProjectMutation,
+  useGetProjectsQuery,
+} from "@/features/projects/projectsApi";
 import type { IProject } from "@/features/projects/types";
 import { selectUser } from "@/features/users/usersSlice";
 import { getInitials } from "@/lib/utils";
@@ -14,6 +17,7 @@ export default function ProjectsDataTable() {
   // TODO: Pagination
   const { data, isLoading } = useGetProjectsQuery({ limit: 9999, offset: 0 });
   const user = useAppSelector(selectUser);
+  const [deleteProject] = useDeleteProjectMutation();
 
   const columns = useMemo<ColumnDef<IProject>[]>(
     () => [
@@ -69,7 +73,7 @@ export default function ProjectsDataTable() {
               <Button
                 size="icon"
                 variant="ghost"
-                onClick={() => null /* TODO: Удалить проект */}
+                onClick={() => deleteProject({ id: row.original.id })}
               >
                 <Trash2Icon />
               </Button>
@@ -78,7 +82,7 @@ export default function ProjectsDataTable() {
         },
       },
     ],
-    [user?.id, user?.role],
+    [deleteProject, user?.id, user?.role],
   );
 
   if (isLoading || data === undefined) return <p>Загрузка...</p>;

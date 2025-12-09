@@ -43,6 +43,14 @@ export const projectsApi = createApi({
       }),
       invalidatesTags: ["Project"],
     }),
+    deleteProject: builder.mutation<IProject, Pick<IProject, "id">>({
+      query: ({ id }) => ({
+        url: "/projects/" + id,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["Project"],
+    }),
   }),
 });
 
@@ -51,4 +59,5 @@ export const {
   useGetProjectQuery,
   useCreateProjectMutation,
   usePatchProjectMutation,
+  useDeleteProjectMutation,
 } = projectsApi;
