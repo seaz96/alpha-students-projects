@@ -12,7 +12,7 @@ import { Link } from "react-router";
 
 export default function ProjectsDataTable() {
   // TODO: Pagination
-  const { data } = useGetProjectsQuery({ limit: 9999, offset: 0 });
+  const { data, isLoading } = useGetProjectsQuery({ limit: 9999, offset: 0 });
   const user = useAppSelector(selectUser);
 
   const columns = useMemo<ColumnDef<IProject>[]>(
@@ -66,9 +66,12 @@ export default function ProjectsDataTable() {
     [user?.id, user?.role],
   );
 
+  if (isLoading || data === undefined) return <p>Загрузка...</p>;
+  const { data: projects } = data;
+
   return (
     <div className="mt-4">
-      {data !== undefined && <DataTable columns={columns} data={data} />}
+      <DataTable columns={columns} data={projects} />
     </div>
   );
 }

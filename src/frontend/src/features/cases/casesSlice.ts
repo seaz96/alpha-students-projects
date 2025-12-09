@@ -15,7 +15,7 @@ export const casesSlice = createAppSlice({
       .addMatcher(
         casesApi.endpoints.getCases.matchFulfilled,
         (state, action) => {
-          state.cases = action.payload;
+          state.cases = action.payload.data;
         },
       )
       .addMatcher(

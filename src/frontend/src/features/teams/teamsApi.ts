@@ -1,6 +1,7 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { ICreateTeamArgs, ITeam } from "./types";
+import { type GetResponse } from "@/types";
 
 export const teamsApi = createApi({
   reducerPath: "teamsApi",
@@ -8,7 +9,7 @@ export const teamsApi = createApi({
   tagTypes: ["Teams"],
   endpoints: (builder) => ({
     getTeams: builder.query<
-      ITeam[],
+      GetResponse<ITeam>,
       { projectId: string; limit: number; offset: number }
     >({
       query: ({ projectId, limit, offset }) => ({

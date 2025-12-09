@@ -25,6 +25,8 @@ export default function ApplicationReviewsPopover({
       </Button>
     );
 
+  const { data: reviews } = data;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -33,10 +35,10 @@ export default function ApplicationReviewsPopover({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="space-y-2">
-        {data.length === 0 ? (
+        {reviews.length === 0 ? (
           <p>Нет отзывов</p>
         ) : (
-          data.map((r, i) => (
+          reviews.map((r, i) => (
             <div key={i} className="text-sm">
               <div className="flex">
                 {r.isDislike ? (

@@ -30,6 +30,7 @@ export default function CreateNewProject({
   const [createProject] = useCreateProjectMutation();
 
   if (isLoading || data === undefined) return null;
+  const { data: cases } = data;
 
   return (
     <div className={cn("flex gap-2", className)} {...rest}>
@@ -43,7 +44,7 @@ export default function CreateNewProject({
           >
             <span className="truncate">
               {value
-                ? data.find((c) => c.id === value)?.name
+                ? cases.find((c) => c.id === value)?.name
                 : "Выберите кейс..."}
             </span>
             <ChevronsUpDownIcon className="ml-2 size-4 shrink-0 opacity-50" />
@@ -55,7 +56,7 @@ export default function CreateNewProject({
             <CommandList>
               <CommandEmpty>Нет кейсов</CommandEmpty>
               <CommandGroup>
-                {data
+                {cases
                   .filter((c) => c.type === "Submitted")
                   .map((c) => (
                     <CommandItem

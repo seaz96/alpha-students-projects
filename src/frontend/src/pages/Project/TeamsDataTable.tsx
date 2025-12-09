@@ -8,7 +8,11 @@ import { Link } from "react-router";
 import { Link2Icon, Link2OffIcon } from "lucide-react";
 
 export default function TeamsDataTable({ projectId }: { projectId: string }) {
-  const { data } = useGetTeamsQuery({ projectId, limit: 9999, offset: 0 });
+  const { data, isLoading } = useGetTeamsQuery({
+    projectId,
+    limit: 9999,
+    offset: 0,
+  });
 
   const columns = useMemo<ColumnDef<ITeam>[]>(
     () => [
@@ -48,12 +52,13 @@ export default function TeamsDataTable({ projectId }: { projectId: string }) {
     [],
   );
 
-  if (data === undefined) return null;
+  if (isLoading || data === undefined) return <p>Загрузка...</p>;
+  const { data: teams } = data;
 
   return (
     <div>
       <CreateTeamPopover projectId={projectId} />
-      <DataTable columns={columns} data={data} />
+      <DataTable columns={columns} data={teams} />
     </div>
   );
 }

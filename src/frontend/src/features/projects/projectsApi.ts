@@ -1,13 +1,14 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { GetProjectsArgs, IProject, PatchProjectArgs } from "./types";
+import { type GetResponse } from "@/types";
 
 export const projectsApi = createApi({
   reducerPath: "projcetsApi",
   baseQuery,
   tagTypes: ["Project"],
   endpoints: (builder) => ({
-    getProjects: builder.query<IProject[], GetProjectsArgs>({
+    getProjects: builder.query<GetResponse<IProject>, GetProjectsArgs>({
       query: ({ limit, offset }) => ({
         url: "/projects",
         method: "GET",

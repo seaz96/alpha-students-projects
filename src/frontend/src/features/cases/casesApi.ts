@@ -1,13 +1,17 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { ICase, IReview, IReviewWithAuthor } from "./types";
+import { type GetResponse } from "@/types";
 
 export const casesApi = createApi({
   reducerPath: "casesApi",
   baseQuery,
   tagTypes: ["Case"],
   endpoints: (builder) => ({
-    getCases: builder.query<ICase[], { limit: number; offset: number }>({
+    getCases: builder.query<
+      GetResponse<ICase>,
+      { limit: number; offset: number }
+    >({
       query: ({ limit, offset }) => ({
         url: "/cases",
         method: "GET",
@@ -51,7 +55,7 @@ export const casesApi = createApi({
       invalidatesTags: ["Case"],
     }),
     getReviews: builder.query<
-      IReviewWithAuthor[],
+      GetResponse<IReviewWithAuthor>,
       { id: string; limit: number; offset: number }
     >({
       query: ({ id, limit, offset }) => ({

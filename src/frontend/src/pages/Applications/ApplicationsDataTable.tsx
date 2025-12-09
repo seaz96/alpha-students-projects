@@ -21,7 +21,7 @@ import ApplicationReviewsPopover from "./ApplicationReviewsPopover";
 export default function ApplicationsDataTable() {
   const user = useAppSelector(selectUser);
 
-  const { data } = useGetCasesQuery({
+  const { data, isLoading } = useGetCasesQuery({
     // TODO: Pagination
     limit: 9999,
     offset: 0,
@@ -170,9 +170,13 @@ export default function ApplicationsDataTable() {
     [changeCaseType, deleteCase, user?.id],
   );
 
+  if (data === undefined || isLoading) return <p>Загрузка...</p>;
+
+  const { data: cases } = data;
+
   return (
     <div className="mt-4">
-      {data !== undefined && <DataTable columns={columns} data={data} />}
+      {data !== undefined && <DataTable columns={columns} data={cases} />}
     </div>
   );
 }
