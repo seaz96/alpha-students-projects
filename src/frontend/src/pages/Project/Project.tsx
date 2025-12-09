@@ -9,9 +9,17 @@ import useTitle from "@/hooks/useTitle";
 import { formatter, getInitials } from "@/lib/utils";
 import { useParams } from "react-router";
 import TeamsDataTable from "./TeamsDataTable";
-import { Button } from "@/components/ui/button";
-import { SaveIcon } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import type { ProjectStatus } from "@/features/projects/types";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import SaveButton from "./SaveButton";
+import { toast } from "sonner";
 
 export default function Project() {
   const { id } = useParams();
@@ -23,8 +31,13 @@ export default function Project() {
   useTitle(data?.name);
 
   const [description, setDescription] = useState("");
+  const [status, setStatus] = useState<ProjectStatus>("Unknown");
+
   useEffect(() => {
-    if (isSuccess && data !== undefined) setDescription(data.description);
+    if (isSuccess && data !== undefined) {
+      setDescription(data.description);
+      setStatus(data.status);
+    }
   }, [isSuccess, data]);
 
   const [patchProject] = usePatchProjectMutation();
@@ -34,9 +47,10 @@ export default function Project() {
       projectId: id!,
       name: data?.name,
       description,
-      status: data.status,
+      status: status,
     });
-  }, [data, id, patchProject, description]);
+    toast.success(`Проект сохранён`);
+  }, [data, id, patchProject, description, status]);
 
   if (isLoading) {
     return <Spinner />;
@@ -62,14 +76,29 @@ export default function Project() {
         {data.name}
       </h1>
       <div className="mt-4">
-        <div className="flex gap-6">
+        <div className="flex gap-8">
           <div>
-            <Label>Дата создания</Label>
+            <Label className="mb-2">Дата создания</Label>
             <p>{formattedDate}</p>
           </div>
           <div>
-            <Label>Автор</Label>
+            <Label className="mb-2">Автор</Label>
             <p>{getInitials(data.author)}</p>
+          </div>
+          <div>
+            <Label className="mb-2">Статус</Label>
+            <Select
+              value={status}
+              onValueChange={(e) => setStatus(e as ProjectStatus)}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Статус проекта" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Active">Активный</SelectItem>
+                <SelectItem value="Archived">Архив</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <Label className="mt-4 mb-2">Описание</Label>
@@ -77,15 +106,7 @@ export default function Project() {
           value={description}
           onChange={(e) => setDescription(e.currentTarget.value)}
         />
-        <Button
-          size="sm"
-          variant="outline"
-          className="mt-2"
-          onClick={saveProject}
-        >
-          <SaveIcon />
-          Сохранить
-        </Button>
+        <SaveButton onClick={saveProject} className="mt-2" />
         <TeamsDataTable projectId={data.id} />
       </div>
     </div>

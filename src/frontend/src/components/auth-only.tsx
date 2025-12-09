@@ -16,7 +16,7 @@ export default function AuthOnly() {
   const [logout] = useLogoutMutation();
 
   if (authStatus === "loading" || authStatus === "idle") {
-    return <p>Loading...</p>;
+    return <p>Загрузка...</p>;
   }
 
   if (!isAuthenticated) {

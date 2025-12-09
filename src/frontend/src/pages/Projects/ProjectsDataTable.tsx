@@ -43,6 +43,21 @@ export default function ProjectsDataTable() {
         enableSorting: true,
       },
       {
+        accessorKey: "status",
+        header: "Статус",
+        cell: ({ row }) => {
+          return (
+            <p>
+              {row.original.status == "Active"
+                ? "Активный"
+                : row.original.status == "Archived"
+                  ? "Архив"
+                  : "Неизвестно"}
+            </p>
+          );
+        },
+      },
+      {
         accessorKey: "control",
         header: "",
         cell: ({ row }) => {

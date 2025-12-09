@@ -21,4 +21,4 @@ export interface IProject {
   author: IUser;
 }
 
-type ProjectStatus = "Unknown" | "Active" | "Archived";
+export type ProjectStatus = "Unknown" | "Active" | "Archived";
