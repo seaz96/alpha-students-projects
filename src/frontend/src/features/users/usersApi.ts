@@ -1,16 +1,22 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { IUser } from "./types";
+import { type GetResponse } from "@/types";
 
 export const usersApi = createApi({
   reducerPath: "usersApi",
   baseQuery,
   tagTypes: ["User"],
   endpoints: (builder) => ({
-    getUsers: builder.query<IUser[], void>({
-      query: () => ({
+    getUsers: builder.query<
+      GetResponse<IUser>,
+      { limit: number; offset: number; query: string }
+    >({
+      query: (params) => ({
         url: "/users",
         method: "GET",
+        params,
+        credentials: "include",
       }),
       providesTags: ["User"],
     }),

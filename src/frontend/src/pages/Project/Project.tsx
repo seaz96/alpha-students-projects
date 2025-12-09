@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select";
 import SaveButton from "./SaveButton";
 import { toast } from "sonner";
+import { Mentors } from "./Mentors";
 
 export default function Project() {
   const { id } = useParams();
@@ -85,6 +86,7 @@ export default function Project() {
             <Label className="mb-2">Автор</Label>
             <p>{getInitials(data.author)}</p>
           </div>
+
           <div>
             <Label className="mb-2">Статус</Label>
             <Select
@@ -100,6 +102,7 @@ export default function Project() {
               </SelectContent>
             </Select>
           </div>
+          <Mentors project={data} />
         </div>
         <Label className="mt-4 mb-2">Описание</Label>
         <Textarea
