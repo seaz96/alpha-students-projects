@@ -9,6 +9,7 @@ public class ProjectRepository(DataContext context) : BaseRepository<Project>(co
     {
         return await DataContext.Projects
             .Include(x => x.Author)
+            .Include(x => x.Mentors)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
