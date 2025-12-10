@@ -20,7 +20,7 @@ export default function Team() {
   const { data: projectData } = useGetProjectQuery(projectId!);
   const [patchTeam] = usePatchTeamMutation();
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState<string | null>(null);
   const teamIdRef = useRef<string | null>(null);
 
   useEffect(() => {
@@ -34,6 +34,7 @@ export default function Team() {
 
   useEffect(() => {
     if (!data) return;
+    if (debouncedDescription === null) return;
     if (data.description === debouncedDescription) return;
 
     patchTeam({
@@ -67,14 +68,22 @@ export default function Team() {
         {data.name}
       </h1>
       <div className="mt-4 flex flex-col gap-1">
-        <Label>Проект</Label>
-        <Link to={`/projects/${projectId}`} className="hover:underline">
-          {projectData?.name}
-        </Link>
+        {projectData && (
+          <>
+            <Label>Проект</Label>
+            <Link to={`/projects/${projectId}`} className="hover:underline">
+              {projectData.name}
+            </Link>
+          </>
+        )}
         <Label className="mt-4 mb-1">Описание</Label>
         <Textarea
-          value={description}
+          value={description ?? ""}
           onChange={(e) => setDescription(e.currentTarget.value)}
+          disabled={description === null}
+          placeholder={
+            description === null ? "Загрузка..." : "Введите описание"
+          }
         />
         <StudentsDataTable />
       </div>
