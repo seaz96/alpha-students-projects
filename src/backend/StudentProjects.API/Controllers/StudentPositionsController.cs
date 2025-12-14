@@ -11,9 +11,9 @@ namespace StudentProjects.API.Controllers;
 public class StudentPositionsController(StudentPositionsService service) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<QueryResponse<StudentPosition>>> QueryAsync([FromQuery] QueryStudentPositions query)
+    public async Task<ActionResult<QueryResponse<StudentPosition>>> QueryAsync([FromQuery] QueryStudentPositions request)
     {
-        return Ok(await service.QueryStudentPositions(query));
+        return Ok(await service.QueryStudentPositions(request));
     }
 
     [HttpPost]
@@ -22,13 +22,13 @@ public class StudentPositionsController(StudentPositionsService service) : Contr
         return Ok(await service.AddStudentPosition(request));
     }
 
-    [HttpPut]
+    [HttpPut("{id:guid}")]
     public async Task<ActionResult<StudentPosition>> UpdateAsync([FromRoute] Guid id, [FromBody] StudentPositionCreate request)
     {
         return Ok(await service.UpdateStudentPosition(id, request.Name));
     }
 
-    [HttpDelete]
+    [HttpDelete("{id:guid}")]
     public async Task<ActionResult<StudentPosition>> DeleteAsync([FromRoute] Guid id)
     {
         return Ok(await service.DeleteStudentPosition(id));

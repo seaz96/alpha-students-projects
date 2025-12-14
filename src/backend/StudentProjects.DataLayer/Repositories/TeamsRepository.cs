@@ -8,8 +8,8 @@ public class TeamsRepository(DataContext context) : BaseRepository<Team>(context
     public override async Task<Team?> FindTrackedAsync(Guid id)
     {
         return await DataContext.Teams
-            .Include(x => x.TeamStudents)
-            .ThenInclude(x => x.Student)
+            .Include(x => x.TeamStudents).ThenInclude(x => x.Student)
+            .Include(x => x.TeamStudents).ThenInclude(x => x.Position)
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
