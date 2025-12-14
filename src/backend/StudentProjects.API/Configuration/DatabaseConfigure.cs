@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Minio;
 using StudentProjects.DataLayer;
 using StudentProjects.DataLayer.Repositories;
 
@@ -19,6 +20,7 @@ public static class DatabaseConfigure
         services.AddTransient<TodosRepository>();
         services.AddTransient<ResultMetasRepository>();
         services.AddTransient<TeamsStudentsRepository>();
+        services.AddTransient<S3Repository>();
 
         var dbHost = configuration.GetValue<string>("DATABASE_HOST");
         var dbPassword = configuration.GetValue<string>("DATABASE_PASSWORD");
@@ -30,6 +32,16 @@ public static class DatabaseConfigure
         {
             options.UseNpgsql($"Port={dbPort}; Database={dbName}; Username={dbUser}; Host={dbHost}; Password={dbPassword};");
         });
+
+        var s3PublicKey = configuration.GetValue<string>("S3_PUBLIC_KEY");
+        var s3SecretKey = configuration.GetValue<string>("S3_SECRET_KEY");
+        var s3Host = configuration.GetValue<string>("S3_HOST");
+        var s3Port = configuration.GetValue<int>("S3_PORT");
+
+        services.AddSingleton<IMinioClient>(new MinioClientFactory(client =>
+        {
+            client.WithCredentials(s3PublicKey, s3SecretKey).WithSSL(false).WithEndpoint(s3Host, s3Port);
+        }).CreateClient());
     }
 
     public static void MigrateDatabase(this WebApplication app)
