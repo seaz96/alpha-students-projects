@@ -16,5 +16,6 @@ public static class ServicesConfigure
         services.AddTransient<StagesService>();
         services.AddTransient<MeetingsService>();
         services.AddTransient<TodoService>();
+        services.AddTransient<StudentPositionsService>();
     }
 }

@@ -37,3 +37,6 @@ public class TodoNotFoundException(string message = "Todo with specified id not 
 
 public class ResultMetaNotFoundException(string message = "Result meta with specified id not found.")
     : ApiException("urn:error:result-meta-not-found", HttpStatusCode.NotFound, message);
+
+public class StudentPositionNotFoundException(string message = "Student position with specified id not found.")
+    : ApiException("urn:error:student-position-not-found", HttpStatusCode.NotFound, message);

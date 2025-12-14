@@ -2,6 +2,7 @@ using StudentProjects.DataLayer.Repositories;
 using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
 using StudentProjects.Models.Request;
+using TeamStudent = StudentProjects.Domain.Entities.TeamStudent;
 
 namespace StudentProjects.Application.Services;
 
