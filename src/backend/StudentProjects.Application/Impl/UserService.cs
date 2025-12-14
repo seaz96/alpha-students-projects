@@ -90,4 +90,15 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         var user = await userRepository.FindTrackedAsync(userId);
         return user ?? throw new UnauthorizedException("User with specified identifier not found.");
     }
+
+    public async Task<User> GetCurrentUserAsync()
+    {
+        return await GetAuthorizedUserAsync();
+    }
+
+    public async Task<User> GetUserByIdAsync(Guid userId)
+    {
+        var user = await userRepository.FindTrackedAsync(userId);
+        return user ?? throw new UserNotFoundException();
+    }
 }

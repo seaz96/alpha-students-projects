@@ -75,4 +75,10 @@ public class TeamsService(TeamsRepository teamsRepository, ResultMetasRepository
         var meta = await resultMetasRepository.FindTrackedByTeamIdAsync(teamId);
         return meta is null ? throw new ResultMetaNotFoundException() : meta.ToClientModel();
     }
+
+    public async Task<IEnumerable<Models.Response.Project>> GetMentorProjectsAsync(Guid mentorId)
+    {
+        var teams = await teamsRepository.GetTeamsByMentorIdAsync(mentorId);
+        return teams.Select(t => t.Project.ToClientModel()).Distinct();
+    }
 }

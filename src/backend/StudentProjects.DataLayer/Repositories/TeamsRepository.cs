@@ -20,4 +20,12 @@ public class TeamsRepository(DataContext context) : BaseRepository<Team>(context
 
         return (await query.Skip(offset).Take(limit).ToListAsync(), await query.CountAsync());
     }
+
+    public async Task<IEnumerable<Team>> GetTeamsByMentorIdAsync(Guid mentorId)
+    {
+        return await DataContext.Teams
+            .Include(t => t.Project)
+            .Where(t => t.Project.Mentors.Any(m => m.Id == mentorId))
+            .ToListAsync();
+    }
 }

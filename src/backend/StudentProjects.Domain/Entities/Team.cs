@@ -7,9 +7,9 @@ public class Team : BaseEntity
     public required Guid ProjectId { get; set; }
     public string? TeamprojectLink { get; set; }
 
-    public virtual Project Project { get; set; }
-    public virtual ICollection<TeamStudent> TeamStudents { get; set; }
-    public virtual ICollection<Meeting> Meetings { get; set; }
-    public virtual ICollection<Stage> Stages { get; set; }
-    public virtual ICollection<ResultMeta> ResultMetas { get; set; }
+    public virtual Project Project { get; set; } = null!;
+    public virtual ICollection<TeamStudent> TeamStudents { get; set; } = new List<TeamStudent>();
+    public virtual ICollection<Meeting> Meetings { get; set; } = new List<Meeting>();
+    public virtual ICollection<Stage> Stages { get; set; } = new List<Stage>();
+    public virtual ICollection<ResultMeta> ResultMetas { get; set; } = new List<ResultMeta>();
 }
