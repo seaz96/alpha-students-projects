@@ -19,6 +19,7 @@ export interface IProject {
   status: ProjectStatus;
   createdAt: string;
   author: IUser;
+  mentors: IUser[];
 }
 
 export type ProjectStatus = "Unknown" | "Active" | "Archived";

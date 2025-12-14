@@ -20,7 +20,7 @@ public static class DatabaseConfigure
         services.AddTransient<TodosRepository>();
         services.AddTransient<ResultMetasRepository>();
         services.AddTransient<TeamsStudentsRepository>();
-        services.AddTransient<S3Repository>();
+        services.AddTransient<StudentPositionsRepository>();
 
         var dbHost = configuration.GetValue<string>("DATABASE_HOST");
         var dbPassword = configuration.GetValue<string>("DATABASE_PASSWORD");

@@ -4,7 +4,7 @@ import type { GetProjectsArgs, IProject, PatchProjectArgs } from "./types";
 import { type GetResponse } from "@/types";
 
 export const projectsApi = createApi({
-  reducerPath: "projcetsApi",
+  reducerPath: "projectsApi",
   baseQuery,
   tagTypes: ["Project"],
   endpoints: (builder) => ({
@@ -51,6 +51,15 @@ export const projectsApi = createApi({
       }),
       invalidatesTags: ["Project"],
     }),
+    putMentors: builder.mutation<IProject, { id: string; mentors: string[] }>({
+      query: ({ id, mentors }) => ({
+        url: `/projects/${id}/mentors`,
+        method: "PUT",
+        credentials: "include",
+        body: { mentors },
+      }),
+      invalidatesTags: ["Project"],
+    }),
   }),
 });
 
@@ -60,4 +69,5 @@ export const {
   useCreateProjectMutation,
   usePatchProjectMutation,
   useDeleteProjectMutation,
+  usePutMentorsMutation,
 } = projectsApi;
