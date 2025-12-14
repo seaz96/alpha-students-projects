@@ -16,6 +16,7 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
     public DbSet<TeamStudent> TeamStudents { get; set; } = null!;
     public DbSet<Todo> Todos { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<StudentPosition> StudentPositions { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -71,6 +72,10 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
             .WithOne(e => e.Parent)
             .HasForeignKey(e => e.ParentId)
             .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder.Entity<TeamStudent>()
+            .HasOne(e => e.Position)
+            .WithMany()
+            .HasForeignKey(e => e.PositionId);
         modelBuilder.Entity<TeamStudent>()
             .HasOne(e => e.Position)
             .WithMany()
