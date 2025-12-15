@@ -40,3 +40,9 @@ public class ResultMetaNotFoundException(string message = "Result meta with spec
 
 public class StudentPositionNotFoundException(string message = "Student position with specified id not found.")
     : ApiException("urn:error:student-position-not-found", HttpStatusCode.NotFound, message);
+    
+public class FileObjectNotUploaded()
+    : ApiException("urn:error:file-object-not-uploaded", HttpStatusCode.NotFound, "File with specified name not found in storage.");
+
+public class FileNotFoundException(string message = "File with specified id not found.")
+    : ApiException("urn:error:file-not-found", HttpStatusCode.NotFound, message);

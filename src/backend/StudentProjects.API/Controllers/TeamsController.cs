@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.Application.Services;
+using StudentProjects.DataLayer.Repositories;
 using StudentProjects.Models.Request;
 using StudentProjects.Models.Response;
 
@@ -70,31 +71,5 @@ public class TeamsController(TeamsService teamsService, StudentsService students
     public async Task<ActionResult<ResultMeta>> PutResultAsync([FromRoute] Guid teamId, [FromBody] PutTeamResult request)
     {
         return Ok(await teamsService.UpdateResultAsync(teamId, request));
-    }
-
-    //todo: this and lower
-    [HttpPost("{teamId:guid}/folders")]
-    public async Task<IActionResult> PostTeamFolderAsync(Guid teamId)
-    {
-        throw new NotImplementedException();
-    }
-
-    [HttpPost("{teamId:guid}/folders/{folderId:guid}")]
-    public async Task<IActionResult> GetTeamFolderAsync(Guid teamId, Guid folderId)
-    {
-        throw new NotImplementedException();
-    }
-
-    [HttpPost("{teamId:guid}/files")]
-    public async Task<IActionResult> PostTeamFileAsync(Guid teamId)
-    {
-        throw new NotImplementedException();
-    }
-
-    //todo(azanov.n): в отдельный контроллер?
-    [HttpPost("{teamId:guid}/files/{folderId:guid}")]
-    public async Task<IActionResult> GetTeamFileAsync(Guid teamId, Guid folderId)
-    {
-        throw new NotImplementedException();
     }
 }

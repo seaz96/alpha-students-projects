@@ -17,5 +17,6 @@ public static class ServicesConfigure
         services.AddTransient<MeetingsService>();
         services.AddTransient<TodoService>();
         services.AddTransient<StudentPositionsService>();
+        services.AddTransient<FilesService>();
     }
 }

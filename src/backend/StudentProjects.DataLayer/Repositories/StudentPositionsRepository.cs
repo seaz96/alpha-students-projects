@@ -8,7 +8,7 @@ public class StudentPositionsRepository(DataContext context) : BaseRepository<St
     public async Task<(List<StudentPosition> Data, int Count)> QueryAsync(int offset, int limit, string? query)
     {
         var request = context.StudentPositions
-            .Where(x => string.IsNullOrEmpty(query) || x.Name.ToLower().Contains(query.ToLower()))
+            .Where(x => x.Name.ToLower().Contains((query ?? "").ToLower()))
             .AsNoTracking();
 
         return (await request.Skip(offset).Take(limit).ToListAsync(), await request.CountAsync());

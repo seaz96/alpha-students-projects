@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentProjects.Domain.Entities;
+using File = System.IO.File;
 
 namespace StudentProjects.DataLayer;
 
@@ -17,6 +18,7 @@ public sealed class DataContext(DbContextOptions<DataContext> options) : DbConte
     public DbSet<Todo> Todos { get; set; } = null!;
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<StudentPosition> StudentPositions { get; set; } = null!;
+    public DbSet<FileObject> Files { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
