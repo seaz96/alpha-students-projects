@@ -10,7 +10,7 @@ namespace StudentProjects.API.Controllers;
 [Authorize]
 [ApiController]
 [Route("v1/teams")]
-public class TeamsController(TeamsService teamsService, StudentsService studentsService, S3Repository s3Repository) : ControllerBase
+public class TeamsController(TeamsService teamsService, StudentsService studentsService) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<Team>> PostAsync([FromBody] PostTeam request)
@@ -71,29 +71,5 @@ public class TeamsController(TeamsService teamsService, StudentsService students
     public async Task<ActionResult<ResultMeta>> PutResultAsync([FromRoute] Guid teamId, [FromBody] PutTeamResult request)
     {
         return Ok(await teamsService.UpdateResultAsync(teamId, request));
-    }
-
-    [HttpGet("{teamId:guid}/files")]
-    public async Task<IActionResult> GetFilesAsync([FromRoute] Guid teamId, [FromQuery] string prefix = "")
-    {
-        return Ok(await s3Repository.GetObjectsListAsync(teamId.ToString(), prefix));
-    }
-
-    [HttpGet("{teamId:guid}/files/{key}")]
-    public async Task<IActionResult> GetFileAsync([FromRoute] Guid teamId, [FromQuery] string key = "")
-    {
-        return Ok(await s3Repository.Getob(teamId.ToString(), prefix));
-    }
-
-    [HttpPost("{teamId:guid}/files")]
-    public async Task<IActionResult> PostFileAsync(Guid teamId)
-    {
-        throw new NotImplementedException();
-    }
-
-    [HttpDelete("{teamId:guid}/files/{prefix}")]
-    public async Task<IActionResult> PostFileAsync(Guid teamId, [FromRoute] string prefix)
-    {
-        throw new NotImplementedException();
     }
 }

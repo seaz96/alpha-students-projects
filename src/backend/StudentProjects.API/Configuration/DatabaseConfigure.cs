@@ -1,5 +1,6 @@
+using Amazon.Runtime;
+using Amazon.S3;
 using Microsoft.EntityFrameworkCore;
-using Minio;
 using StudentProjects.DataLayer;
 using StudentProjects.DataLayer.Repositories;
 
@@ -21,6 +22,7 @@ public static class DatabaseConfigure
         services.AddTransient<ResultMetasRepository>();
         services.AddTransient<TeamsStudentsRepository>();
         services.AddTransient<StudentPositionsRepository>();
+        services.AddTransient<FilesRepository>();
 
         var dbHost = configuration.GetValue<string>("DATABASE_HOST");
         var dbPassword = configuration.GetValue<string>("DATABASE_PASSWORD");
@@ -38,10 +40,13 @@ public static class DatabaseConfigure
         var s3Host = configuration.GetValue<string>("S3_HOST");
         var s3Port = configuration.GetValue<int>("S3_PORT");
 
-        services.AddSingleton<IMinioClient>(new MinioClientFactory(client =>
+        services.AddSingleton<IAmazonS3>(new AmazonS3Client(new AmazonS3Config
         {
-            client.WithCredentials(s3PublicKey, s3SecretKey).WithSSL(false).WithEndpoint(s3Host, s3Port);
-        }).CreateClient());
+            ServiceURL = $"http://{s3Host}:{s3Port}",
+            DefaultAWSCredentials = new BasicAWSCredentials(s3PublicKey, s3SecretKey),
+            UseHttp = true,
+            ForcePathStyle = true
+        }));
     }
 
     public static void MigrateDatabase(this WebApplication app)

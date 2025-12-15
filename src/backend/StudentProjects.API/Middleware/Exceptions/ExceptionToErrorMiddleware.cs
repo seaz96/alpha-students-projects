@@ -29,6 +29,7 @@ public class ExceptionToErrorMiddleware(RequestDelegate next)
                 TodoNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 ResultMetaNotFoundException ex => new(ex.Type, ex.StatusCode, ex.Message),
                 StudentPositionNotFoundException ex => new (ex.Type, ex.StatusCode, ex.Message),
+                FileObjectNotUploaded ex => new (ex.Type, ex.StatusCode, ex.Message),
                 _ => new("urn:error:unknown", HttpStatusCode.InternalServerError, "Unhandled exception occured.")
             };
 

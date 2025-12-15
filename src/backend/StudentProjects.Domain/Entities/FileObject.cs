@@ -1,9 +1,8 @@
 namespace StudentProjects.Domain.Entities;
 
-public class FileObject
+public class FileObject : BaseEntity
 {
-    public bool IsDirectory { get; set; }
-    public string Name { get; set; }
-    public string Key { get; set; }
-    public ulong Size { get; set; }
+    public Guid TeamId { get; set; }
+    public required string Name { get; set; }
+    public required long Size { get; set; }
 }
