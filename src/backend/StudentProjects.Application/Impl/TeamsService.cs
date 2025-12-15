@@ -32,6 +32,12 @@ public class TeamsService(TeamsRepository teamsRepository, ResultMetasRepository
             : team.ToClientModel(true);
     }
 
+    public async Task<bool> ExistsAsync(Guid teamId)
+    {
+        var team = await teamsRepository.FindTrackedAsync(teamId);
+        return team is not null;
+    }
+
     public async Task<QueryResponse<Models.Response.Team>> QueryAsync(QueryTeams request)
     {
         var teams = await teamsRepository.QueryAsync(request.ProjectId, request.Offset, request.Limit);

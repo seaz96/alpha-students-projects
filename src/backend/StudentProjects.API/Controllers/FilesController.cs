@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.Application.Services;
+using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Response;
 
 namespace StudentProjects.API.Controllers;
@@ -8,29 +9,37 @@ namespace StudentProjects.API.Controllers;
 [Authorize]
 [ApiController]
 [Route("v1/files")]
-public class FilesController(FilesService filesService) : ControllerBase
+public class FilesController(FilesService filesService, TeamsService teamsService) : ControllerBase
 {
     [HttpGet]
     public async Task<ActionResult<IEnumerable<FileObject>>> GetFilesAsync([FromQuery] Guid teamId)
     {
+        if (!await teamsService.ExistsAsync(teamId))
+            throw new TeamNotFoundException();
         return Ok(await filesService.GetFilesAsync(teamId));
     }
 
     [HttpGet("{teamId:guid}/{name}/content-url")]
     public async Task<IActionResult> GetFileContentUrl([FromRoute] Guid teamId, [FromRoute] string name)
     {
+        if (!await teamsService.ExistsAsync(teamId))
+            throw new TeamNotFoundException();
         return Ok(await filesService.GenerateGetPresignedUrl(teamId, name));
     }
 
     [HttpGet("{teamId:guid}/{name}/upload-url")]
     public async Task<IActionResult> GetPutPresignedUrlAsync([FromRoute] Guid teamId, [FromRoute] string name)
     {
+        if (!await teamsService.ExistsAsync(teamId))
+            throw new TeamNotFoundException();
         return Ok(await filesService.GeneratePutPresignedUrl(teamId, name));
     }
 
     [HttpPost("{teamId:guid}/{name}")]
     public async Task<IActionResult> CreateInfoAsync([FromRoute] Guid teamId, [FromRoute] string name)
     {
+        if (!await teamsService.ExistsAsync(teamId))
+            throw new TeamNotFoundException();
         return Ok(await filesService.CreateFileAsync(teamId, name));
     }
 

@@ -8,15 +8,16 @@ using StudentProjects.Models.Exceptions;
 
 namespace StudentProjects.Application.Services;
 
-public class FilesService(IAmazonS3 s3Client, FilesRepository repository)
+public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsService teamsService)
 {
     public async Task<string> GeneratePutPresignedUrl(Guid teamId, string name)
     {
         var request = new GetPreSignedUrlRequest
         {
-            Key = $"teams/{teamId}/{name}",
+            Key = $"{teamId}/{name}",
             Verb = HttpVerb.PUT,
-            Expires = DateTime.UtcNow.AddHours(1)
+            Expires = DateTime.UtcNow.AddHours(1),
+            BucketName = "teams"
         };
 
         return await s3Client.GetPreSignedURLAsync(request);
@@ -26,9 +27,10 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository)
     {
         var request = new GetPreSignedUrlRequest
         {
-            Key = $"teams/{teamId}/{name}",
+            Key = $"{teamId}/{name}",
             Verb = HttpVerb.GET,
-            Expires = DateTime.UtcNow.AddHours(1)
+            Expires = DateTime.UtcNow.AddHours(1),
+            BucketName = "teams"
         };
 
         return await s3Client.GetPreSignedURLAsync(request);
