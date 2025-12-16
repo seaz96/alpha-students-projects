@@ -39,7 +39,7 @@ public class MeetingsService(MeetingRepository meetingRepository)
 
     public async Task<QueryResponse<Models.Response.Meeting>> QueryAsync(QueryMeetings request)
     {
-        var response = await meetingRepository.QueryAsync(request.TeamId, request.Offset, request.Limit);
+        var response = await meetingRepository.QueryAsync(request.TeamId, request.StartDate, request.EndDate);
         return new QueryResponse<Models.Response.Meeting>(response.Data.Select(x => x.ToClientModel()), response.Count);
     }
 
