@@ -28,9 +28,12 @@ export const filesApi = createApi({
             { teamId: string; name: string }
         >({
             query: ({ teamId, name }) => ({
-                url: `/files/${teamId}/${encodeURIComponent(name)}/upload-url`,
+                url: `/files/${teamId}/upload-url`,
                 method: "GET",
                 credentials: "include",
+                params: {
+                    name
+                }
             }),
         }),
 
@@ -39,9 +42,12 @@ export const filesApi = createApi({
             { teamId: string; name: string }
         >({
             query: ({ teamId, name }) => ({
-                url: `/files/${teamId}/${encodeURIComponent(name)}`,
+                url: `/files/${teamId}`,
                 method: "POST",
                 credentials: "include",
+                params: {
+                    name
+                }
             }),
             invalidatesTags: [{ type: "File", id: "LIST" }],
         }),
@@ -63,9 +69,12 @@ export const filesApi = createApi({
             { teamId: string; name: string }
         >({
             query: ({ teamId, name }) => ({
-                url: `/files/${teamId}/${encodeURIComponent(name)}/content-url`,
+                url: `/files/${teamId}/content-url`,
                 method: "GET",
                 credentials: "include",
+                params: {
+                    name
+                }
             }),
         }),
     }),
