@@ -7,6 +7,7 @@ import { casesApi } from "@/features/cases/casesApi";
 import { projectsApi } from "@/features/projects/projectsApi";
 import { teamsApi } from "@/features/teams/teamsApi";
 import { stagesApi } from "@/features/stages/stagesApi";
+import {filesApi} from "@/features/files/filesApi.ts";
 
 const rootReducer = combineSlices(
   usersSlice,
@@ -15,6 +16,7 @@ const rootReducer = combineSlices(
   projectsApi,
   teamsApi,
   stagesApi,
+  filesApi
 );
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -27,7 +29,8 @@ export const makeStore = (preloadedState?: Partial<RootState>) => {
         .concat(casesApi.middleware)
         .concat(projectsApi.middleware)
         .concat(teamsApi.middleware)
-        .concat(stagesApi.middleware);
+        .concat(stagesApi.middleware)
+        .concat(filesApi.middleware);
     },
     preloadedState,
   });

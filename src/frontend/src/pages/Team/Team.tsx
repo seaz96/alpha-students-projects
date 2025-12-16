@@ -13,6 +13,7 @@ import { StudentsDataTable } from "./StudentsDataTable";
 import { useEffect, useRef, useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
 import Stages from "./Stages";
+import Files from "@/pages/Team/Files.tsx";
 
 export default function Team() {
   const { projectId, teamId } = useParams();
@@ -91,6 +92,7 @@ export default function Team() {
         />
         <StudentsDataTable />
         {teamId && <Stages teamId={teamId} />}
+        {teamId && <Files teamId={teamId} />}
       </div>
     </div>
   );
