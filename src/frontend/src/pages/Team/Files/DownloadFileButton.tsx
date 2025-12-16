@@ -50,7 +50,7 @@ export function DownloadFileButton({
 
     return (
         <Button
-            size="icon-xs"
+            size="icon-sm"
             variant="ghost"
             onClick={onDownload}
             disabled={loading}

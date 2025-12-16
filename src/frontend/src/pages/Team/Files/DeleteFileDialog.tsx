@@ -31,7 +31,7 @@ export function DeleteFileDialog({
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button size="icon-xs" variant="ghost">
+                <Button size="icon-sm" variant="ghost">
                     <TrashIcon className="h-4 w-4 text-destructive" />
                 </Button>
             </DialogTrigger>
