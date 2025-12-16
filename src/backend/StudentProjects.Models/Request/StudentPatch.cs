@@ -3,8 +3,8 @@ namespace StudentProjects.Models.Request;
 public record StudentPatch(
     Guid? Id,
     string? FirstName,
-    string? LastName,
     string? MiddleName,
+    string? LastName,
     string? Phone,
     string? Email,
     string? Telegram,
