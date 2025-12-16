@@ -39,6 +39,10 @@ services:
       DATABASE_PORT: 5432
       SECURITY_KEY: DefaultDevelopmentSecurityKey0123456789,
       DOCUMENTATION_SERVER: http://localhost:8080/api
+      S3_HOST: localhost
+      S3_PORT: 5432
+      S3_PUBLIC_KEY: admin
+      S3_SECRET_KEY: password
   minio:
     container_name: minio
     image: minio/minio:latest
