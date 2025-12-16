@@ -14,7 +14,13 @@ import {
     useConfirmUploadMutation,
 } from "@/features/files/filesApi";
 
-export function UploadFilesDialog({ teamId }: { teamId: string }) {
+export function UploadFilesDialog({
+                                      teamId,
+                                      currentPath,
+                                  }: {
+    teamId: string;
+    currentPath: string[];
+}) {
     const [open, setOpen] = useState(false);
     const [file, setFile] = useState<File | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -30,9 +36,14 @@ export function UploadFilesDialog({ teamId }: { teamId: string }) {
         setError(null);
 
         try {
+            const fullName =
+                currentPath.length > 0
+                    ? `${currentPath.join("/")}/${file.name}`
+                    : file.name;
+            
             const { link } = await getUploadUrl({
                 teamId,
-                name: file.name,
+                name: fullName,
             }).unwrap();
             
             const uploadRes = await fetch(link, {
@@ -51,7 +62,7 @@ export function UploadFilesDialog({ teamId }: { teamId: string }) {
 
             await confirmUpload({
                 teamId,
-                name: file.name,
+                name: fullName,
             }).unwrap();
 
             setOpen(false);
