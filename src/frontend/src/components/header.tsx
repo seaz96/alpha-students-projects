@@ -32,7 +32,7 @@ export default function Header() {
           <Link to="/projects">
             <Button variant="link">Проекты</Button>
           </Link>
-          <Link to="/admin">
+          <Link to="/dashboard/student-roles">
             <Button variant="link">Дэшборд</Button>
           </Link>
         </ButtonGroup>

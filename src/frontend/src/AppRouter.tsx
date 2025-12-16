@@ -10,6 +10,8 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import Projects from "./pages/Projects/Projects";
 import Project from "./pages/Project/Project";
 import Team from "./pages/Team/Team";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import StudentPositions from "./pages/Dashboard/StudentPositions";
 
 export default function AppRouter() {
   return (
@@ -26,6 +28,13 @@ export default function AppRouter() {
               path="/projects/:projectId/teams/:teamId"
               element={<Team />}
             />
+
+            <Route path="/dashboard" element={<Dashboard />}>
+              <Route
+                path="/dashboard/student-roles"
+                element={<StudentPositions />}
+              />
+            </Route>
           </Route>
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="*" element={<NotFound />} />

@@ -1,6 +1,12 @@
 import { baseQuery } from "@/api/baseQuery";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { ICreateTeamArgs, IPatchTeamArgs, IStudent, ITeam } from "./types";
+import type {
+  ICreateStudentArgs,
+  ICreateTeamArgs,
+  IPatchStudentArgs,
+  IPatchTeamArgs,
+  ITeam,
+} from "./types";
 import { type GetResponse } from "@/types";
 
 export const teamsApi = createApi({
@@ -54,11 +60,36 @@ export const teamsApi = createApi({
         { type: "Team", id: teamId },
       ],
     }),
-    addStudent: builder.mutation<ITeam, IStudent & { teamId: string }>({
-      query: ({ teamId, ...body }) => ({
+    addStudent: builder.mutation<
+      ITeam,
+      ICreateStudentArgs & { teamId: string }
+    >({
+      query: ({ teamId, ...student }) => ({
         url: `/teams/${teamId}/students`,
         method: "POST",
-        body,
+        body: { students: [student] },
+        credentials: "include",
+      }),
+      invalidatesTags: (_res, _err, { teamId }) => [
+        { type: "Team", id: teamId },
+      ],
+    }),
+    patchStudent: builder.mutation<ITeam, IPatchStudentArgs>({
+      query: ({ teamId, ...student }) => ({
+        url: `/teams/${teamId}/students`,
+        method: "PATCH",
+        body: { students: [student] },
+        credentials: "include",
+      }),
+      invalidatesTags: (_res, _err, { teamId }) => [
+        { type: "Team", id: teamId },
+      ],
+    }),
+    deleteStudent: builder.mutation<ITeam, { teamId: string; id: string }>({
+      query: ({ teamId, id }) => ({
+        url: `/teams/${teamId}/students`,
+        method: "DELETE",
+        body: { students: [id] },
         credentials: "include",
       }),
       invalidatesTags: (_res, _err, { teamId }) => [
@@ -74,4 +105,6 @@ export const {
   useCreateTeamMutation,
   usePatchTeamMutation,
   useAddStudentMutation,
+  usePatchStudentMutation,
+  useDeleteStudentMutation,
 } = teamsApi;

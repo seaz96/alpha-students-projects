@@ -90,7 +90,7 @@ export default function Team() {
             description === null ? "Загрузка..." : "Введите описание"
           }
         />
-        <StudentsDataTable />
+        <StudentsDataTable students={data.students} />
         {teamId && <Stages teamId={teamId} />}
         {teamId && <Files teamId={teamId} />}
       </div>
