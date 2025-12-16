@@ -18,7 +18,7 @@ export default function Header() {
     <header className="bg-background sticky top-0">
       <div className="mx-auto flex w-full max-w-screen-xl items-center justify-between px-8 py-2">
         <Link
-          to="/"
+          to="/applications"
           className="flex items-center gap-4 font-medium underline-offset-4 hover:underline"
         >
           <AlfaLogo className="text-brand" />
