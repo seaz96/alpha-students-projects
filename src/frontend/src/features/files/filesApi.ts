@@ -23,6 +23,29 @@ export const filesApi = createApi({
                     : [{ type: "File", id: "LIST" }],
         }),
 
+        getUploadUrl: builder.mutation<
+            { link: string },
+            { teamId: string; name: string }
+        >({
+            query: ({ teamId, name }) => ({
+                url: `/files/${teamId}/${encodeURIComponent(name)}/upload-url`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
+
+        confirmUpload: builder.mutation<
+            IFile,
+            { teamId: string; name: string }
+        >({
+            query: ({ teamId, name }) => ({
+                url: `/files/${teamId}/${encodeURIComponent(name)}`,
+                method: "POST",
+                credentials: "include",
+            }),
+            invalidatesTags: [{ type: "File", id: "LIST" }],
+        }),
+
         deleteFile: builder.mutation<void, { id: string }>({
             query: ({ id }) => ({
                 url: `/files/${id}`,
@@ -40,4 +63,6 @@ export const filesApi = createApi({
 export const {
     useGetFilesQuery,
     useDeleteFileMutation,
+    useGetUploadUrlMutation,
+    useConfirmUploadMutation,
 } = filesApi;
