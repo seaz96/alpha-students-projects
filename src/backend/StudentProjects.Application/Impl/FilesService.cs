@@ -17,7 +17,8 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsS
             Key = $"{teamId}/{name}",
             Verb = HttpVerb.PUT,
             Expires = DateTime.UtcNow.AddHours(1),
-            BucketName = "teams"
+            BucketName = "teams",
+            Protocol = Protocol.HTTP
         };
 
         return await s3Client.GetPreSignedURLAsync(request);
@@ -30,7 +31,8 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsS
             Key = $"{teamId}/{name}",
             Verb = HttpVerb.GET,
             Expires = DateTime.UtcNow.AddHours(1),
-            BucketName = "teams"
+            BucketName = "teams",
+            Protocol = Protocol.HTTP
         };
 
         return await s3Client.GetPreSignedURLAsync(request);
