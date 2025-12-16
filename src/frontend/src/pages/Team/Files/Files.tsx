@@ -33,7 +33,7 @@ export default function Files({ teamId }: { teamId: string }) {
     return (
         <div className="mt-6 rounded-md border p-4">
             {header}
-            <FileTree nodes={tree} />
+            <FileTree nodes={tree} teamId={teamId} />
         </div>
     );
 }

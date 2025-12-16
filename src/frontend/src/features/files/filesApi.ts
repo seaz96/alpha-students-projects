@@ -57,6 +57,17 @@ export const filesApi = createApi({
                 { type: "File", id: "LIST" },
             ],
         }),
+
+        getDownloadUrl: builder.mutation<
+            { link: string },
+            { teamId: string; name: string }
+        >({
+            query: ({ teamId, name }) => ({
+                url: `/files/${teamId}/${encodeURIComponent(name)}/content-url`,
+                method: "GET",
+                credentials: "include",
+            }),
+        }),
     }),
 });
 
@@ -65,4 +76,5 @@ export const {
     useDeleteFileMutation,
     useGetUploadUrlMutation,
     useConfirmUploadMutation,
+    useGetDownloadUrlMutation,
 } = filesApi;

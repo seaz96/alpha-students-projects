@@ -3,12 +3,24 @@ import { ChevronRight, FolderIcon, FileIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { FileNode } from "@/features/files/utils/buildFileTree.ts";
 import { DeleteFileDialog } from "@/pages/Team/Files/DeleteFileDialog.tsx";
+import {DownloadFileButton} from "@/pages/Team/Files/DownloadFileButton.tsx";
 
-export function FileTree({ nodes }: { nodes: FileNode[] }) {
+export function FileTree({
+                             nodes,
+                             teamId,
+                         }: {
+    nodes: FileNode[];
+    teamId: string;
+}) {
     return (
         <div className="space-y-1">
             {nodes.map((node) => (
-                <FileTreeNode key={node.name} node={node} level={0} />
+                <FileTreeNode
+                    key={node.name}
+                    node={node}
+                    level={0}
+                    teamId={teamId}
+                />
             ))}
         </div>
     );
@@ -17,10 +29,13 @@ export function FileTree({ nodes }: { nodes: FileNode[] }) {
 function FileTreeNode({
                           node,
                           level,
+                          teamId,
                       }: {
     node: FileNode;
     level: number;
+    teamId: string;
 }) {
+
     const [open, setOpen] = useState(false);
 
     if (node.type === "file") {
@@ -35,13 +50,16 @@ function FileTreeNode({
                 <span className="ml-auto text-xs text-muted-foreground">
           {node.size} B
         </span>
-
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                    <DeleteFileDialog
-                        fileId={node.id}
-                        fileName={node.name}
-                    />
-                </div>
+            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <DownloadFileButton
+                    teamId={teamId}
+                    fileName={node.name}
+                />
+                <DeleteFileDialog
+                    fileId={node.id}
+                    fileName={node.name}
+                />
+            </div>
             </div>
         );
     }
@@ -68,6 +86,7 @@ function FileTreeNode({
                             key={child.name}
                             node={child}
                             level={level + 1}
+                            teamId={teamId}
                         />
                     ))}
                 </div>
