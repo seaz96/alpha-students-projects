@@ -39,7 +39,7 @@ services:
       DATABASE_PORT: 5432
       SECURITY_KEY: DefaultDevelopmentSecurityKey0123456789,
       DOCUMENTATION_SERVER: http://localhost:8080/api
-      S3_HOST: files.student-project.ru
+      S3_HOST: files.student-projects.ru
       S3_PUBLIC_KEY: admin
       S3_SECRET_KEY: gans41og
   minio:
