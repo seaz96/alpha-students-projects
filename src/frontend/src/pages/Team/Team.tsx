@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { StudentsDataTable } from "./StudentsDataTable";
 import { useEffect, useRef, useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
+import Stages from "./Stages";
 
 export default function Team() {
   const { projectId, teamId } = useParams();
@@ -71,7 +72,10 @@ export default function Team() {
         {projectData && (
           <>
             <Label>Проект</Label>
-            <Link to={`/projects/${projectId}`} className="hover:underline">
+            <Link
+              to={`/projects/${projectId}`}
+              className="w-fit text-lg font-medium hover:underline"
+            >
               {projectData.name}
             </Link>
           </>
@@ -86,6 +90,7 @@ export default function Team() {
           }
         />
         <StudentsDataTable />
+        {teamId && <Stages teamId={teamId} />}
       </div>
     </div>
   );

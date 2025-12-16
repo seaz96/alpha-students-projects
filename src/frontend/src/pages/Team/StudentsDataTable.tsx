@@ -21,6 +21,7 @@ import { useAddStudentMutation } from "@/features/teams/teamsApi";
 import type { IStudent } from "@/features/teams/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { ColumnDef } from "@tanstack/react-table";
+import { User2Icon } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
@@ -136,7 +137,10 @@ export function StudentsDataTable() {
       <div className="flex gap-1">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button>Добавить студента</Button>
+            <Button>
+              <User2Icon className="size-4" />
+              Добавить студента
+            </Button>
           </DialogTrigger>
           <DialogContent aria-describedby="">
             <DialogHeader>
