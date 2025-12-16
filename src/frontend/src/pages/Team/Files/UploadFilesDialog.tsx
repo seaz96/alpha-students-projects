@@ -36,7 +36,6 @@ export function UploadFilesDialog({
     const [getUploadUrl] = useGetUploadUrlMutation();
     const [confirmUpload] = useConfirmUploadMutation();
 
-    // Когда пользователь выбрал файл — подставляем имя без расширения
     useEffect(() => {
         if (!file) return;
 
