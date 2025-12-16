@@ -22,7 +22,22 @@ export const filesApi = createApi({
                     ]
                     : [{ type: "File", id: "LIST" }],
         }),
+
+        deleteFile: builder.mutation<void, { id: string }>({
+            query: ({ id }) => ({
+                url: `/files/${id}`,
+                method: "DELETE",
+                credentials: "include",
+            }),
+            invalidatesTags: (_res, _err, { id }) => [
+                { type: "File", id },
+                { type: "File", id: "LIST" },
+            ],
+        }),
     }),
 });
 
-export const { useGetFilesQuery } = filesApi;
+export const {
+    useGetFilesQuery,
+    useDeleteFileMutation,
+} = filesApi;

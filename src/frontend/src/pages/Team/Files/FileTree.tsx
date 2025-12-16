@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronRight, FolderIcon, FileIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { FileNode } from "@/features/files/utils/buildFileTree.ts";
+import { DeleteFileDialog } from "@/pages/Team/Files/DeleteFileDialog.tsx";
 
 export function FileTree({ nodes }: { nodes: FileNode[] }) {
     return (
@@ -25,14 +26,22 @@ function FileTreeNode({
     if (node.type === "file") {
         return (
             <div
-                className="flex items-center gap-2 text-sm"
+                className="group flex items-center gap-2 text-sm"
                 style={{ paddingLeft: level * 16 }}
             >
                 <FileIcon className="h-4 w-4 text-muted-foreground" />
-                {node.name}
+                <span>{node.name}</span>
+
                 <span className="ml-auto text-xs text-muted-foreground">
           {node.size} B
         </span>
+
+                <div className="opacity-0 group-hover:opacity-100 transition-opacity">
+                    <DeleteFileDialog
+                        fileId={node.id}
+                        fileName={node.name}
+                    />
+                </div>
             </div>
         );
     }
@@ -66,3 +75,4 @@ function FileTreeNode({
         </div>
     );
 }
+

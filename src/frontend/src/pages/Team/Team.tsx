@@ -13,7 +13,7 @@ import { StudentsDataTable } from "./StudentsDataTable";
 import { useEffect, useRef, useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
 import Stages from "./Stages";
-import Files from "@/pages/Team/Files.tsx";
+import Files from "@/pages/Team/Files/Files.tsx";
 
 export default function Team() {
   const { projectId, teamId } = useParams();
