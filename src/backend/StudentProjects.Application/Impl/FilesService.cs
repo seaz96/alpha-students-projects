@@ -20,8 +20,7 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsS
             BucketName = "teams"
         };
 
-        var url = await s3Client.GetPreSignedURLAsync(request);
-        return $"http://localhost:9000/{url[url.IndexOf("teams", StringComparison.Ordinal)..]}";
+        return await s3Client.GetPreSignedURLAsync(request);
     }
 
     public async Task<string> GenerateGetPresignedUrl(Guid teamId, string name)
@@ -34,8 +33,7 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsS
             BucketName = "teams"
         };
 
-        var url = await s3Client.GetPreSignedURLAsync(request);
-        return $"http://localhost:9000/{url[url.IndexOf("teams", StringComparison.Ordinal)..]}";
+        return await s3Client.GetPreSignedURLAsync(request);
     }
 
     public async Task<Models.Response.FileObject> CreateFileAsync(Guid teamId, string name)
