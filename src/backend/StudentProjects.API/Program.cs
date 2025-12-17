@@ -33,11 +33,11 @@ builder.Services
     });
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
+    options.AddPolicy("LocalhostWithDomains",
         corsPolicyBuilder =>
         {
             corsPolicyBuilder
-                .WithOrigins("http://localhost:5173", "https://localhost:5173", "http://student-projects.ru") //todo: to config
+                .WithOrigins(builder.Configuration.GetValue<string>("CORS_ORIGINS")!)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowedToAllowWildcardSubdomains()
@@ -51,7 +51,7 @@ app.UseExceptionToErrorMiddleware();
 app.UsePathBase(new PathString("/api"));
 app.MapOpenApi();
 app.MapScalarApiReference(options => options.AddServer(app.Configuration.GetValue<string>("DOCUMENTATION_SERVER")!));
-app.UseCors("AllowAll");
+app.UseCors("LocalhostWithDomains");
 app.UseHttpsRedirection();
 app.UseRequestHeadersComplementaryMiddleware();
 app.UseAuthentication();

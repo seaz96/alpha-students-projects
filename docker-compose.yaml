@@ -2,15 +2,17 @@ networks:
   project:
     driver: bridge
 services:
-  nginx:
-    container_name: nginx
-    image: nginx:stable-alpine
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
     ports:
       - "80:80"
-    depends_on:
-      - backend
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
       - project
   frontend:
@@ -42,6 +44,7 @@ services:
       S3_HOST: files.student-projects.ru
       S3_PUBLIC_KEY: admin
       S3_SECRET_KEY: gans41og
+      CORS_ORIGINS: http://localhost:5173,https://localhost:5173,http://student-projects.ru,https://student-projects.ru
   minio:
     container_name: minio
     image: minio/minio:latest
@@ -79,5 +82,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 volumes:
+  caddy_data:
+  caddy_config:
   db-data:
   minio-data:
