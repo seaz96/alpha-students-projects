@@ -2,8 +2,8 @@ namespace StudentProjects.Models.Request;
 
 public record PostStudent(
     string? FirstName,
-    string? LastName,
     string? MiddleName,
+    string? LastName,
     string? Phone,
     string? Email,
     string? Telegram,

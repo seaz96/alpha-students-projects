@@ -1,0 +1,31 @@
+files.student-projects.ru {
+    request_body {
+        max_size 0
+    }
+
+    reverse_proxy http://minio:9000 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+
+        transport http {
+            versions 1.1
+            dial_timeout 300s
+            response_header_timeout 300s
+            read_timeout 300s
+        }
+    }
+}
+
+hooks.student-projects.ru {
+    reverse_proxy host.docker.internal:9000
+}
+
+student-projects.ru {
+    @api {
+        path /api*
+    }
+
+    reverse_proxy @api http://server:8080
+
+    reverse_proxy http://frontend:80
+}

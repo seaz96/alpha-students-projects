@@ -1,6 +1,7 @@
 using System.Web;
 using Amazon.S3;
 using Amazon.S3.Model;
+using Microsoft.Extensions.Configuration;
 using StudentProjects.DataLayer.Repositories;
 using StudentProjects.Domain.Entities;
 using StudentProjects.Models.Converters;
@@ -8,7 +9,7 @@ using StudentProjects.Models.Exceptions;
 
 namespace StudentProjects.Application.Services;
 
-public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsService teamsService)
+public class FilesService(IAmazonS3 s3Client, FilesRepository repository)
 {
     public async Task<string> GeneratePutPresignedUrl(Guid teamId, string name)
     {
@@ -17,7 +18,8 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsS
             Key = $"{teamId}/{name}",
             Verb = HttpVerb.PUT,
             Expires = DateTime.UtcNow.AddHours(1),
-            BucketName = "teams"
+            BucketName = "teams",
+            Protocol = s3Client.Config.UseHttp ? Protocol.HTTP : Protocol.HTTPS
         };
 
         return await s3Client.GetPreSignedURLAsync(request);
@@ -30,7 +32,8 @@ public class FilesService(IAmazonS3 s3Client, FilesRepository repository, TeamsS
             Key = $"{teamId}/{name}",
             Verb = HttpVerb.GET,
             Expires = DateTime.UtcNow.AddHours(1),
-            BucketName = "teams"
+            BucketName = "teams",
+            Protocol = s3Client.Config.UseHttp ? Protocol.HTTP : Protocol.HTTPS
         };
 
         return await s3Client.GetPreSignedURLAsync(request);

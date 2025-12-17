@@ -19,3 +19,12 @@ export const formatter = new Intl.DateTimeFormat("ru-RU", {
   hour: "2-digit",
   minute: "2-digit",
 });
+
+export const formatPhoneNumber = (phone: string): string => {
+  const cleaned = phone.replace(/\D/g, "");
+  if (cleaned.length === 0) return "";
+  const match = cleaned.slice(-10);
+  if (match.length === 10)
+    return `+7 (${match.slice(0, 3)}) ${match.slice(3, 6)} ${match.slice(6, 8)}-${match.slice(8, 10)}`;
+  return phone;
+};

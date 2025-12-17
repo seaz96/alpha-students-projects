@@ -33,7 +33,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (isSuccessLogin || isSuccessRegister) {
-      navigate("/");
+      navigate("/applications");
     }
   }, [isSuccessLogin, isSuccessRegister, navigate]);
 

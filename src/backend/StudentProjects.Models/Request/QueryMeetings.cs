@@ -1,3 +1,3 @@
 namespace StudentProjects.Models.Request;
 
-public record QueryMeetings(Guid? TeamId, int Limit, int Offset);
+public record QueryMeetings(Guid? TeamId, DateTime StartDate, DateTime EndDate);

@@ -14,7 +14,7 @@ public static class StudentsConverter
             x.Student.Phone ?? "",
             x.Student.Email ?? "",
             x.Student.Telegram ?? "",
-            x.Position?.Name ?? "",
+            x.Position?.ToClientModel(),
             x.AcademicGroup ?? "");
     }
 }

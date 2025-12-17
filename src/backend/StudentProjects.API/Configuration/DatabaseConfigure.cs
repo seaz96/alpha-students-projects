@@ -38,13 +38,13 @@ public static class DatabaseConfigure
         var s3PublicKey = configuration.GetValue<string>("S3_PUBLIC_KEY");
         var s3SecretKey = configuration.GetValue<string>("S3_SECRET_KEY");
         var s3Host = configuration.GetValue<string>("S3_HOST");
-        var s3Port = configuration.GetValue<int>("S3_PORT");
+        var s3Protocol = configuration.GetValue<string>("S3_PROTOCOL");
 
         services.AddSingleton<IAmazonS3>(new AmazonS3Client(new AmazonS3Config
         {
-            ServiceURL = $"http://{s3Host}:{s3Port}",
+            ServiceURL = $"{s3Protocol}://{s3Host}",
             DefaultAWSCredentials = new BasicAWSCredentials(s3PublicKey, s3SecretKey),
-            UseHttp = true,
+            UseHttp = s3Protocol == "http",
             ForcePathStyle = true
         }));
     }

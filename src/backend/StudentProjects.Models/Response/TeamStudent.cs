@@ -8,5 +8,5 @@ public record TeamStudent(
     string? Phone,
     string? Email,
     string? Telegram,
-    string? Position,
+    StudentPosition? Position,
     string? AcademicGroup);

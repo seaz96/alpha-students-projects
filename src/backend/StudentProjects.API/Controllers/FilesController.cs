@@ -19,24 +19,24 @@ public class FilesController(FilesService filesService, TeamsService teamsServic
         return Ok(await filesService.GetFilesAsync(teamId));
     }
 
-    [HttpGet("{teamId:guid}/{name}/content-url")]
-    public async Task<IActionResult> GetFileContentUrl([FromRoute] Guid teamId, [FromRoute] string name)
+    [HttpGet("{teamId:guid}/content-url")]
+    public async Task<ActionResult<LinkResponse>> GetFileContentUrl([FromRoute] Guid teamId, [FromQuery] string name)
     {
         if (!await teamsService.ExistsAsync(teamId))
             throw new TeamNotFoundException();
-        return Ok(await filesService.GenerateGetPresignedUrl(teamId, name));
+        return Ok(new LinkResponse(await filesService.GenerateGetPresignedUrl(teamId, name)));
     }
 
-    [HttpGet("{teamId:guid}/{name}/upload-url")]
-    public async Task<IActionResult> GetPutPresignedUrlAsync([FromRoute] Guid teamId, [FromRoute] string name)
+    [HttpGet("{teamId:guid}/upload-url")]
+    public async Task<ActionResult<LinkResponse>> GetPutPresignedUrlAsync([FromRoute] Guid teamId, [FromQuery] string name)
     {
         if (!await teamsService.ExistsAsync(teamId))
             throw new TeamNotFoundException();
-        return Ok(await filesService.GeneratePutPresignedUrl(teamId, name));
+        return Ok(new LinkResponse(await filesService.GeneratePutPresignedUrl(teamId, name)));
     }
 
-    [HttpPost("{teamId:guid}/{name}")]
-    public async Task<IActionResult> CreateInfoAsync([FromRoute] Guid teamId, [FromRoute] string name)
+    [HttpPost("{teamId:guid}")]
+    public async Task<IActionResult> CreateInfoAsync([FromRoute] Guid teamId, [FromQuery] string name)
     {
         if (!await teamsService.ExistsAsync(teamId))
             throw new TeamNotFoundException();

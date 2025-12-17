@@ -2,17 +2,21 @@ networks:
   project:
     driver: bridge
 services:
-  nginx:
-    container_name: nginx
-    image: nginx:stable-alpine
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
+  caddy:
+    image: caddy:2
+    container_name: caddy
+    restart: unless-stopped
     ports:
       - "80:80"
-    depends_on:
-      - backend
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
     networks:
       - project
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   frontend:
     container_name: frontend
     image: ghcr.io/seaz96/alpha-students-projects-frontend:main
@@ -39,6 +43,11 @@ services:
       DATABASE_PORT: 5432
       SECURITY_KEY: DefaultDevelopmentSecurityKey0123456789,
       DOCUMENTATION_SERVER: http://localhost:8080/api
+      S3_PROTOCOL: https
+      S3_HOST: files.student-projects.ru
+      S3_PUBLIC_KEY: admin
+      S3_SECRET_KEY: gans41og
+      CORS_ORIGINS: https://student-projects.ru
   minio:
     container_name: minio
     image: minio/minio:latest
@@ -60,7 +69,7 @@ services:
       - 'minio-data:/data'
     environment:
       - MINIO_ROOT_USER=admin
-      - MINIO_ROOT_PASSWORD=password
+      - MINIO_ROOT_PASSWORD=gans41og
       - MINIO_DEFAULT_BUCKETS=teams
   db:
     container_name: postgres_db
@@ -76,5 +85,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data
 volumes:
+  caddy_data:
+  caddy_config:
   db-data:
   minio-data:
