@@ -15,6 +15,8 @@ services:
       - caddy_config:/config
     networks:
       - project
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
   frontend:
     container_name: frontend
     image: ghcr.io/seaz96/alpha-students-projects-frontend:main
