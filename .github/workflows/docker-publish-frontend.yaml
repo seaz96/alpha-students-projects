@@ -20,8 +20,8 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}-frontend
-  API_URL: http://student-projects.ru/api/v1
-  APP_NAME: Альфа-Проекты
+  API_URL: https://student-projects.ru/api/v1
+  APP_NAME: РђР»СЊС„Р° РџСЂРѕРµРєС‚С‹
 
 
 jobs:
