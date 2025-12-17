@@ -41,10 +41,11 @@ services:
       DATABASE_PORT: 5432
       SECURITY_KEY: DefaultDevelopmentSecurityKey0123456789,
       DOCUMENTATION_SERVER: http://localhost:8080/api
+      S3_PROTOCOL: https
       S3_HOST: files.student-projects.ru
       S3_PUBLIC_KEY: admin
       S3_SECRET_KEY: gans41og
-      CORS_ORIGINS: http://localhost:5173,https://localhost:5173,http://student-projects.ru,https://student-projects.ru
+      CORS_ORIGINS: https://student-projects.ru
   minio:
     container_name: minio
     image: minio/minio:latest
