@@ -4,7 +4,9 @@ using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using Serilog;
 using StudentProjects.API.Configuration;
+using StudentProjects.API.Middleware;
 using StudentProjects.API.Middleware.Authorization;
+using StudentProjects.API.Middleware.Documentation;
 using StudentProjects.API.Middleware.Exceptions;
 using StudentProjects.API.Utility;
 
@@ -56,6 +58,6 @@ app.UseHttpsRedirection();
 app.UseRequestHeadersComplementaryMiddleware();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
+app.MapControllers().AddApiConventionResponseTypes();
 
 app.Run();

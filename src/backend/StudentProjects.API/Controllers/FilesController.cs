@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StudentProjects.API.Utility;
 using StudentProjects.Application.Services;
 using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Response;
@@ -12,6 +13,8 @@ namespace StudentProjects.API.Controllers;
 public class FilesController(FilesService filesService, TeamsService teamsService) : ControllerBase
 {
     [HttpGet]
+    [ProducesResponseType<IEnumerable<FileObject>>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<IEnumerable<FileObject>>> GetFilesAsync([FromQuery] Guid teamId)
     {
         if (!await teamsService.ExistsAsync(teamId))
@@ -20,6 +23,8 @@ public class FilesController(FilesService filesService, TeamsService teamsServic
     }
 
     [HttpGet("{teamId:guid}/content-url")]
+    [ProducesResponseType<LinkResponse>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<LinkResponse>> GetFileContentUrl([FromRoute] Guid teamId, [FromQuery] string name)
     {
         if (!await teamsService.ExistsAsync(teamId))
@@ -28,6 +33,8 @@ public class FilesController(FilesService filesService, TeamsService teamsServic
     }
 
     [HttpGet("{teamId:guid}/upload-url")]
+    [ProducesResponseType<LinkResponse>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<LinkResponse>> GetPutPresignedUrlAsync([FromRoute] Guid teamId, [FromQuery] string name)
     {
         if (!await teamsService.ExistsAsync(teamId))
@@ -36,7 +43,9 @@ public class FilesController(FilesService filesService, TeamsService teamsServic
     }
 
     [HttpPost("{teamId:guid}")]
-    public async Task<IActionResult> CreateInfoAsync([FromRoute] Guid teamId, [FromQuery] string name)
+    [ProducesResponseType<FileObject>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
+    public async Task<ActionResult<FileObject>> CreateInfoAsync([FromRoute] Guid teamId, [FromQuery] string name)
     {
         if (!await teamsService.ExistsAsync(teamId))
             throw new TeamNotFoundException();
@@ -44,7 +53,9 @@ public class FilesController(FilesService filesService, TeamsService teamsServic
     }
 
     [HttpDelete("{fileId:guid}")]
-    public async Task<IActionResult> DeleteFileAsync([FromRoute] Guid fileId)
+    [ProducesResponseType<FileObject>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
+    public async Task<ActionResult<FileObject>> DeleteFileAsync([FromRoute] Guid fileId)
     {
         return Ok(await filesService.DeleteFileAsync(fileId));
     }
