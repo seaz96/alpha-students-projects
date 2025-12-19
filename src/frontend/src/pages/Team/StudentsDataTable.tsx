@@ -67,6 +67,11 @@ export function StudentsDataTable({ students }: { students: IStudent[] }) {
         ),
       },
       {
+        accessorKey: "position",
+        header: "Роль",
+        cell: ({ row }) => <p>{row.original.position.name}</p>,
+      },
+      {
         accessorKey: "academicGroup",
         header: "Группа",
         cell: ({ row }) => <p>{row.original.academicGroup}</p>,
