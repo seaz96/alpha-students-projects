@@ -47,7 +47,7 @@ services:
       S3_HOST: files.student-projects.ru
       S3_PUBLIC_KEY: admin
       S3_SECRET_KEY: gans41og
-      CORS_ORIGINS: https://student-projects.ru
+      CORS_ORIGINS: http://localhost:5173,https://localhost:5173,http://student-projects.ru,https://student-projects.ru
   minio:
     container_name: minio
     image: minio/minio:latest
