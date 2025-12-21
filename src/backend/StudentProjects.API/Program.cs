@@ -39,7 +39,7 @@ builder.Services.AddCors(options =>
         corsPolicyBuilder =>
         {
             corsPolicyBuilder
-                .WithOrigins(builder.Configuration.GetValue<string>("CORS_ORIGINS")!)
+                .WithOrigins(builder.Configuration.GetValue<string>("CORS_ORIGINS")!.Split(','))
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .SetIsOriginAllowedToAllowWildcardSubdomains()
