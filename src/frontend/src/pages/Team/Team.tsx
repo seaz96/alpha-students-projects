@@ -14,6 +14,8 @@ import { useEffect, useRef, useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
 import Stages from "./Stages";
 import Files from "@/pages/Team/Files/Files.tsx";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Meetings from "./Meetings/Meetings";
 
 export default function Team() {
   const { projectId, teamId } = useParams();
@@ -90,9 +92,30 @@ export default function Team() {
             description === null ? "Загрузка..." : "Введите описание"
           }
         />
-        <StudentsDataTable students={data.students} />
-        {teamId && <Stages teamId={teamId} />}
-        {teamId && <Files teamId={teamId} />}
+        <Tabs defaultValue="students">
+          <TabsList>
+            <TabsTrigger value="students">Студенты</TabsTrigger>
+            <TabsTrigger value="stages">Этапы</TabsTrigger>
+            <TabsTrigger value="meetings">Встречи</TabsTrigger>
+            <TabsTrigger value="files">Файлы</TabsTrigger>
+            <TabsTrigger value="summary">Итог</TabsTrigger>
+          </TabsList>
+          <TabsContent value="students">
+            <StudentsDataTable students={data.students} />
+          </TabsContent>
+          <TabsContent value="stages">
+            {teamId && <Stages teamId={teamId} />}
+          </TabsContent>
+          <TabsContent value="files">
+            {teamId && <Files teamId={teamId} />}
+          </TabsContent>
+          <TabsContent value="meetings">
+            <Meetings />
+          </TabsContent>
+          <TabsContent value="summary">
+            <p>Итог</p>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );
