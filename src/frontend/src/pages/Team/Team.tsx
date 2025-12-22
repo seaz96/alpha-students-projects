@@ -92,7 +92,7 @@ export default function Team() {
             description === null ? "Загрузка..." : "Введите описание"
           }
         />
-        <Tabs defaultValue="students">
+        <Tabs defaultValue="students" className="mt-1.5">
           <TabsList>
             <TabsTrigger value="students">Студенты</TabsTrigger>
             <TabsTrigger value="stages">Этапы</TabsTrigger>

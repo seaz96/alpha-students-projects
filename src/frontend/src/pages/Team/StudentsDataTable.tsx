@@ -156,7 +156,7 @@ export function StudentsDataTable({ students }: { students: IStudent[] }) {
   );
 
   return (
-    <div className="mt-4 flex flex-col gap-1">
+    <div className="flex flex-col gap-1">
       <div className="flex gap-1">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
