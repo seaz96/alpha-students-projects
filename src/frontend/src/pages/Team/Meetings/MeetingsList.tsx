@@ -66,9 +66,7 @@ export default function MeetingsList({
         accessorKey: "date",
         header: "Дата",
         cell: ({ row }) => (
-          <p className="w-0">
-            {format(new Date(row.original.date), "PPP", { locale: ru })}
-          </p>
+          <p>{format(new Date(row.original.date), "PPP", { locale: ru })}</p>
         ),
       },
       {
@@ -83,21 +81,29 @@ export default function MeetingsList({
         },
       },
       {
+        accessorKey: "Итоги",
+        header: "Итоги",
+        cell: ({ row }) => (
+          <p className="max-w-64 truncate">{row.original.summary}</p>
+        ),
+      },
+      {
         accessorKey: "recordList",
         header: "Запись",
         cell: ({ row }) => {
           const link = row.original.recordLink;
           if (!link) return <span className="text-muted-foreground">-</span>;
           return (
-            <Link
-              to={link}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-1 text-blue-600 hover:underline"
-            >
-              <ExternalLinkIcon className="size-3" />
-              Ссылка
-            </Link>
+            <Button asChild variant="outline" size="icon-sm">
+              <Link
+                to={link}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-1 text-blue-600 hover:underline"
+              >
+                <ExternalLinkIcon className="size-3" />
+              </Link>
+            </Button>
           );
         },
       },
@@ -105,7 +111,7 @@ export default function MeetingsList({
         id: "actions",
         header: "",
         cell: ({ row }) => (
-          <div className="w-0">
+          <div>
             <MeetingRowActions meeting={row.original} />
           </div>
         ),
@@ -204,7 +210,6 @@ export default function MeetingsList({
                             selected={field.value}
                             onSelect={field.onChange}
                             disabled={(date) => date < new Date("1900-01-01")}
-                            initialFocus
                             locale={ru}
                           />
                         </PopoverContent>

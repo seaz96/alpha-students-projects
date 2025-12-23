@@ -63,7 +63,6 @@ export default function MeetingRowActions({ meeting }: { meeting: IMeeting }) {
       meetingId: meeting.id,
       ...values,
       date: values.date.toISOString(),
-      // Если summary/recordLink пустые строки, можно отправлять их как есть или undefined
       summary: values.summary || "",
       recordLink: values.recordLink || "",
     });
@@ -72,7 +71,6 @@ export default function MeetingRowActions({ meeting }: { meeting: IMeeting }) {
 
   const handleOpenChange = (open: boolean) => {
     if (open) {
-      // Сброс формы к актуальным данным при открытии
       form.reset({
         name: meeting.name || "",
         date: new Date(meeting.date),
@@ -191,7 +189,7 @@ export default function MeetingRowActions({ meeting }: { meeting: IMeeting }) {
                 <FormItem>
                   <FormLabel>Итоги</FormLabel>
                   <FormControl>
-                    <Textarea className="resize-none" {...field} />
+                    <Textarea className="max-h-80 resize-none" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
