@@ -40,6 +40,7 @@ import { useParams } from "react-router";
 import { Link } from "react-router";
 import z from "zod";
 import MeetingRowActions from "./MeetingRowActions";
+import Todos from "./Todos";
 
 const createSchema = z.object({
   name: z.string().min(1, "Обязательное поле"),
@@ -86,6 +87,11 @@ export default function MeetingsList({
         cell: ({ row }) => (
           <p className="max-w-64 truncate">{row.original.summary}</p>
         ),
+      },
+      {
+        accessorKey: "todos",
+        header: "Задачи",
+        cell: ({ row }) => <Todos meeting={row.original} />,
       },
       {
         accessorKey: "recordList",
