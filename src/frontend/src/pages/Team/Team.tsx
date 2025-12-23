@@ -66,6 +66,8 @@ export default function Team() {
 
   if (data === undefined) return <p>Team not found.</p>;
 
+  if (!teamId) throw new Error('Query parameter "teamId" is undefined');
+
   return (
     <div className="mx-auto max-w-screen-xl px-8 py-4">
       <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight text-balance">
@@ -104,13 +106,13 @@ export default function Team() {
             <StudentsDataTable students={data.students} />
           </TabsContent>
           <TabsContent value="stages">
-            {teamId && <Stages teamId={teamId} />}
+            <Stages teamId={teamId} />
           </TabsContent>
           <TabsContent value="files">
-            {teamId && <Files teamId={teamId} />}
+            <Files teamId={teamId} />
           </TabsContent>
           <TabsContent value="meetings">
-            <Meetings />
+            <Meetings teamId={teamId} />
           </TabsContent>
           <TabsContent value="summary">
             <p>Итог</p>
