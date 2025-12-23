@@ -97,14 +97,16 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user ?? throw new UserNotFoundException();
     }
 
-    public async Task<User> CheckMentorAccessAsync(Guid projectId)
+    public async Task CheckMentorAccessAsync(Guid projectId)
     {
         if (!Guid.TryParse(contextAccessor.HttpContext!.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out var userId))
             throw new UnauthorizedException("User identifier not specified.");
 
         var user = await userRepository.GetWithMentoringProjectsAsync(userId);
+
+        if (user is null)
             throw new UnauthorizedException("User identifier not specified.");
-        
+
         if (!user.MentorProjects.Select(x => x.Id).ToHashSet().Contains(projectId))
             throw new ForbiddenException("No permission to access this project.");
     }

@@ -43,4 +43,12 @@ public class MeetingsController(MeetingsService meetingsService) : ControllerBas
     {
         return Ok(await meetingsService.GetAsync(meetingId));
     }
+
+    [HttpDelete("{meetingId:guid}")]
+    [ProducesResponseType<Meeting>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
+    public async Task<ActionResult<Meeting>> DeleteAsync([FromRoute] Guid meetingId)
+    {
+        return Ok(await meetingsService.DeleteAsync(meetingId));
+    }
 }
