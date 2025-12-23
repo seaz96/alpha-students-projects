@@ -7,7 +7,7 @@ export default function SaveButton({
   ...rest
 }: ComponentProps<"button">) {
   return (
-    <Button size="sm" variant="outline" className={className} {...rest}>
+    <Button variant="outline" className={className} {...rest}>
       <SaveIcon />
       Сохранить
     </Button>

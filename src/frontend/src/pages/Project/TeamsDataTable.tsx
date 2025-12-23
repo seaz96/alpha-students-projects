@@ -5,7 +5,7 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { useMemo } from "react";
 import CreateTeamPopover from "./CreateTeamPopover";
 import { Link } from "react-router";
-import { Link2Icon, Link2OffIcon } from "lucide-react";
+import TeamsRowActions from "./TeamsRowActions";
 
 export default function TeamsDataTable({ projectId }: { projectId: string }) {
   const { data, isLoading } = useGetTeamsQuery({
@@ -36,17 +36,21 @@ export default function TeamsDataTable({ projectId }: { projectId: string }) {
         accessorKey: "teamprojectLink",
         header: "Ссылка на проект",
         cell: ({ row }) => {
-          if (!row.original.teamprojectLink)
-            return <Link2OffIcon className="opacity-40" />;
+          if (!row.original.teamprojectLink) return "−";
           return (
             <Link
               to={row.original.teamprojectLink}
-              className="flex items-center gap-1 text-indigo-600 hover:text-indigo-800"
+              className="text-blue-600 visited:text-indigo-600 hover:text-blue-800 visited:hover:text-indigo-800"
             >
-              <Link2Icon /> Ссылка
+              {row.original.teamprojectLink.slice(0, 28)}...
             </Link>
           );
         },
+      },
+      {
+        accessorKey: "controls",
+        header: "",
+        cell: ({ row }) => <TeamsRowActions team={row.original} />,
       },
     ],
     [],

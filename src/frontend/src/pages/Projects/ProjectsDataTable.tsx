@@ -9,7 +9,7 @@ import type { IProject } from "@/features/projects/types";
 import { selectUser } from "@/features/users/usersSlice";
 import { getInitials } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Trash2Icon } from "lucide-react";
+import { TrashIcon } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router";
 
@@ -71,11 +71,11 @@ export default function ProjectsDataTable() {
           return (
             <>
               <Button
-                size="icon"
-                variant="ghost"
+                size="icon-sm"
+                variant="outline"
                 onClick={() => deleteProject({ id: row.original.id })}
               >
-                <Trash2Icon />
+                <TrashIcon />
               </Button>
             </>
           );
@@ -89,7 +89,7 @@ export default function ProjectsDataTable() {
   const { data: projects } = data;
 
   return (
-    <div className="mt-4">
+    <div className="mt-2">
       <DataTable columns={columns} data={projects} />
     </div>
   );

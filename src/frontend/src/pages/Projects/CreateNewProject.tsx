@@ -82,7 +82,7 @@ export default function CreateNewProject({
         </PopoverContent>
       </Popover>
       <Button
-        variant="outline"
+        disabled={!value.length}
         onClick={() => createProject({ caseId: value })}
       >
         Создать

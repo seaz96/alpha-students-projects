@@ -41,14 +41,10 @@ import { Link } from "react-router";
 import z from "zod";
 import MeetingRowActions from "./MeetingRowActions";
 
-// --- Схемы валидации ---
-
 const createSchema = z.object({
   name: z.string().min(1, "Обязательное поле"),
   date: z.date("Выберите дату"),
 });
-
-// --- Основной компонент ---
 
 export default function MeetingsList({
   data,
@@ -59,7 +55,6 @@ export default function MeetingsList({
   const [createMeeting] = useCreateMeetingMutation();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-  // 1. Определение колонок
   const columns = useMemo<ColumnDef<IMeeting>[]>(
     () => [
       {
@@ -146,8 +141,7 @@ export default function MeetingsList({
 
   return (
     <div className="flex flex-col gap-1">
-      <div className="flex justify-between gap-1">
-        {/* Кнопка создания */}
+      <div className="flex justify-start gap-1">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button>
@@ -227,7 +221,6 @@ export default function MeetingsList({
           </DialogContent>
         </Dialog>
 
-        {/* Фильтр (заглушка, как в примере) */}
         <Input placeholder="Поиск..." className="w-fit max-w-sm" />
       </div>
 
