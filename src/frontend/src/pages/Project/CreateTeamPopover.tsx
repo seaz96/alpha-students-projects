@@ -51,9 +51,7 @@ export default function CreateTeamPopover({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button size="sm" className="mt-4 mb-2">
-          Создать команду
-        </Button>
+        <Button className="mt-4 mb-2">Создать команду</Button>
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Form {...form}>

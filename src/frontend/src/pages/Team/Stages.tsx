@@ -92,7 +92,7 @@ export default function Stages({ teamId }: { teamId: string }) {
   if (!teamId) return null;
 
   return (
-    <div className="mt-4 flex flex-col gap-1">
+    <div className="flex flex-col gap-1">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <Button className="w-fit">

@@ -67,6 +67,11 @@ export function StudentsDataTable({ students }: { students: IStudent[] }) {
         ),
       },
       {
+        accessorKey: "position",
+        header: "Роль",
+        cell: ({ row }) => <p>{row.original.position.name}</p>,
+      },
+      {
         accessorKey: "academicGroup",
         header: "Группа",
         cell: ({ row }) => <p>{row.original.academicGroup}</p>,
@@ -151,7 +156,7 @@ export function StudentsDataTable({ students }: { students: IStudent[] }) {
   );
 
   return (
-    <div className="mt-4 flex flex-col gap-1">
+    <div className="flex flex-col gap-1">
       <div className="flex gap-1">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>

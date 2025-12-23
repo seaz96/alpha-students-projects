@@ -60,6 +60,17 @@ export const teamsApi = createApi({
         { type: "Team", id: teamId },
       ],
     }),
+    deleteTeam: builder.mutation<ITeam, { teamId: string }>({
+      query: ({ teamId }) => ({
+        url: "/teams/" + teamId,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: (_r, _e, { teamId }) => [
+        { type: "Team", id: teamId },
+        { type: "Team", id: "LIST" },
+      ],
+    }),
     addStudent: builder.mutation<
       ITeam,
       ICreateStudentArgs & { teamId: string }
@@ -104,6 +115,7 @@ export const {
   useGetTeamQuery,
   useCreateTeamMutation,
   usePatchTeamMutation,
+  useDeleteTeamMutation,
   useAddStudentMutation,
   usePatchStudentMutation,
   useDeleteStudentMutation,

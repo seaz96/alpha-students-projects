@@ -13,46 +13,49 @@ namespace StudentProjects.API.Controllers;
 [Route("v1/cases")]
 public class CasesController(CaseService caseService, ReviewsService reviewsService) : ControllerBase
 {
-    [HttpPost]  
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [HttpPost]
+    [ProducesResponseType<Case>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<Case>> PostAsync([FromBody] PostCase request)
     {
         return Ok(await caseService.AddAsync(request));
     }
 
     [HttpPatch("{caseId:guid}")]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<Case>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<Case>> PatchAsync([FromRoute] Guid caseId, [FromBody] PatchCase request)
     {
         return Ok(await caseService.PatchAsync(caseId, request));
     }
 
     [HttpPut("{caseId:guid}/type")]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<Case>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<Case>> ChangeTypeAsync([FromRoute] Guid caseId, [FromBody] ChangeCaseType request)
     {
         return Ok(await caseService.UpdateStatusAsync(caseId, request.Type));
     }
 
     [HttpGet]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<QueryResponse<Case>>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<QueryResponse<Case>>> GetAsync([FromQuery] QueryCases request)
     {
         return Ok(await caseService.GetAsync(request));
     }
 
     [HttpDelete("{caseId:guid}")]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<Case>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<Case>> DeleteAsync(Guid caseId)
     {
         return Ok(await caseService.DeleteAsync(caseId));
     }
 
     [HttpGet("{caseId:guid}")]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<Case>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<Case>> GetCaseAsync(Guid caseId)
     {
         var result = await caseService.GetAsync(caseId);
@@ -60,8 +63,8 @@ public class CasesController(CaseService caseService, ReviewsService reviewsServ
     }
 
     [HttpPut("{caseId:guid}/reviews")]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<Review>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<Review>> PutReviewAsync([FromRoute] Guid caseId, [FromBody] PutReview request)
     {
         var caseEntity = await caseService.GetAsync(caseId);
@@ -72,7 +75,8 @@ public class CasesController(CaseService caseService, ReviewsService reviewsServ
     }
 
     [HttpGet("{caseId:guid}/reviews")]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<QueryResponse<Review>>(StatusCodes.Status200OK)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<QueryResponse<Review>>> GetReviewsAsync(
         [FromRoute] Guid caseId,
         [FromQuery] CommonQuery request)

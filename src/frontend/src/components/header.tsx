@@ -7,10 +7,12 @@ import {
   selectIsAuthenticated,
 } from "@/features/users/usersSlice";
 import AlfaLogo from "@/assets/alfa-logo";
+import { useLogoutMutation } from "@/features/users/usersApi";
 
 export default function Header() {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
   const authStatus = useAppSelector(selectAuthStatus);
+  const [logout] = useLogoutMutation();
 
   if (authStatus !== "succeeded") return null;
 
@@ -26,26 +28,28 @@ export default function Header() {
         </Link>
 
         <ButtonGroup>
-          <Link to="/applications">
-            <Button variant="link">Заявки</Button>
-          </Link>
-          <Link to="/projects">
-            <Button variant="link">Проекты</Button>
-          </Link>
-          <Link to="/dashboard/student-roles">
-            <Button variant="link">Дэшборд</Button>
-          </Link>
+          <Button variant="link" asChild>
+            <Link to="/applications">Заявки</Link>
+          </Button>
+          <Button variant="link" asChild>
+            <Link to="/projects">Проекты</Link>
+          </Button>
+          <Button variant="link" asChild>
+            <Link to="/dashboard/student-roles">Дэшборд</Link>
+          </Button>
         </ButtonGroup>
 
         <ButtonGroup>
           {isAuthenticated && (
             <>
-              <Link to="/profile">
-                <Button variant="link" aria-label="Profile">
-                  Профиль
-                </Button>
-              </Link>
-              <Button variant="link" aria-label="Logout">
+              <Button variant="link" aria-label="Profile" asChild>
+                <Link to="/profile">Профиль</Link>
+              </Button>
+              <Button
+                variant="link"
+                aria-label="Logout"
+                onClick={() => logout()}
+              >
                 Выйти
               </Button>
             </>

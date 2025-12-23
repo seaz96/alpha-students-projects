@@ -10,7 +10,7 @@ import type { ICase } from "@/features/cases/types";
 import { selectUser } from "@/features/users/usersSlice";
 import { cn, getInitials } from "@/lib/utils";
 import type { ColumnDef } from "@tanstack/react-table";
-import { ArrowDownIcon, ArrowUpIcon, Trash2Icon } from "lucide-react";
+import { ArrowDownIcon, ArrowUpIcon, Edit2Icon, TrashIcon } from "lucide-react";
 import { useMemo } from "react";
 import ReviewPopover from "./ReviewPopover";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -35,18 +35,7 @@ export default function ApplicationsDataTable() {
       {
         accessorKey: "name",
         header: "Название",
-        cell: ({ row }) => (
-          <Dialog>
-            <DialogTrigger asChild>
-              <p className="cursor-pointer py-1 hover:underline">
-                {row.original.name}
-              </p>
-            </DialogTrigger>
-            <DialogContent>
-              <Application case={row.original} />
-            </DialogContent>
-          </Dialog>
-        ),
+        cell: ({ row }) => <p>{row.original.name}</p>,
         enableSorting: true,
         enableHiding: false,
       },
@@ -151,18 +140,30 @@ export default function ApplicationsDataTable() {
         enableSorting: true,
       },
       {
-        accessorKey: "delete",
+        accessorKey: "controls",
         header: "",
         cell: ({ row }) => {
           if (user?.id !== row.original.author.id) return null;
           return (
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => deleteCase(row.original.id)}
-            >
-              <Trash2Icon />
-            </Button>
+            <div className="flex gap-1">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="icon-sm" variant="outline">
+                    <Edit2Icon />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <Application case={row.original} />
+                </DialogContent>
+              </Dialog>
+              <Button
+                size="icon-sm"
+                variant="outline"
+                onClick={() => deleteCase(row.original.id)}
+              >
+                <TrashIcon />
+              </Button>
+            </div>
           );
         },
       },
@@ -175,7 +176,7 @@ export default function ApplicationsDataTable() {
   const { data: cases } = data;
 
   return (
-    <div className="mt-4">
+    <div className="mt-2">
       {data !== undefined && <DataTable columns={columns} data={cases} />}
     </div>
   );

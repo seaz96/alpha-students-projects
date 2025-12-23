@@ -14,6 +14,8 @@ import { useEffect, useRef, useState } from "react";
 import useDebounce from "@/hooks/useDebounce";
 import Stages from "./Stages";
 import Files from "@/pages/Team/Files/Files.tsx";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Meetings from "./Meetings/Meetings";
 
 export default function Team() {
   const { projectId, teamId } = useParams();
@@ -64,6 +66,8 @@ export default function Team() {
 
   if (data === undefined) return <p>Team not found.</p>;
 
+  if (!teamId) throw new Error('Query parameter "teamId" is undefined');
+
   return (
     <div className="mx-auto max-w-screen-xl px-8 py-4">
       <h1 className="scroll-m-20 text-4xl font-semibold tracking-tight text-balance">
@@ -90,9 +94,30 @@ export default function Team() {
             description === null ? "Загрузка..." : "Введите описание"
           }
         />
-        <StudentsDataTable students={data.students} />
-        {teamId && <Stages teamId={teamId} />}
-        {teamId && <Files teamId={teamId} />}
+        <Tabs defaultValue="students" className="mt-1.5">
+          <TabsList>
+            <TabsTrigger value="students">Студенты</TabsTrigger>
+            <TabsTrigger value="stages">Этапы</TabsTrigger>
+            <TabsTrigger value="meetings">Встречи</TabsTrigger>
+            <TabsTrigger value="files">Файлы</TabsTrigger>
+            <TabsTrigger value="summary">Итог</TabsTrigger>
+          </TabsList>
+          <TabsContent value="students">
+            <StudentsDataTable students={data.students} />
+          </TabsContent>
+          <TabsContent value="stages">
+            <Stages teamId={teamId} />
+          </TabsContent>
+          <TabsContent value="files">
+            <Files teamId={teamId} />
+          </TabsContent>
+          <TabsContent value="meetings">
+            <Meetings teamId={teamId} />
+          </TabsContent>
+          <TabsContent value="summary">
+            <p>Итог</p>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

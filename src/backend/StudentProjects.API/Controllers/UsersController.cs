@@ -49,7 +49,7 @@ public class UsersController(UserService userService) : ControllerBase
     [HttpGet("current")]
     [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<UserAccount>> GetInfoAsync()
     {
         var user = await userService.GetAuthorizedAccountAsync();
@@ -59,7 +59,7 @@ public class UsersController(UserService userService) : ControllerBase
     [HttpPatch("current")]
     [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<UserAccount>> PatchInfoAsync(PatchUser request)
     {
         return Ok(await userService.UpdateInfoAsync(request));
@@ -68,8 +68,7 @@ public class UsersController(UserService userService) : ControllerBase
     [HttpPatch("{userId:guid}/role")]
     [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<UserAccount>> PatchRoleAsync([FromRoute] Guid userId, [FromQuery] UserRole role)
     {
         return Ok(await userService.UpdateRoleAsync(userId, role));
@@ -78,8 +77,7 @@ public class UsersController(UserService userService) : ControllerBase
     [HttpGet]
     [Authorize]
     [ProducesResponseType<UserAccount>(StatusCodes.Status200OK)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType<ErrorResponse>(StatusCodes.Status403Forbidden)]
+    [ApiConventionMethod(typeof(ProducesErrorsConvention), nameof(ProducesErrorsConvention.Common))]
     public async Task<ActionResult<IEnumerable<UserAccount>>> GetUsersAsync([FromQuery] QueryUserAccounts request)
     {
         return Ok(await userService.QueryAccountsAsync(request));
