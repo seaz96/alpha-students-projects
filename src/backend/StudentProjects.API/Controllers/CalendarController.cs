@@ -20,13 +20,7 @@ public class CalendarController : ControllerBase
         _userService = userService;
         _teamsRepository = teamsRepository;
     }
-
-    [HttpGet]
-    public async Task<IActionResult> GetCalendarAsync()
-    {
-        throw new NotImplementedException();
-    }
-
+    
     [HttpPost("{teamId:guid}")]
     public async Task<IActionResult> GetCalendarByTeamAsync(Guid teamId)
     {

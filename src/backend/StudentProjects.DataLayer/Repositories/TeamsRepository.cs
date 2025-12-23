@@ -25,6 +25,7 @@ public class TeamsRepository(DataContext context) : BaseRepository<Team>(context
     {
         return await DataContext.Teams
             .Include(t => t.Project)
+            .Include(t => t.Meetings)
             .Where(t => t.Project.Mentors.Any(m => m.Id == mentorId))
             .ToListAsync();
     }
