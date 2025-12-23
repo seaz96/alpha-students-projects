@@ -10,7 +10,6 @@ public class User : BaseEntity
     public string? MiddleName { get; set; }
     public string? LastName { get; set; }
     public UserRole Role { get; set; } = UserRole.User;
-    public bool IsMentor { get; set; }
 
     public virtual ICollection<Project> AuthorProjects { get; set; } = new List<Project>();
     public virtual ICollection<Project> MentorProjects { get; set; } = new List<Project>();
