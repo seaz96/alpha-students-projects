@@ -16,6 +16,7 @@ import Stages from "./Stages";
 import Files from "@/pages/Team/Files/Files.tsx";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Meetings from "./Meetings/Meetings";
+import Summary from "./Summary/Summary";
 
 export default function Team() {
   const { projectId, teamId } = useParams();
@@ -115,7 +116,7 @@ export default function Team() {
             <Meetings teamId={teamId} />
           </TabsContent>
           <TabsContent value="summary">
-            <p>Итог</p>
+            <Summary teamId={teamId} />
           </TabsContent>
         </Tabs>
       </div>

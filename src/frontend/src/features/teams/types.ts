@@ -46,3 +46,16 @@ export interface IStudentPosition {
   id: string;
   name: string;
 }
+
+export interface ITeamResult {
+  id: string;
+  teamId: string;
+  score: number | null;
+  comment: string;
+}
+
+export interface IPatchTeamResult {
+  teamId: string;
+  comment: string;
+  score: number | null;
+}

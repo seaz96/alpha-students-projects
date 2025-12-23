@@ -5,14 +5,16 @@ import type {
   ICreateTeamArgs,
   IPatchStudentArgs,
   IPatchTeamArgs,
+  IPatchTeamResult,
   ITeam,
+  ITeamResult,
 } from "./types";
 import { type GetResponse } from "@/types";
 
 export const teamsApi = createApi({
   reducerPath: "teamsApi",
   baseQuery,
-  tagTypes: ["Team"],
+  tagTypes: ["Team", "Result"],
   endpoints: (builder) => ({
     getTeams: builder.query<
       GetResponse<ITeam>,
@@ -107,6 +109,27 @@ export const teamsApi = createApi({
         { type: "Team", id: teamId },
       ],
     }),
+    getTeamResult: builder.query<ITeamResult, { teamId: string }>({
+      query: ({ teamId }) => ({
+        url: "/teams/" + teamId + "/result",
+        credentials: "include",
+      }),
+      providesTags: (_res, _err, { teamId }) => [
+        { type: "Result", id: teamId },
+      ],
+    }),
+
+    patchTeamResult: builder.mutation<ITeamResult, IPatchTeamResult>({
+      query: ({ teamId, ...body }) => ({
+        url: "/teams/" + teamId + "/result",
+        method: "PUT",
+        credentials: "include",
+        body,
+      }),
+      invalidatesTags: (_res, _err, { teamId }) => [
+        { type: "Result", id: teamId },
+      ],
+    }),
   }),
 });
 
@@ -119,4 +142,6 @@ export const {
   useAddStudentMutation,
   usePatchStudentMutation,
   useDeleteStudentMutation,
+  useGetTeamResultQuery,
+  usePatchTeamResultMutation,
 } = teamsApi;
