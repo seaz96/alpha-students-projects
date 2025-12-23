@@ -4,39 +4,38 @@ using StudentProjects.Application.Services;
 using StudentProjects.DataLayer.Repositories;
 using StudentProjects.Domain.Entities;
 using System.Text;
+using StudentProjects.Models.Exceptions;
 
 namespace StudentProjects.API.Controllers;
 
 [Authorize]
 [ApiController]
 [Route("v1/calendar")]
-public class CalendarController : ControllerBase
+public class CalendarController(UserService userService, TeamsRepository teamsRepository) : ControllerBase
 {
-    private readonly UserService _userService;
-    private readonly TeamsRepository _teamsRepository;
-
-    public CalendarController(UserService userService, TeamsRepository teamsRepository)
-    {
-        _userService = userService;
-        _teamsRepository = teamsRepository;
-    }
-    
     [HttpPost("{teamId:guid}")]
     public async Task<IActionResult> GetCalendarByTeamAsync(Guid teamId)
     {
-        throw new NotImplementedException();
+        var team = await teamsRepository.FindTrackedAsync(teamId);
+
+        if (team is null)
+            throw new TeamNotFoundException();
+
+        var calendarContent = GenerateICalContent(team);
+
+        return File(Encoding.UTF8.GetBytes(calendarContent), "text/calendar", $"team-{team.Id:N}-meetings.icl");
     }
 
     [HttpGet("mentor-calendar")]
     public async Task<IActionResult> GetMentorCalendarAsync()
     {
-        var user = await _userService.GetCurrentUserAsync();
+        var user = await userService.GetCurrentUserAsync();
         if (user == null)
         {
             return Unauthorized();
         }
 
-        var teams = await _teamsRepository.GetTeamsByMentorIdAsync(user.Id);
+        var teams = await teamsRepository.GetTeamsByMentorIdAsync(user.Id);
         var calendarContent = GenerateICalContent(teams);
 
         return File(Encoding.UTF8.GetBytes(calendarContent), "text/calendar", "mentor-calendar.icl");
@@ -45,19 +44,19 @@ public class CalendarController : ControllerBase
     [HttpGet("mentor-calendar/{mentorId:guid}")]
     public async Task<IActionResult> GetMentorCalendarByIdAsync(Guid mentorId)
     {
-        var user = await _userService.GetUserByIdAsync(mentorId);
+        var user = await userService.GetUserByIdAsync(mentorId);
         if (user == null)
         {
             return Unauthorized();
         }
 
-        var teams = await _teamsRepository.GetTeamsByMentorIdAsync(user.Id);
+        var teams = await teamsRepository.GetTeamsByMentorIdAsync(user.Id);
         var calendarContent = GenerateICalContent(teams);
 
-        return File(Encoding.UTF8.GetBytes(calendarContent), "text/calendar", $"mentor-calendar-{mentorId}.icl");
+        return File(Encoding.UTF8.GetBytes(calendarContent), "text/calendar", $"user-{mentorId}-meetings.icl");
     }
 
-    private string GenerateICalContent(IEnumerable<Team> teams)
+    private string GenerateICalContent(params IEnumerable<Team> teams)
     {
         var sb = new StringBuilder();
         sb.AppendLine("BEGIN:VCALENDAR");
