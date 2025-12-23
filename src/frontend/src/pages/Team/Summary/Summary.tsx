@@ -79,46 +79,48 @@ export default function Summary({ teamId }: { teamId: string }) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Результаты команды</CardTitle>
-        <CardDescription>Оценка и комментарий ментора</CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="score">Оценка</Label>
-          <Input
-            id="score"
-            type="number"
-            placeholder="Введите баллы (0-100)"
-            value={score}
-            onChange={(e) => setScore(e.target.value)}
-          />
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="comment">Комментарий</Label>
-          <Textarea
-            id="comment"
-            placeholder="Опишите сильные и слабые стороны..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            rows={5}
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <div className="text-muted-foreground text-xs">
-          {isNotFound && "Результат еще не создан"}
-        </div>
-        <Button onClick={handleSave} disabled={isSaving || isFetching}>
-          {isSaving ? (
-            <Spinner className="mr-2 h-4 w-4" />
-          ) : (
-            <SaveIcon className="mr-2 h-4 w-4" />
-          )}
-          Сохранить
-        </Button>
-      </CardFooter>
-    </Card>
+    <div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Результаты команды</CardTitle>
+          <CardDescription>Оценка и комментарий ментора</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="score">Оценка</Label>
+            <Input
+              id="score"
+              type="number"
+              placeholder="Введите баллы (0-100)"
+              value={score}
+              onChange={(e) => setScore(e.target.value)}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="comment">Комментарий</Label>
+            <Textarea
+              id="comment"
+              placeholder="Опишите сильные и слабые стороны..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              rows={5}
+            />
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <div className="text-muted-foreground text-xs">
+            {isNotFound && "Результат еще не создан"}
+          </div>
+          <Button onClick={handleSave} disabled={isSaving || isFetching}>
+            {isSaving ? (
+              <Spinner className="mr-2 h-4 w-4" />
+            ) : (
+              <SaveIcon className="mr-2 h-4 w-4" />
+            )}
+            Сохранить
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 }

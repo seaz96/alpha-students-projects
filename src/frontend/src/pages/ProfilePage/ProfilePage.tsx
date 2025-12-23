@@ -1,4 +1,5 @@
 import { useAppSelector } from "@/app/hooks";
+import CalendarDownloadButton from "@/components/CalendarDownloadButton";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -104,6 +105,8 @@ export default function ProfilePage() {
           <Button>Сохранить</Button>
         </form>
       </Form>
+
+      <CalendarDownloadButton type="mentor" className="mt-2" />
     </div>
   );
 }

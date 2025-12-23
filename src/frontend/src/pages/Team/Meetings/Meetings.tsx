@@ -2,6 +2,7 @@ import { useGetMeetingsQuery } from "@/features/meetings/meetingsApi";
 import MeetingsList from "./MeetingsList";
 import { useMemo } from "react";
 import { Spinner } from "@/components/ui/spinner";
+import CalendarDownloadButton from "@/components/CalendarDownloadButton";
 
 export default function Meetings({ teamId }: { teamId: string }) {
   const queryParams = useMemo(
@@ -24,6 +25,7 @@ export default function Meetings({ teamId }: { teamId: string }) {
 
   return (
     <div>
+      <CalendarDownloadButton type="team" teamId={teamId} />
       <MeetingsList data={meetings} />
     </div>
   );
