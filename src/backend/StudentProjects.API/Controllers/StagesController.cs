@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.API.Utility;
 using StudentProjects.Application.Services;
@@ -6,6 +7,7 @@ using StudentProjects.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
+[Authorize]
 [Route("v1/stages")]
 [ApiController]
 public class StagesController(StagesService stagesService) : ControllerBase

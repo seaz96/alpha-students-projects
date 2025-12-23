@@ -83,7 +83,7 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return (await userRepository.GetBatchByIdAsync(ids)).Select(x => x.ToAccountResponse()).ToList();
     }
 
-    private async Task<User> GetAuthorizedUserAsync()
+    public async Task<User> GetAuthorizedUserAsync()
     {
         if (!Guid.TryParse(contextAccessor.HttpContext!.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out var userId))
             throw new UnauthorizedException("User identifier not specified.");
@@ -91,14 +91,21 @@ public class UserService(UserRepository userRepository, IHttpContextAccessor con
         return user ?? throw new UnauthorizedException("User with specified identifier not found.");
     }
 
-    public async Task<User> GetCurrentUserAsync()
-    {
-        return await GetAuthorizedUserAsync();
-    }
-
     public async Task<User> GetUserByIdAsync(Guid userId)
     {
         var user = await userRepository.FindTrackedAsync(userId);
         return user ?? throw new UserNotFoundException();
+    }
+
+    public async Task<User> CheckMentorAccessAsync(Guid projectId)
+    {
+        if (!Guid.TryParse(contextAccessor.HttpContext!.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value, out var userId))
+            throw new UnauthorizedException("User identifier not specified.");
+
+        var user = await userRepository.GetWithMentoringProjectsAsync(userId);
+            throw new UnauthorizedException("User identifier not specified.");
+        
+        if (!user.MentorProjects.Select(x => x.Id).ToHashSet().Contains(projectId))
+            throw new ForbiddenException("No permission to access this project.");
     }
 }

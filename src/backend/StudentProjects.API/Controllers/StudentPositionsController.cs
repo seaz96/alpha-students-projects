@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.API.Utility;
 using StudentProjects.Application.Services;
@@ -7,6 +8,7 @@ using StudentPosition = StudentProjects.Domain.Entities.StudentPosition;
 
 namespace StudentProjects.API.Controllers;
 
+[Authorize]
 [Route("/v1/student-positions")]
 [ApiController]
 public class StudentPositionsController(StudentPositionsService service) : ControllerBase

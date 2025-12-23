@@ -1,12 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudentProjects.API.Utility;
 using StudentProjects.Application.Services;
-using StudentProjects.Models.Exceptions;
 using StudentProjects.Models.Request;
 using StudentProjects.Models.Response;
 
 namespace StudentProjects.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("v1/meetings")]
 public class MeetingsController(MeetingsService meetingsService) : ControllerBase

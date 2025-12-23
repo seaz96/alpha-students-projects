@@ -25,6 +25,11 @@ public class UserRepository(DataContext context) : BaseRepository<User>(context)
             .ToListAsync();
         return (data, count);
     }
+
+    public Task<User?> GetWithMentoringProjectsAsync(Guid id)
+    {
+        return DataContext.Users.Include(x => x.MentorProjects).FirstOrDefaultAsync(x => x.Id == id);
+    }
 }
 
 //todo: перекинуть и перевести на нормальный поиск

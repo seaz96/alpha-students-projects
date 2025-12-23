@@ -13,7 +13,7 @@ namespace StudentProjects.API.Controllers;
 [Route("v1/calendar")]
 public class CalendarController(UserService userService, TeamsRepository teamsRepository) : ControllerBase
 {
-    [HttpPost("{teamId:guid}")]
+    [HttpGet("{teamId:guid}")]
     public async Task<IActionResult> GetCalendarByTeamAsync(Guid teamId)
     {
         var team = await teamsRepository.FindTrackedAsync(teamId);
@@ -29,7 +29,7 @@ public class CalendarController(UserService userService, TeamsRepository teamsRe
     [HttpGet("mentor-calendar")]
     public async Task<IActionResult> GetMentorCalendarAsync()
     {
-        var user = await userService.GetCurrentUserAsync();
+        var user = await userService.GetAuthorizedUserAsync();
         if (user == null)
         {
             return Unauthorized();
